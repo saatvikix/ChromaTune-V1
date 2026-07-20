@@ -21,7 +21,7 @@
 <body>
     <div class="tuneWindow">
         <div class="logoArea pacifico-regular">
-            <img src="./graphics/tuning-fork-red.png" id="logoFork">
+            <img src="../global-resources/graphics/tuning-fork-red.png" id="logoFork">
             <p>ChromaTune</p>
             
         </div>
@@ -63,15 +63,22 @@
 
         <div class="tunePracticeToggleArea">
             <button class="tunePracticeToggleBtn selectedButtons" id="tuneMode">
-                <img src="./graphics/tuning-fork-white.png">
+                <img src="../global-resources/graphics/tuning-fork-white.png">
             </button>
+
             <button class="tunePracticeToggleBtn" id="metronomeMode" onclick="window.location.href='../metronome/metronome.html'">
-                <img src="./graphics/metronome-red.png">
+                <img src="../global-resources/graphics/metronome-red.png">
             </button>
+
+            <button class="tunePracticeToggleBtn" id="library" onclick="window.location.href='../library/library.html'">
+                <img src="../global-resources/graphics/book-red.png">
+            </button>
+
+
         </div>
     </div>
 
-    <script src="{% static 'tuner/js/tuner.js' %}"></script>
+    <script src="./js/tuner.js"></script>
 </body>
 
 </html>

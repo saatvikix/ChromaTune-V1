@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../tuner/style/tune-style.css">
+    <link rel="stylesheet" href="../tuner/style/metronome-style.css">
+    <link rel="stylesheet" href="./style/library-style.css">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="./js/chordSelector.js" defer></script>
+
+
+    <title>ChromaTune - Library</title>
+</head>
+
+<body>
+    <div class="tuneWindow metronomeWindow masterBox">
+        <div class="logoArea pacifico-regular">
+            <img src="../global-resources/graphics/tuning-fork-red.png" id="logoFork">
+            <p>ChromaTune</p>
+
+        </div>
+
+        <div class="chordSelector">
+            <div class="rootSelector selector">
+                <span>Root</span>
+
+                <div class="slider" id="rootSlider">
+                    <div class="track"></div>
+                    <div class="thumb"></div>
+                </div>
+            </div>
+
+            <div class="qualitySelector selector">
+                <span>Quality</span>
+
+                <div class="slider" id="qualitySlider">
+                    <div class="track"></div>
+                    <div class="thumb"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="chordLabel">
+            <span id="chordRoot">
+                C
+            </span>
+            <span id="chordQuality">
+                Major
+            </span>
+        </div>
+
+        <div class="chordDiagram">
+            <div class="diagramContainer">
+                <img src="./graphics/chords/C-major.png" alt="" id="diagramImage">
+            </div>
+        </div>
+
+        <div class="tunePracticeToggleArea">
+            <button class="tunePracticeToggleBtn" onclick="window.location.href='../tuner/home.html'">
+                <img src="../global-resources/graphics/tuning-fork-red.png">
+            </button>
+
+            <button class="tunePracticeToggleBtn" onclick="window.location.href='../metronome/metronome.html'">
+                <img src="../global-resources/graphics/metronome-red.png">
+            </button>
+
+            <button class="tunePracticeToggleBtn selectedButtons" id="library">
+                <img src="../global-resources/graphics/book-white.png">
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>
