@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/tune-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <title>ChromaTune - Tune</title>
+</head>
+
+<body>
+    <div class="tuneWindow">
+        <div class="logoArea pacifico-regular">
+            <img src="./graphics/tuning-fork-red.png" id="logoFork">
+            <p>ChromaTune</p>
+            
+        </div>
+
+        <div class="modeToggleArea">
+            <button id="standardBtn" class="yeseva-one-regular modeButtons selectedButtons">Standard</button>
+            <button id="manualBtn" class="yeseva-one-regular modeButtons">Manual</button>
+        </div>
+
+        <div class="tuneScale">
+            <div id="scaleMeter">
+                <div id="currNote">
+                    --
+                </div>
+            </div>
+        </div>
+        <div class="tuneInterface">
+
+            <div id="yellowGraphicCircle" style="background-image: url('./graphics/guitarHeadstock.png');">
+                <div class="noteButtonsArea">
+                    
+                    <div class="noteButtonsContainer">
+                        <button class="noteBtn yeseva-one-regular" id="fourthString">D</button>
+                        <button class="noteBtn yeseva-one-regular" id="fifthString">A</button>
+                        <button class="noteBtn yeseva-one-regular" id="sixthString">E</button>
+                    </div>
+                    <div class="noteButtonsContainer">
+                        <button class="noteBtn yeseva-one-regular" id="thirdString">G</button>
+                        <button class="noteBtn yeseva-one-regular" id="secondString">B</button>
+                        <button class="noteBtn yeseva-one-regular" id="firstString">E</button>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tunePracticeToggleArea">
+            <button class="tunePracticeToggleBtn selectedButtons" id="tuneMode">
+                <img src="./graphics/tuning-fork-white.png">
+            </button>
+            <button class="tunePracticeToggleBtn" id="metronomeMode" onclick="window.location.href='../metronome/metronome.html'">
+                <img src="./graphics/metronome-red.png">
+            </button>
+        </div>
+    </div>
+
+    <script src="{% static 'tuner/js/tuner.js' %}"></script>
+</body>
+
+</html>

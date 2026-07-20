@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../tuner/style/tune-style.css">
+    <link rel="stylesheet" href="./style/metronome-style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <script src="./js/metronome.js" defer></script>
+
+
+    <title>ChromaTune - Metronome</title>
+</head>
+
+<body>
+    <div class="tuneWindow metronomeWindow">
+        <div class="logoArea pacifico-regular">
+            <img src="../tuner/graphics/tuning-fork-red.png" id="logoFork">
+            <p>ChromaTune</p>
+            
+        </div>
+
+        <div class="metronomeInterface">
+           <div class="bpmInputArea">
+                <div class="knob" role="img" aria-label="BPM knob" style="background-image: url('./graphics/knob.png')">
+                    <div class="bpmDisplay">
+                        <div class="bpmNumber">128</div>
+                        <div class="bpmLabel">BPM</div>
+                    </div>
+                </div>
+           </div>
+
+           <div class="timeSignatureInterface">
+
+            <div class="timeSignatureSettings">
+
+                <button id="beatsIncrease" aria-label="Increase beats">+</button>
+
+                <span id="beatsDisplay">4</span>
+
+                <button id="beatsDecrease" aria-label="Decrease beats">−</button>
+
+            </div>
+
+            <div class="beatsPerMeasureText">
+                <p>Beats Per Measure</p>
+            </div>
+
+           </div>
+
+           <div class="player">
+                <button id="playBtn"
+                    data-play-icon="./graphics/play-button.png"
+                    data-pause-icon="./graphics/pause-button.png"
+                    data-click-sound="./clicks/click1.mp3">
+                    
+                    <img id="playIcon" src="./graphics/play-button.png">
+                </button>
+           </div>
+           
+
+        </div>
+        
+
+        <div class="tunePracticeToggleArea">
+            <button class="tunePracticeToggleBtn" onclick="window.location.href='../tuner/home.html'">
+                <img src="../tuner/graphics/tuning-fork-red.png">
+            </button>
+            <button class="tunePracticeToggleBtn selectedButtons">
+                <img src="../tuner/graphics/metronome-white.png">
+            </button>
+        </div>
+    </div>
+
+</body>
+
+</html>

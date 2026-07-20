@@ -1,0 +1,231 @@
+body {
+    background-color: #ffeed6;
+    margin: 0;
+    padding: 0;
+
+}
+
+
+
+/* fonts */
+.yeseva-one-regular {
+    font-family: "Yeseva One", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.pacifico-regular {
+    font-family: "Pacifico", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* =================== */
+
+
+.logoArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 45px;
+    font-weight: 500;
+    color: #d54d3b;
+}
+
+#logoFork {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.tuneWindow {
+
+    max-width: 45%;
+    min-height: 100vh;
+    margin: auto;
+    display: grid;
+    grid-template-rows: 10% 10% 7% 63% 10%;
+    grid-template-columns: 1fr;
+    box-shadow: #d54d3b 0px 5px 10px;
+
+}
+
+/* .tuneWindow>div {
+    border: 1px solid red;
+} */
+
+.modeToggleArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    margin-top : 15px;
+}
+
+button {
+    padding: 0;
+    border: 3px solid #d54d3b;
+    color: #d54d3b;
+    margin: 10px;
+    height: 40px;
+    width: 120px;
+    border-radius: 8px;
+    font-size: 130%;
+    background-color: #ffeed6;
+    box-shadow: #d54d3b 0px 1px 2px;
+    cursor:pointer;
+
+    transition: transform 0.2s ease-in-out;
+
+}
+
+button:hover {
+
+  transform: scale(1.05); 
+}
+
+
+div.tuneScale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#scaleMeter {
+    border: 3px solid rgb(40, 34, 32);
+    min-width: 50%;
+    max-height: 50%;
+    background: #fffaf3;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+ 
+
+}
+
+#currNote {
+    font-family: pacifico-regular;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 26px;
+  
+    width: 40px;
+    height: 30px;
+    background: #44922faa;
+    text-align: center;
+
+}
+
+.tuneInterface {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+}
+
+#yellowGraphicCircle {
+
+    position: relative;
+    min-width: 70%;
+    min-height: 95%;
+    border-radius: 50%;
+    background-color: #ffd994;
+    /* background-image: url('../graphics/guitarHeadstock.png'); */
+    background-size: 62%;
+    background-position: center 100%;
+    background-repeat: no-repeat;
+    border: 4px solid #d54d3b;
+    box-shadow:  0px 0px 6px #d54d3b;
+    display: flex;
+    justify-content: center;
+
+}
+
+.noteButtonsArea {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.noteButtonsContainer {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 55%;
+}
+
+.noteButtonsContainer:first-child {
+    left: 12%;
+    top: 25%;
+}
+
+.noteButtonsContainer:last-child {
+    right: 12%;
+    top: 25%;
+}
+
+.noteBtn {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 50%;
+    border: 3px solid #d54d3b;
+    background-color: #ffd893;
+    color: #d54d3b;
+    font-family: pacifico-regular;
+    font-size: 130%;
+    font-weight: 700;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: #d54d3b 0px 1px 3px;
+    box-sizing: border-box;
+}
+
+.tunePracticeToggleArea {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8%;
+
+}
+
+.tunePracticeToggleArea button {
+    padding: 0;
+    border: 2px solid #d54d3b;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 130%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.tunePracticeToggleBtn img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    display: block;
+}
+
+
+
+.selectedButtons {
+    background-color: #d54d3b;
+    color: #ffeed6;
+    box-shadow: #d54d3b 0px 1px 3px;
+}
+
+/* .deselectedButtons {
+    background-color: #ffd893;
+    color: #d54d3b;
+    box-shadow: #d54d3b 0px 1px 3px;
+} */
