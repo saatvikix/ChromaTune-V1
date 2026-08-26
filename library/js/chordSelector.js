@@ -6,19 +6,34 @@ const roots = [
 
 const qualities = ["Major", "Minor"];
 
+// const chordImageMap = {
+//     "C-major": "./graphics/chords/C_major.png",
+//     "C#-major": "./graphics/chords/C_Sharp_major.png",
+//     "D-major": "./graphics/chords/D_major.png",
+//     "D#-major": "./graphics/chords/D_Sharp_major.png",
+//     "E-major": "./graphics/chords/E_Major.png",
+//     "F-major": "./graphics/chords/F_Major.png",
+//     "F#-major": "./graphics/chords/F_Sharp_Major.png",
+//     "G-major": "./graphics/chords/G_Major.png",
+//     "G#-major": "./graphics/chords/G_Sharp_Major.png",
+//     "A-major": "./graphics/chords/A_Major.png",
+//     "A#-major": "./graphics/chords/A_Sharp_Major.png",
+//     "B-major": "./graphics/chords/B_Major.png",
+// };
+
 const chordImageMap = {
-    "C-major": "./graphics/chords/C_major.png",
-    "C#-major": "./graphics/chords/C_Sharp_major.png",
-    "D-major": "./graphics/chords/D_major.png",
-    "D#-major": "./graphics/chords/D_Sharp_major.png",
-    "E-major": "./graphics/chords/E_Major.png",
-    "F-major": "./graphics/chords/F_Major.png",
-    "F#-major": "./graphics/chords/F_Sharp_Major.png",
-    "G-major": "./graphics/chords/G_Major.png",
-    "G#-major": "./graphics/chords/G_Sharp_Major.png",
-    "A-major": "./graphics/chords/A_Major.png",
-    "A#-major": "./graphics/chords/A_Sharp_Major.png",
-    "B-major": "./graphics/chords/B_Major.png",
+    "C-major": "",
+    "C#-major": "",
+    "D-major": "",
+    "D#-major": "",
+    "E-major": "",
+    "F-major": "",
+    "F#-major": "",
+    "G-major": "",
+    "G#-major": "",
+    "A-major": "",
+    "A#-major": "",
+    "B-major": "",
 };
 
 let currentRootIndex = 0;

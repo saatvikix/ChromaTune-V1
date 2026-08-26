@@ -277,3 +277,15 @@ nav{
     filter:
         drop-shadow(0 0 30px var(--accent-red));
 }
+
+.navButtons:hover {
+    cursor: pointer;
+    transform: scale(1.08);
+}
+
+.navButtons:active {
+    transform: scale(1.15);
+
+    /* Very quick expansion when pressed */
+    transition: transform 60ms ease-out;
+}

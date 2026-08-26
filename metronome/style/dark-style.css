@@ -197,12 +197,12 @@ div.player button {
     transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-#playBtn:hover, .navButtons:hover {
+#playBtn:hover {
     cursor: pointer;
     transform: scale(1.08);
 }
 
-#playBtn:active, .navButtons:active {
+#playBtn:active {
     transform: scale(1.15);
 
     /* Very quick expansion when pressed */

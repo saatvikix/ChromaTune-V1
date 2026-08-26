@@ -4,21 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../tuner/style/tune-style.css">
-    <link rel="stylesheet" href="../tuner/style/metronome-style.css">
+
+    <!-- <link rel="stylesheet" href="../tuner/style/metronome-style.css"> -->
     <link rel="stylesheet" href="./style/library-style.css">
 
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/dark-style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+
+
     <script src="./js/chordSelector.js" defer></script>
 
 
@@ -26,13 +26,20 @@
 </head>
 
 <body>
-    <div class="tuneWindow metronomeWindow masterBox">
-        <div class="logoArea pacifico-regular">
-            <img src="../global-resources/graphics/tuning-fork-red.png" id="logoFork">
-            <p>ChromaTune</p>
+    <div class="widget-container">
+        <header class="widget-header">
+            <span>(MIC.01)</span>
+            <div class="status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">STANDBY</span>
+            </div>
+        </header>
+
+        <div class="logoArea">
+            <span class="logoIcon"></span>
+            <p class="title">ChromaTune</p>
 
         </div>
-
         <div class="chordSelector">
             <div class="rootSelector selector">
                 <span>Root</span>
@@ -67,21 +74,27 @@
             <div class="diagramContainer">
                 <img src="./graphics/chords/C-major.png" alt="" id="diagramImage">
             </div>
-        </div>
 
-        <div class="tunePracticeToggleArea">
-            <button class="tunePracticeToggleBtn" onclick="window.location.href='../tuner/home.html'">
-                <img src="../global-resources/graphics/tuning-fork-red.png">
-            </button>
-
-            <button class="tunePracticeToggleBtn" onclick="window.location.href='../metronome/metronome.html'">
-                <img src="../global-resources/graphics/metronome-red.png">
-            </button>
-
-            <button class="tunePracticeToggleBtn selectedButtons" id="library">
-                <img src="../global-resources/graphics/book-white.png">
+            <button class="chordPlayBtn">
+                <span id="speaker"></span>
             </button>
         </div>
+
+        <nav>
+            <button class="navButtons" onclick="window.location.href='../tuner/home.html'">
+                <span class="tuning-fork"></span>
+            </button>
+
+
+            <button class="navButtons" onclick="window.location.href='../metronome/metronome.html'">
+                <span class="metronome-button"></span>
+            </button>
+
+            <button class="navButtons  selectedButtons" id="library">
+                <span class="library-button"></span>
+            </button>
+
+        </nav>
     </div>
 
 </body>
