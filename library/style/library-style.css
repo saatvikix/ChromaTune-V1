@@ -65,6 +65,7 @@
     transform: translate(-50%, -50%);
 
     background: var(--accent-red);
+    box-shadow: 0 0 8px var(--accent-red);
     border-radius: 50%;
 }
 
