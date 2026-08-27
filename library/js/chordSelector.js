@@ -22,7 +22,7 @@ const qualities = ["Major", "Minor"];
 // };
 
 const chordImageMap = {
-    "C-major": "",
+    "C-major": "./graphics/chords/c_major_01.svg",
     "C#-major": "",
     "D-major": "",
     "D#-major": "",
