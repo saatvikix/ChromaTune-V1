@@ -99,7 +99,7 @@
 
     left: 50%;
 
-    width: 2px;
+    width: 3px;
 
     background-color: #ffffff;
 
@@ -122,10 +122,10 @@
 
 .meter-needle.in-tune {
     background-color:
-        var(--accent-red, #d71920);
+        #58c312;
 
     box-shadow:
-        0 0 14px var(--accent-red, #d71920);
+        0 0 14px #58c312 ;
 }
 
 
