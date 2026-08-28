@@ -35,9 +35,9 @@
 
       .string   { fill:#e9eaec; }
 
-      .red      { fill:#d71920; }
-      .redDim   { fill:#9c9a9a; }
-      .redDark  { fill:#242323; }
+      .red      { fill:#ff263f; }
+      .redDim   { fill:#741521; }
+      .redDark  { fill:#290b10; }
 
       .white    { fill:#f1f2f3; }
       .muted    { fill:#70757b; }
@@ -55,14 +55,12 @@
         opacity: 1;
       }
 
-      .peg-dots {
-        opacity:0;
-        transition:opacity 0.15s ease;
+      .peg.active use {
+        filter:url(#redGlow);
       }
 
-      .peg-dots.active {
-        opacity:1;
-        filter:url(#redGlow);
+      .peg.active use {
+        --dummy: 1;
       }
 
       .tuning-string {
@@ -391,46 +389,59 @@
          LED TUNER
          ======================================================= -->
 
-    <!-- PEG BASE: always visible -->
     <g id="pegLeft">
-      <rect x="-26" y="-32" width="52" height="64" class="redDark"/>
-      <rect x="-22" y="-28" width="44" height="56" class="redDim"/>
-      <rect x="-18" y="-24" width="36" height="48" class="black"/>
+
+      <rect x="-26"
+            y="-32"
+            width="52"
+            height="64"
+            class="redDark"/>
+
+      <rect x="-22"
+            y="-28"
+            width="44"
+            height="56"
+            class="redDim"/>
+
+      <rect x="-18"
+            y="-24"
+            width="36"
+            height="48"
+            class="black"/>
+
+
+      <!-- DOT MATRIX -->
+
+      <g class="red">
+
+        <rect x="-13" y="-19" width="5" height="5"/>
+        <rect x="-4"  y="-19" width="5" height="5"/>
+        <rect x="5"   y="-19" width="5" height="5"/>
+
+        <rect x="-13" y="-10" width="5" height="5"/>
+        <rect x="5"   y="-10" width="5" height="5"/>
+
+        <rect x="-13" y="-1" width="5" height="5"/>
+        <rect x="-4"  y="-1" width="5" height="5"/>
+        <rect x="5"   y="-1" width="5" height="5"/>
+
+        <rect x="-13" y="8" width="5" height="5"/>
+        <rect x="5"   y="8" width="5" height="5"/>
+
+        <rect x="-13" y="17" width="5" height="5"/>
+        <rect x="-4"  y="17" width="5" height="5"/>
+        <rect x="5"   y="17" width="5" height="5"/>
+
+      </g>
+
     </g>
 
-    <!-- PEG DOT MATRIX: shown only when selected -->
-    <g id="pegDotsLeft">
-
-  <g class="red">
-
-    <rect x="-13" y="-19" width="5" height="5"/>
-    <rect x="-4"  y="-19" width="5" height="5"/>
-    <rect x="5"   y="-19" width="5" height="5"/>
-
-    <rect x="-13" y="-10" width="5" height="5"/>
-    <rect x="5"   y="-10" width="5" height="5"/>
-
-    <rect x="-13" y="-1" width="5" height="5"/>
-    <rect x="-4"  y="-1" width="5" height="5"/>
-    <rect x="5"   y="-1" width="5" height="5"/>
-
-    <rect x="-13" y="8" width="5" height="5"/>
-    <rect x="5"  y="8" width="5" height="5"/>
-
-    <rect x="-13" y="17" width="5" height="5"/>
-    <rect x="-4"  y="17" width="5" height="5"/>
-    <rect x="5"  y="17" width="5" height="5"/>
-
-  </g>
-
-</g>
 
     <g id="pegRight">
-      <use href="#pegLeft" transform="scale(-1 1)"/>
-    </g>
 
-    <g id="pegDotsRight">
-      <use href="#pegDotsLeft" transform="scale(-1 1)"/>
+      <use href="#pegLeft"
+           transform="scale(-1 1)"/>
+
     </g>
 
   </defs>
@@ -1038,7 +1049,6 @@
      class="peg">
 
     <use href="#pegLeft"/>
-    <use href="#pegDotsLeft" class="peg-dots"/>
 
   </g>
 
@@ -1050,7 +1060,6 @@
      class="peg">
 
     <use href="#pegLeft"/>
-    <use href="#pegDotsLeft" class="peg-dots"/>
 
   </g>
 
@@ -1062,7 +1071,6 @@
      class="peg">
 
     <use href="#pegLeft"/>
-    <use href="#pegDotsLeft" class="peg-dots"/>
 
   </g>
 
@@ -1074,7 +1082,6 @@
      class="peg">
 
     <use href="#pegRight"/>
-    <use href="#pegDotsRight" class="peg-dots"/>
 
   </g>
 
@@ -1086,7 +1093,6 @@
      class="peg">
 
     <use href="#pegRight"/>
-    <use href="#pegDotsRight" class="peg-dots"/>
 
   </g>
 
@@ -1098,7 +1104,6 @@
      class="peg">
 
     <use href="#pegRight"/>
-    <use href="#pegDotsRight" class="peg-dots"/>
 
   </g>
 

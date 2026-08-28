@@ -8,13 +8,12 @@
 // ============================================================
 
 // Main tuner UI
-const tunerMode = document.querySelector('#tuneMode');
 const tuneScaleNote = document.querySelector('#currNote');
 
-// Main guitar headstock SVG
+// Main guitar SVG
 const headstock = document.querySelector('#headstock');
 
-// Six transparent buttons positioned over the tuning pegs
+// Six clickable note labels
 const pegButtons = [
     ...document.querySelectorAll('.pegBtn')
 ];
@@ -33,16 +32,13 @@ const pegButtons = [
 //     5th string → A2
 //     6th string → E2  (low E)
 //
-// Physical layout we WANT:
+// Physical layout:
 //
 //             LEFT          RIGHT
 //
 //              D3            G3
 //              A2            B3
 //              E2            E4
-//
-// Each button is explicitly connected to one note.
-// We do NOT rely on the order of the buttons.
 //
 // ============================================================
 
@@ -103,16 +99,13 @@ const pegConfig = {
 
 
 // ============================================================
-// 3. POSITION PEG BUTTONS
+// 3. POSITION NOTE LABELS
 // ============================================================
 //
-// Each HTML button is positioned directly over the SVG peg
-// it belongs to.
+// The HTML labels are positioned over the corresponding
+// physical tuning pegs.
 //
-// We find the peg's real screen coordinates, then place the
-// transparent button at its centre.
-//
-// This keeps the buttons aligned even when the SVG scales.
+// The SVG can scale, so we calculate the position dynamically.
 // ============================================================
 
 function positionPegButtons() {
@@ -123,21 +116,17 @@ function positionPegButtons() {
 
     pegButtons.forEach(button => {
 
-        // Find the configuration for this button.
+        // Find the configuration for this label.
         const config =
             pegConfig[button.id];
 
 
         if (!config) {
-            console.warn(
-                `No peg configuration found for #${button.id}`
-            );
-
             return;
         }
 
 
-        // Find the actual peg inside the SVG.
+        // Find the corresponding physical peg.
         const peg =
             headstock.querySelector(
                 `#${config.peg} use`
@@ -149,12 +138,13 @@ function positionPegButtons() {
         }
 
 
-        // Get the peg's position on the screen.
+        // Get the peg's current screen position.
         const pegRect =
             peg.getBoundingClientRect();
 
 
-        // Put the button at the centre of the peg.
+        // Position the interaction area at the centre
+        // of the physical peg.
         button.style.left =
             `${pegRect.left + pegRect.width / 2 - containerRect.left}px`;
 
@@ -168,18 +158,6 @@ function positionPegButtons() {
 
 // ============================================================
 // 4. LOAD THE HEADSTOCK SVG
-// ============================================================
-//
-// The artwork remains a separate SVG file:
-//
-//     ./graphics/headstock.svg
-//
-// We load its contents into:
-//
-//     <svg id="headstock"></svg>
-//
-// This makes the individual pegs and strings accessible
-// through JavaScript.
 // ============================================================
 
 fetch("./graphics/headstock.svg")
@@ -198,7 +176,7 @@ fetch("./graphics/headstock.svg")
 
     .then(svgText => {
 
-        // Turn the SVG text into a DOM document.
+        // Parse the external SVG.
         const parser = new DOMParser();
 
         const svgDocument =
@@ -208,19 +186,19 @@ fetch("./graphics/headstock.svg")
             );
 
 
-        // Get the loaded <svg> element.
+        // Get the root <svg>.
         const loadedSvg =
             svgDocument.documentElement;
 
 
-        // Preserve the original SVG coordinate system.
+        // Preserve the original coordinate system.
         headstock.setAttribute(
             "viewBox",
             loadedSvg.getAttribute("viewBox")
         );
 
 
-        // Preserve aspect-ratio behaviour.
+        // Preserve aspect ratio.
         headstock.setAttribute(
             "preserveAspectRatio",
             loadedSvg.getAttribute(
@@ -229,13 +207,12 @@ fetch("./graphics/headstock.svg")
         );
 
 
-        // Insert only the contents of the external SVG.
+        // Insert the SVG artwork.
         headstock.innerHTML =
             loadedSvg.innerHTML;
 
 
-        // Now that the SVG exists in the DOM,
-        // position the transparent buttons.
+        // SVG is ready.
         positionPegButtons();
 
     })
@@ -251,7 +228,7 @@ fetch("./graphics/headstock.svg")
 
 
 // ============================================================
-// 5. KEEP PEG BUTTONS ALIGNED ON RESIZE
+// 5. KEEP LABELS ALIGNED
 // ============================================================
 
 window.addEventListener(
@@ -264,28 +241,36 @@ window.addEventListener(
 // 6. ACTIVATE A STRING
 // ============================================================
 //
-// This function controls the COMPLETE visual state of one
-// guitar string.
+// This function handles the complete selected state.
 //
-// For example:
+// Example:
 //
 //     activateString(pegConfig.fifthPeg);
 //
-// activates:
+// results in:
 //
-//     peg-A2
-//     string-A2-headstock
-//     string-A2-fretboard
+//     A peg              → active
+//     A dots             → visible
+//     A headstock string → red
+//     A fretboard string → red
 //
-// Everything else is returned to its normal state.
 // ============================================================
 
 function activateString(config) {
 
     // --------------------------------------------------------
-    // Clear the previous selection.
+    // Clear the previous selection
     // --------------------------------------------------------
 
+    // Remove active state from all note labels.
+    pegButtons.forEach(button => {
+
+        button.classList.remove('active');
+
+    });
+
+
+    // Remove active state from all SVG elements.
     headstock
         .querySelectorAll('.active')
         .forEach(element => {
@@ -296,7 +281,7 @@ function activateString(config) {
 
 
     // --------------------------------------------------------
-    // Find all three pieces belonging to this string.
+    // Find the selected peg
     // --------------------------------------------------------
 
     const peg =
@@ -304,6 +289,10 @@ function activateString(config) {
             `#${config.peg}`
         );
 
+
+    // --------------------------------------------------------
+    // Find the selected strings
+    // --------------------------------------------------------
 
     const headstockString =
         headstock.querySelector(
@@ -318,7 +307,32 @@ function activateString(config) {
 
 
     // --------------------------------------------------------
-    // Activate the tuning peg.
+    // Find the dot matrix
+    // --------------------------------------------------------
+
+    const pegDots =
+        peg?.querySelector(
+            '.peg-dots'
+        );
+
+
+    // --------------------------------------------------------
+    // Activate the corresponding note label
+    // --------------------------------------------------------
+
+    const selectedButton =
+        document.querySelector(
+            `#${getButtonId(config)}`
+        );
+
+
+    if (selectedButton) {
+        selectedButton.classList.add('active');
+    }
+
+
+    // --------------------------------------------------------
+    // Activate the tuning peg
     // --------------------------------------------------------
 
     if (peg) {
@@ -327,7 +341,16 @@ function activateString(config) {
 
 
     // --------------------------------------------------------
-    // Activate the string on the headstock.
+    // Show the dot matrix
+    // --------------------------------------------------------
+
+    if (pegDots) {
+        pegDots.classList.add('active');
+    }
+
+
+    // --------------------------------------------------------
+    // Activate the headstock portion of the string
     // --------------------------------------------------------
 
     if (headstockString) {
@@ -336,58 +359,46 @@ function activateString(config) {
 
 
     // --------------------------------------------------------
-    // Activate the same string on the fretboard.
+    // Activate the fretboard portion of the string
     // --------------------------------------------------------
 
     if (fretboardString) {
         fretboardString.classList.add('active');
     }
 
+}
 
-    // --------------------------------------------------------
-    // DEBUGGING
-    // --------------------------------------------------------
-    //
-    // These messages are useful while we're building this.
-    // You can remove them later.
-    //
 
-    // console.log(
-    //     `Selected string: ${config.note}`
-    // );
+// ============================================================
+// 7. FIND BUTTON ID FROM CONFIG
+// ============================================================
 
-    // console.log(
-    //     'Peg:',
-    //     peg
-    // );
+function getButtonId(config) {
 
-    // console.log(
-    //     'Headstock string:',
-    //     headstockString
-    // );
-
-    // console.log(
-    //     'Fretboard string:',
-    //     fretboardString
-    // );
+    return Object.keys(pegConfig)
+        .find(id => pegConfig[id] === config);
 
 }
 
 
 // ============================================================
-// 7. PEG BUTTON INTERACTION
+// 8. NOTE LABEL INTERACTION
 // ============================================================
 //
-// Clicking a button:
+// Clicking the visible E/B/G/D/A label:
 //
-//     1. Determines which guitar string it represents.
-//     2. Updates the tuner note.
-//     3. Activates the peg.
-//     4. Activates the headstock string.
-//     5. Activates the fretboard string.
+//     → updates the tuner note
+//     → activates the correct peg
+//     → reveals its dots
+//     → lights the entire string red
+//
 // ============================================================
 
 pegButtons.forEach(button => {
+
+    // --------------------------------------------------------
+    // Mouse / touch
+    // --------------------------------------------------------
 
     button.addEventListener('click', () => {
 
@@ -396,76 +407,37 @@ pegButtons.forEach(button => {
 
 
         if (!config) {
-            console.warn(
-                `No configuration found for #${button.id}`
-            );
-
             return;
         }
 
 
-        // Update the big note display.
+        // Update the big tuner note.
         tuneScaleNote.textContent =
             config.note;
 
 
-        // Activate the complete string.
+        // Activate this string.
         activateString(config);
 
     });
 
-});
 
+    // --------------------------------------------------------
+    // Keyboard accessibility
+    // --------------------------------------------------------
 
-// ============================================================
-// 8. OLD STRING BUTTON REFERENCES
-// ============================================================
-//
-// Kept for later use.
-// ============================================================
+    button.addEventListener('keydown', event => {
 
-const stringButtons = [
+        if (
+            event.key === 'Enter' ||
+            event.key === ' '
+        ) {
 
-    document.querySelector("#firstString"),
-    document.querySelector("#secondString"),
-    document.querySelector("#thirdString"),
-    document.querySelector("#fourthString"),
-    document.querySelector("#fifthString"),
-    document.querySelector("#sixthString")
+            event.preventDefault();
 
-];
+            button.click();
 
-
-// ============================================================
-// 9. TUNER MODE BUTTONS
-// ============================================================
-
-const tuneModeButtons = [
-
-    document.querySelector('#standardBtn'),
-    document.querySelector('#manualBtn')
-
-];
-
-
-tuneModeButtons.forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        // Clear the selected state from both buttons.
-        tuneModeButtons.forEach(mode => {
-
-            mode.classList.remove(
-                "selectedModeButton"
-            );
-
-        });
-
-
-        // Select the clicked mode.
-        button.classList.add(
-            "selectedModeButton"
-        );
+        }
 
     });
 

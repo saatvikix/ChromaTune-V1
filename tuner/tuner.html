@@ -32,10 +32,10 @@
 
         </div>
 
-        <div class="modeToggleContainer">
+        <!-- <div class="modeToggleContainer">
             <button id="standardBtn" class="modeButtons selectedModeButton">Standard</button>
             <button id="manualBtn" class="modeButtons">Manual</button>
-        </div>
+        </div> -->
 
         <div class="meterContainer">
             <div class="meter-track">
@@ -55,7 +55,7 @@
                 <div class="meter-needle" id="meterNeedle"></div>
 
                 <div class="meter-badge">
-                    <span id="currNote">D</span>
+                    <span id="currNote">--</span>
                     <span id="centsOffset">+00</span>
                 </div>
             </div>
@@ -66,24 +66,31 @@
             <svg id="headstock"></svg>
 
             <div class="pegButtons" aria-label="String tuning pegs">
-                <button class="pegBtn" id="firstPeg" type="button">
-                    <span class="string-label right-strings">E</span>
+
+                <button class="pegBtn right-strings" id="firstPeg" type="button" aria-label="High E string">
+                    <span class="string-label">E</span>
                 </button>
-                <button class="pegBtn" id="secondPeg" type="button">
-                    <span class="string-label right-strings">B</span>
+
+                <button class="pegBtn right-strings" id="secondPeg" type="button" aria-label="B string">
+                    <span class="string-label">B</span>
                 </button>
-                <button class="pegBtn" id="thirdPeg" type="button">
-                    <span class="string-label right-strings">G</span>
+
+                <button class="pegBtn right-strings" id="thirdPeg" type="button" aria-label="G string">
+                    <span class="string-label">G</span>
                 </button>
-                <button class="pegBtn" id="fourthPeg" type="button">
-                    <span class="string-label left-strings">D</span>
+
+                <button class="pegBtn left-strings" id="fourthPeg" type="button" aria-label="D string">
+                    <span class="string-label">D</span>
                 </button>
-                <button class="pegBtn" id="fifthPeg" type="button">
-                    <span class="string-label left-strings">A</span>
+
+                <button class="pegBtn left-strings" id="fifthPeg" type="button" aria-label="A string">
+                    <span class="string-label">A</span>
                 </button>
-                <button class="pegBtn" id="sixthPeg" type="button">
-                    <span class="string-label left-strings">E</span>
+
+                <button class="pegBtn left-strings" id="sixthPeg" type="button" aria-label="Low E string">
+                    <span class="string-label">E</span>
                 </button>
+
             </div>
 
         </div>
