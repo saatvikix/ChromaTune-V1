@@ -231,9 +231,9 @@ function autoCorrelate(buffer, sampleRate) {
     const size = buffer.length;
 
 
-    // --------------------------------------------------
-    // STEP A — RMS / VOLUME CHECK
-    // --------------------------------------------------
+    // ==================================================
+    // 1. RMS / VOLUME CHECK
+    // ==================================================
 
     let sum = 0;
 
@@ -241,24 +241,19 @@ function autoCorrelate(buffer, sampleRate) {
         sum += buffer[i] * buffer[i];
     }
 
-    const rms =
-        Math.sqrt(sum / size);
+    const rms = Math.sqrt(sum / size);
 
-
-    // Ignore very quiet signals
     if (rms < 0.01) {
-
         return {
             frequency: -1,
             clarity: 0
         };
-
     }
 
 
-    // --------------------------------------------------
-    // STEP B — REMOVE DC OFFSET
-    // --------------------------------------------------
+    // ==================================================
+    // 2. REMOVE DC OFFSET
+    // ==================================================
 
     let mean = 0;
 
@@ -272,78 +267,45 @@ function autoCorrelate(buffer, sampleRate) {
     const centeredBuffer =
         new Float32Array(size);
 
-
     for (let i = 0; i < size; i++) {
         centeredBuffer[i] =
             buffer[i] - mean;
     }
 
 
-    // --------------------------------------------------
-    // STEP C — DEFINE GUITAR FREQUENCY RANGE
-    // --------------------------------------------------
-
-    /*
-        Standard guitar range:
-
-        Low E  ≈ 82.41 Hz
-        High E ≈ 329.63 Hz
-
-        We give ourselves some margin.
-
-        70 Hz  → minimum
-        400 Hz → maximum
-    */
+    // ==================================================
+    // 3. GUITAR FREQUENCY RANGE
+    // ==================================================
 
     const MIN_FREQUENCY = 70;
     const MAX_FREQUENCY = 400;
 
+    const minLag =
+        Math.floor(sampleRate / MAX_FREQUENCY);
 
-    // Frequency → period in samples
-
-    const minPeriod =
-        Math.floor(
-            sampleRate / MAX_FREQUENCY
-        );
-
-    const maxPeriod =
-        Math.ceil(
-            sampleRate / MIN_FREQUENCY
-        );
+    const maxLag =
+        Math.ceil(sampleRate / MIN_FREQUENCY);
 
 
-    // --------------------------------------------------
-    // STEP D — AUTOCORRELATION
-    // --------------------------------------------------
+    // ==================================================
+    // 4. AUTOCORRELATION
+    // ==================================================
 
-    let bestCorrelation = -Infinity;
-    let bestLag = -1;
+    const correlations = new Float32Array(
+        maxLag + 2
+    );
 
-
-    /*
-        We don't need to calculate every possible
-        correlation from 0 → buffer.length.
-
-        We ONLY inspect lags that could correspond
-        to guitar fundamentals.
-    */
 
     for (
-        let lag = minPeriod;
-        lag <= maxPeriod;
+        let lag = minLag;
+        lag <= maxLag;
         lag++
     ) {
 
         let correlation = 0;
-
         let energyA = 0;
         let energyB = 0;
 
-
-        /*
-            Compare the waveform with a shifted
-            copy of itself.
-        */
 
         for (
             let i = 0;
@@ -351,77 +313,75 @@ function autoCorrelate(buffer, sampleRate) {
             i++
         ) {
 
-            const sampleA =
+            const a =
                 centeredBuffer[i];
 
-            const sampleB =
+            const b =
                 centeredBuffer[i + lag];
 
+            correlation += a * b;
 
-            correlation +=
-                sampleA * sampleB;
-
-            energyA +=
-                sampleA * sampleA;
-
-            energyB +=
-                sampleB * sampleB;
+            energyA += a * a;
+            energyB += b * b;
 
         }
 
 
-        // Prevent division by zero
         if (
             energyA === 0 ||
             energyB === 0
         ) {
+            correlations[lag] = 0;
             continue;
         }
 
 
-        /*
-            Normalize correlation.
-
-            This gives us a value approximately
-            between -1 and +1.
-
-            +1 = extremely similar waveform
-            0  = unrelated
-            -1 = opposite
-        */
-
-        const normalizedCorrelation =
+        correlations[lag] =
             correlation /
             Math.sqrt(
                 energyA * energyB
             );
+    }
 
 
-        // Keep strongest correlation
+    // ==================================================
+    // 5. FIND LOCAL PEAKS
+    // ==================================================
+
+    const peaks = [];
+
+    for (
+        let lag = minLag + 1;
+        lag < maxLag - 1;
+        lag++
+    ) {
+
+        const previous =
+            correlations[lag - 1];
+
+        const current =
+            correlations[lag];
+
+        const next =
+            correlations[lag + 1];
+
+
         if (
-            normalizedCorrelation >
-            bestCorrelation
+            current > previous &&
+            current >= next
         ) {
 
-            bestCorrelation =
-                normalizedCorrelation;
-
-            bestLag =
-                lag;
+            peaks.push({
+                lag,
+                correlation: current
+            });
 
         }
 
     }
 
 
-    // --------------------------------------------------
-    // STEP E — SAFETY CHECK
-    // --------------------------------------------------
-
-    if (
-        bestLag <= 0 ||
-        !isFinite(bestCorrelation)
-    ) {
+    if (peaks.length === 0) {
 
         return {
             frequency: -1,
@@ -431,189 +391,145 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
 
-    // --------------------------------------------------
-    // STEP F — SUB-SAMPLE PEAK INTERPOLATION
-    // --------------------------------------------------
+    // ==================================================
+    // 6. FIND THE STRONGEST CORRELATION
+    // ==================================================
 
-    /*
-        bestLag is an integer.
+    let strongestPeak =
+        peaks[0];
 
-        For example:
-
-            lag  = 245
-            lag  = 246  ← strongest
-            lag  = 247
-
-        But the real correlation peak might
-        actually be around:
-
-            246.37
-
-        We estimate that position using the
-        correlation values around the peak.
-    */
-
-
-    let refinedLag = bestLag;
-
-
-    /*
-        To interpolate, we need the correlation
-        at:
-
-            bestLag - 1
-            bestLag
-            bestLag + 1
-
-        So calculate those three values.
-    */
-
-    function getNormalizedCorrelation(lag) {
+    for (const peak of peaks) {
 
         if (
-            lag <= 0 ||
-            lag >= size
-        ) {
-            return 0;
-        }
-
-
-        let correlation = 0;
-
-        let energyA = 0;
-        let energyB = 0;
-
-
-        for (
-            let i = 0;
-            i < size - lag;
-            i++
+            peak.correlation >
+            strongestPeak.correlation
         ) {
 
-            const sampleA =
-                centeredBuffer[i];
-
-            const sampleB =
-                centeredBuffer[i + lag];
-
-
-            correlation +=
-                sampleA * sampleB;
-
-            energyA +=
-                sampleA * sampleA;
-
-            energyB +=
-                sampleB * sampleB;
+            strongestPeak =
+                peak;
 
         }
-
-
-        if (
-            energyA === 0 ||
-            energyB === 0
-        ) {
-            return 0;
-        }
-
-
-        return correlation /
-            Math.sqrt(
-                energyA * energyB
-            );
 
     }
 
 
-    const correlationLeft =
-        getNormalizedCorrelation(
-            bestLag - 1
-        );
-
-
-    const correlationCenter =
-        getNormalizedCorrelation(
-            bestLag
-        );
-
-
-    const correlationRight =
-        getNormalizedCorrelation(
-            bestLag + 1
-        );
-
+    // ==================================================
+    // 7. FUNDAMENTAL PEAK SELECTION
+    // ==================================================
 
     /*
-        Parabolic interpolation.
+        Guitar waveforms can produce strong
+        subharmonic peaks.
 
-        This estimates where the peak lies
-        between the three integer lag values.
+        Therefore, don't automatically trust
+        the strongest peak.
+
+        Look for an earlier peak that is
+        sufficiently strong compared to the
+        strongest one.
     */
 
+    const strengthThreshold =
+        strongestPeak.correlation * 0.85;
+
+
+    let selectedPeak =
+        strongestPeak;
+
+
+    for (const peak of peaks) {
+
+        if (
+            peak.lag < strongestPeak.lag &&
+            peak.correlation >= strengthThreshold
+        ) {
+
+            selectedPeak =
+                peak;
+
+            break;
+
+        }
+
+    }
+
+
+    // ==================================================
+    // 8. PARABOLIC INTERPOLATION
+    // ==================================================
+
+    const lag =
+        selectedPeak.lag;
+
+
+    const left =
+        correlations[lag - 1];
+
+    const center =
+        correlations[lag];
+
+    const right =
+        correlations[lag + 1];
+
+
+    let refinedLag =
+        lag;
+
+
     const denominator =
-        correlationLeft -
-        2 * correlationCenter +
-        correlationRight;
+        left -
+        2 * center +
+        right;
 
 
     if (
-        Math.abs(denominator) > 0.000001
+        Math.abs(denominator) >
+        0.000001
     ) {
 
         const offset =
             0.5 *
-            (
-                correlationLeft -
-                correlationRight
-            ) /
+            (left - right) /
             denominator;
 
 
-        // Don't allow a crazy interpolation
         if (
             Math.abs(offset) <= 1
         ) {
 
             refinedLag =
-                bestLag + offset;
+                lag + offset;
 
         }
 
     }
 
 
-    // --------------------------------------------------
-    // STEP G — PERIOD → FREQUENCY
-    // --------------------------------------------------
+    // ==================================================
+    // 9. PERIOD → FREQUENCY
+    // ==================================================
 
     const frequency =
         sampleRate / refinedLag;
 
 
-    // --------------------------------------------------
-    // STEP H — CLARITY
-    // --------------------------------------------------
-
-    /*
-        Normalized correlation is already a
-        confidence-like value.
-
-        Convert it to percentage.
-    */
+    // ==================================================
+    // 10. CLARITY
+    // ==================================================
 
     const clarity =
         Math.max(
             0,
             Math.min(
                 100,
-                bestCorrelation * 100
+                selectedPeak.correlation * 100
             )
         );
 
 
-    // --------------------------------------------------
-    // STEP I — FINAL SAFETY CHECK
-    // --------------------------------------------------
+    // ==================================================
+    // 11. FINAL VALIDATION
+    // ==================================================
 
     if (
         frequency < MIN_FREQUENCY ||
