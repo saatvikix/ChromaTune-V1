@@ -146,7 +146,7 @@
         x2="380" y2="70"/>
 
     <!-- A -->
-    <line class="string"
+    <line class="string muted"
         x1="60" y1="126"
         x2="380" y2="126"/>
 
@@ -190,9 +190,9 @@
 
     <!-- Finger 3 -->
     <g class="finger">
-        <circle class="finger-circle" cx="180" cy="126" r="20"/>
+        <circle class="finger-circle" cx="180" cy="295" r="20"/>
         <text class="finger-number"
-            x="180" y="126">3</text>
+            x="180" y="295">3</text>
     </g>
 
     <!-- Finger 2 -->
@@ -204,9 +204,9 @@
 
     <!-- Finger 1 -->
     <g class="finger">
-        <circle class="finger-circle" cx="340" cy="350" r="20"/>
+        <circle class="finger-circle" cx="260" cy="350" r="20"/>
         <text class="finger-number"
-            x="340" y="350">1</text>
+            x="260" y="350">1</text>
     </g>
 
 

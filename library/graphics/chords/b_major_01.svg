@@ -45,6 +45,10 @@
             fill: var(--accent-color);
         }
 
+        .barre {
+            filter: url(#finger-glow);
+        }
+
         .finger-circle {
             fill: var(--accent-color);
             filter: url(#finger-glow);
@@ -190,23 +194,40 @@
 
     <!-- Finger 3 -->
     <g class="finger">
-        <circle class="finger-circle" cx="180" cy="126" r="20"/>
+        <circle class="finger-circle" cx="100" cy="185" r="20"/>
         <text class="finger-number"
-            x="180" y="126">3</text>
+            x="100" y="185">4</text>
     </g>
 
     <!-- Finger 2 -->
     <g class="finger">
-        <circle class="finger-circle" cx="260" cy="238" r="20"/>
+        <circle class="finger-circle" cx="100" cy="240" r="20"/>
         <text class="finger-number"
-            x="260" y="238">2</text>
+            x="100" y="240">3</text>
     </g>
 
     <!-- Finger 1 -->
     <g class="finger">
-        <circle class="finger-circle" cx="340" cy="350" r="20"/>
+        <circle class="finger-circle" cx="100" cy="295" r="20"/>
         <text class="finger-number"
-            x="340" y="350">1</text>
+            x="100" y="295">2</text>
+    </g>
+
+    <g class="finger">
+        
+        <rect
+            class="barre"
+            x="250"
+            y="110"
+            width="28"
+            height="250"
+            rx="14"/>
+
+        <text
+            class="finger-number"
+            x="264"
+            y="210">1</text>
+  
     </g>
 
 

@@ -190,23 +190,23 @@
 
     <!-- Finger 3 -->
     <g class="finger">
-        <circle class="finger-circle" cx="180" cy="126" r="20"/>
+        <circle class="finger-circle" cx="260" cy="185" r="20"/>
         <text class="finger-number"
-            x="180" y="126">3</text>
+            x="260" y="185">3</text>
     </g>
 
     <!-- Finger 2 -->
     <g class="finger">
-        <circle class="finger-circle" cx="260" cy="238" r="20"/>
+        <circle class="finger-circle" cx="260" cy="240" r="20"/>
         <text class="finger-number"
-            x="260" y="238">2</text>
+            x="260" y="240">2</text>
     </g>
 
     <!-- Finger 1 -->
     <g class="finger">
-        <circle class="finger-circle" cx="340" cy="350" r="20"/>
+        <circle class="finger-circle" cx="260" cy="295" r="20"/>
         <text class="finger-number"
-            x="340" y="350">1</text>
+            x="260" y="295">1</text>
     </g>
 
 

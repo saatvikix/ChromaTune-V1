@@ -23,17 +23,17 @@ const qualities = ["Major", "Minor"];
 
 const chordImageMap = {
     "C-major": "./graphics/chords/c_major_01.svg",
-    "C#-major": "",
-    "D-major": "",
-    "D#-major": "",
-    "E-major": "",
-    "F-major": "",
-    "F#-major": "",
-    "G-major": "",
-    "G#-major": "",
-    "A-major": "",
-    "A#-major": "",
-    "B-major": "",
+    "C#-major": "./graphics/chords/c_sharp_major_01.svg",
+    "D-major": "./graphics/chords/d_major_01.svg",
+    "D#-major": "./graphics/chords/d_sharp_major_01.svg",
+    "E-major": "./graphics/chords/e_major_01.svg",
+    "F-major": "./graphics/chords/f_major_01.svg",
+    "F#-major": "./graphics/chords/f_sharp_major_01.svg",
+    "G-major": "./graphics/chords/g_major_01.svg",
+    "G#-major": "./graphics/chords/g_sharp_major_01.svg",
+    "A-major": "./graphics/chords/a_major_01.svg",
+    "A#-major": "./graphics/chords/a_sharp_major_01.svg",
+    "B-major": "./graphics/chords/b_major_01.svg",
 };
 
 let currentRootIndex = 0;
