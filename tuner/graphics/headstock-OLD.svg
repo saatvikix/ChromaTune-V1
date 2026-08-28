@@ -1,0 +1,1533 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1000 720"
+     width="100%"
+     height="100%"
+     preserveAspectRatio="xMidYMid meet"
+     shape-rendering="crispEdges">
+
+  <!-- =========================================================
+       CHROMATUNE — PIXEL GUITAR HEADSTOCK
+       ========================================================= -->
+
+  <defs>
+
+    <!-- =======================================================
+         COLOR SYSTEM
+         ======================================================= -->
+
+    <style>
+
+      .bg        { fill:#08090b; }
+
+      .wood     { fill:#111316; }
+      .wood2    { fill:#191c21; }
+      .wood3    { fill:#24282e; }
+
+      .edge     { fill:#747980; }
+      .edgeHi   { fill:#d7dadd; }
+      .edgeDark { fill:#363a40; }
+
+      .metal    { fill:#555a61; }
+      .metalHi  { fill:#b9bdc2; }
+      .metalDark{ fill:#292d32; }
+
+      .black    { fill:#08090b; }
+
+      .string   { fill:#e9eaec; }
+
+      .red      { fill:#ff263f; }
+      .redDim   { fill:#741521; }
+      .redDark  { fill:#290b10; }
+
+      .white    { fill:#f1f2f3; }
+      .muted    { fill:#70757b; }
+
+      .amber    { fill:#d79a55; }
+
+    </style>
+
+
+    <!-- =======================================================
+         RED GLOW
+         ======================================================= -->
+
+    <filter id="redGlow"
+            x="-100%"
+            y="-100%"
+            width="300%"
+            height="300%">
+
+      <feGaussianBlur
+          stdDeviation="5"
+          result="blur"/>
+
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+
+    </filter>
+
+
+    <!-- =======================================================
+         SHADOW
+         ======================================================= -->
+
+    <filter id="softShadow"
+            x="-40%"
+            y="-30%"
+            width="180%"
+            height="180%">
+
+      <feGaussianBlur stdDeviation="5"/>
+
+    </filter>
+
+
+    <!-- =======================================================
+         DOT MATRIX LETTERS
+         ======================================================= -->
+
+    <!-- E -->
+
+    <g id="dotE" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+
+      <rect x="0" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="5" y="20" width="4" height="4"/>
+      <rect x="10" y="20" width="4" height="4"/>
+
+      <rect x="0" y="25" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- A -->
+
+    <g id="dotA" class="white">
+
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="0" y="15" width="4" height="4"/>
+      <rect x="15" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+      <rect x="0" y="25" width="4" height="4"/>
+      <rect x="15" y="25" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- B -->
+
+    <g id="dotB" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+
+      <rect x="0" y="15" width="4" height="4"/>
+      <rect x="15" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="5" y="20" width="4" height="4"/>
+      <rect x="10" y="20" width="4" height="4"/>
+
+      <rect x="0" y="25" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- D -->
+
+    <g id="dotD" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="0" y="15" width="4" height="4"/>
+      <rect x="15" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+      <rect x="0" y="25" width="4" height="4"/>
+      <rect x="5" y="25" width="4" height="4"/>
+      <rect x="10" y="25" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- G -->
+
+    <g id="dotG" class="white">
+
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+      <rect x="15" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="15" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="5" y="20" width="4" height="4"/>
+      <rect x="10" y="20" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+      <rect x="15" y="25" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- 2 -->
+
+    <g id="dot2" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+      <rect x="15" y="0" width="4" height="4"/>
+
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="0" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="5" y="20" width="4" height="4"/>
+      <rect x="10" y="20" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- 3 -->
+
+    <g id="dot3" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="5" y="0" width="4" height="4"/>
+      <rect x="10" y="0" width="4" height="4"/>
+      <rect x="15" y="0" width="4" height="4"/>
+
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="15" y="15" width="4" height="4"/>
+
+      <rect x="0" y="20" width="4" height="4"/>
+      <rect x="5" y="20" width="4" height="4"/>
+      <rect x="10" y="20" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- 4 -->
+
+    <g id="dot4" class="white">
+
+      <rect x="0" y="0" width="4" height="4"/>
+      <rect x="15" y="0" width="4" height="4"/>
+
+      <rect x="0" y="5" width="4" height="4"/>
+      <rect x="15" y="5" width="4" height="4"/>
+
+      <rect x="0" y="10" width="4" height="4"/>
+      <rect x="5" y="10" width="4" height="4"/>
+      <rect x="10" y="10" width="4" height="4"/>
+      <rect x="15" y="10" width="4" height="4"/>
+
+      <rect x="15" y="15" width="4" height="4"/>
+      <rect x="15" y="20" width="4" height="4"/>
+
+    </g>
+
+
+    <!-- =======================================================
+         TUNER POST
+         ======================================================= -->
+
+    <g id="post">
+
+      <rect x="-18"
+            y="-18"
+            width="36"
+            height="36"
+            class="metalDark"/>
+
+      <rect x="-14"
+            y="-18"
+            width="28"
+            height="4"
+            class="edge"/>
+
+      <rect x="-14"
+            y="14"
+            width="28"
+            height="4"
+            class="black"/>
+
+      <rect x="-18"
+            y="-14"
+            width="4"
+            height="28"
+            class="edge"/>
+
+      <rect x="14"
+            y="-14"
+            width="4"
+            height="28"
+            class="black"/>
+
+      <rect x="-14"
+            y="-14"
+            width="28"
+            height="28"
+            class="metal"/>
+
+      <rect x="-10"
+            y="-10"
+            width="20"
+            height="20"
+            class="metalDark"/>
+
+      <rect x="-6"
+            y="-6"
+            width="12"
+            height="12"
+            class="metalHi"/>
+
+      <rect x="-3"
+            y="-3"
+            width="6"
+            height="6"
+            class="black"/>
+
+    </g>
+
+
+    <!-- =======================================================
+         LED TUNER
+         ======================================================= -->
+
+    <g id="pegLeft">
+
+      <rect x="-26"
+            y="-32"
+            width="52"
+            height="64"
+            class="redDark"/>
+
+      <rect x="-22"
+            y="-28"
+            width="44"
+            height="56"
+            class="redDim"/>
+
+      <rect x="-18"
+            y="-24"
+            width="36"
+            height="48"
+            class="black"/>
+
+
+      <!-- DOT MATRIX -->
+
+      <g class="red">
+
+        <rect x="-13" y="-19" width="5" height="5"/>
+        <rect x="-4"  y="-19" width="5" height="5"/>
+        <rect x="5"   y="-19" width="5" height="5"/>
+
+        <rect x="-13" y="-10" width="5" height="5"/>
+        <rect x="5"   y="-10" width="5" height="5"/>
+
+        <rect x="-13" y="-1" width="5" height="5"/>
+        <rect x="-4"  y="-1" width="5" height="5"/>
+        <rect x="5"   y="-1" width="5" height="5"/>
+
+        <rect x="-13" y="8" width="5" height="5"/>
+        <rect x="5"   y="8" width="5" height="5"/>
+
+        <rect x="-13" y="17" width="5" height="5"/>
+        <rect x="-4"  y="17" width="5" height="5"/>
+        <rect x="5"   y="17" width="5" height="5"/>
+
+      </g>
+
+    </g>
+
+
+    <g id="pegRight">
+
+      <use href="#pegLeft"
+           transform="scale(-1 1)"/>
+
+    </g>
+
+  </defs>
+
+
+  <!-- =========================================================
+       BACKGROUND
+       ========================================================= -->
+
+  <rect width="1000"
+      height="720"
+      class="bg"/>
+
+  <!-- =========================================================
+     CENTERED GUITAR ARTWORK
+     
+     Original artwork was designed around x = 300.
+     New canvas center = x = 500.
+     Therefore shift everything +200px.
+     ========================================================= -->
+
+  <g id="guitar-artwork"
+    transform="translate(200 0)">
+
+
+  <!-- =========================================================
+       TECHNICAL BACKGROUND
+       ========================================================= -->
+
+  <g fill="none"
+     stroke="#20242a"
+     stroke-width="2">
+
+    <path d="
+      M0 90
+      H80
+      V64
+      H126
+    "/>
+
+    <path d="
+      M600 90
+      H520
+      V64
+      H474
+    "/>
+
+    <path d="
+      M0 570
+      H92
+      V536
+      H126
+    "/>
+
+    <path d="
+      M600 570
+      H508
+      V536
+      H474
+    "/>
+
+  </g>
+
+
+  <g fill="#34383e">
+
+    <rect x="22" y="34" width="4" height="4"/>
+    <rect x="30" y="34" width="4" height="4"/>
+    <rect x="38" y="34" width="4" height="4"/>
+
+    <rect x="562" y="34" width="4" height="4"/>
+    <rect x="570" y="34" width="4" height="4"/>
+    <rect x="578" y="34" width="4" height="4"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       HEADSTOCK SHADOW
+       ========================================================= -->
+
+  <polygon
+    points="
+      168,94
+      190,70
+      222,70
+      236,56
+      262,56
+      274,46
+      286,56
+      312,56
+      326,70
+      358,70
+      382,94
+
+      398,108
+      398,432
+      390,432
+      390,456
+      380,456
+      380,478
+      368,478
+      368,498
+      350,498
+      350,514
+
+      190,514
+      190,498
+      172,498
+      172,478
+      160,478
+      160,456
+      150,456
+      150,432
+      142,432
+      142,108
+    "
+    fill="#000"
+    opacity=".7"
+    filter="url(#softShadow)"/>
+
+
+  <!-- =========================================================
+       MAIN HEADSTOCK
+       
+       WIDER + THICKER PROPORTION
+       ========================================================= -->
+
+  <polygon
+    class="wood"
+    points="
+
+      168,88
+
+      188,68
+      220,68
+
+      234,54
+      260,54
+
+      272,44
+
+      284,54
+
+      310,54
+      324,68
+      356,68
+
+      378,88
+
+      390,88
+      390,104
+      398,104
+
+      398,430
+
+      390,430
+      390,454
+
+      380,454
+      380,476
+
+      368,476
+      368,494
+
+      350,494
+      350,510
+
+      190,510
+
+      190,494
+      172,494
+
+      172,476
+      160,476
+
+      160,454
+      150,454
+
+      150,430
+      142,430
+
+      142,104
+      150,104
+      150,88
+
+    "
+  />
+
+
+  <!-- =========================================================
+       OUTER METAL BINDING
+       ========================================================= -->
+
+  <polyline
+    points="
+      168,88
+      188,68
+      220,68
+      234,54
+      260,54
+      272,44
+      284,54
+      310,54
+      324,68
+      356,68
+      378,88
+      390,88
+      390,104
+      398,104
+      398,430
+      390,430
+      390,454
+      380,454
+      380,476
+      368,476
+      368,494
+      350,494
+    "
+    fill="none"
+    stroke="#d9dce0"
+    stroke-width="5"/>
+
+
+  <polyline
+    points="
+      190,510
+      172,494
+      172,476
+      160,476
+      160,454
+      150,454
+      150,430
+      142,430
+      142,104
+      150,104
+      150,88
+    "
+    fill="none"
+    stroke="#696e75"
+    stroke-width="5"/>
+
+
+  <!-- =========================================================
+       INNER FACEPLATE
+       ========================================================= -->
+
+  <polygon
+    class="wood2"
+    points="
+      168,112
+      372,112
+      384,124
+
+      384,418
+
+      376,418
+      376,444
+
+      366,444
+      366,466
+
+      352,466
+      352,482
+
+      188,482
+
+      188,466
+      174,466
+
+      174,444
+      164,444
+
+      164,418
+      156,418
+
+      156,124
+    "
+  />
+
+
+  <polygon
+    class="wood3"
+    points="
+      184,126
+      356,126
+      370,140
+
+      370,406
+
+      362,406
+      362,432
+
+      352,432
+      352,454
+
+      338,454
+      338,468
+
+      202,468
+
+      202,454
+      188,454
+
+      188,432
+      178,432
+
+      178,406
+      170,406
+
+      170,140
+    "
+  />
+
+
+  <!-- =========================================================
+       FACEPLATE SHADOW AREAS
+       ========================================================= -->
+
+  <rect x="170"
+        y="140"
+        width="8"
+        height="265"
+        fill="#0c0e10"/>
+
+  <rect x="362"
+        y="140"
+        width="8"
+        height="265"
+        fill="#0a0b0d"/>
+
+
+  <!-- =========================================================
+       CROWN DETAIL
+       ========================================================= -->
+
+  <polygon
+    points="
+      188,68
+      220,68
+      234,54
+      260,54
+      272,44
+      284,54
+      310,54
+      324,68
+      356,68
+      378,88
+      356,88
+      342,76
+      312,76
+      300,64
+      286,64
+      274,56
+      260,64
+      246,64
+      234,76
+      204,76
+    "
+    class="edgeDark"/>
+
+
+  <polygon
+    points="
+      202,68
+      222,68
+      236,56
+      258,56
+      272,48
+      286,56
+      308,56
+      322,68
+      344,68
+      358,80
+      340,80
+      326,70
+      306,70
+      294,60
+      284,60
+      272,52
+      260,60
+      250,60
+      238,70
+      218,70
+    "
+    class="edgeHi"/>
+
+
+  <!-- =========================================================
+       CENTRAL INLAY
+       ========================================================= -->
+
+  <g transform="translate(270 284)">
+
+    <!-- top spike -->
+
+    <polygon
+      points="
+        -12,-134
+        0,-158
+        12,-134
+        30,-82
+        12,-92
+        0,-120
+        -12,-92
+        -30,-82
+      "
+      fill="#62676d"/>
+
+
+    <polygon
+      points="
+        -5,-128
+        0,-146
+        5,-128
+        5,-102
+        0,-112
+        -5,-102
+      "
+      fill="#aeb2b8"/>
+
+
+    <!-- amber slash -->
+
+    <polygon
+      points="
+        -34,-66
+        34,-48
+        38,-28
+        -38,-46
+      "
+      class="amber"/>
+
+
+    <polygon
+      points="
+        -28,-61
+        28,-47
+        24,-38
+        -24,-50
+      "
+      class="wood"/>
+
+
+    <!-- lower section -->
+
+    <polygon
+      points="
+        -12,-18
+        0,-2
+        12,-18
+        26,38
+        12,28
+        0,12
+        -12,28
+        -26,38
+      "
+      fill="#555a61"/>
+
+
+    <polygon
+      points="
+        -5,-8
+        0,0
+        5,-8
+        12,24
+        0,14
+        -12,24
+      "
+      fill="#9da2a8"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       TUNER POSTS
+       ========================================================= -->
+
+  <g>
+
+    <!-- LEFT -->
+
+    <use href="#post"
+         transform="translate(204 164)"/>
+
+    <use href="#post"
+         transform="translate(204 276)"/>
+
+    <use href="#post"
+         transform="translate(204 388)"/>
+
+
+    <!-- RIGHT -->
+
+    <use href="#post"
+         transform="translate(336 164)"/>
+
+    <use href="#post"
+         transform="translate(336 276)"/>
+
+    <use href="#post"
+         transform="translate(336 388)"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       TUNER SHAFTS
+       ========================================================= -->
+
+  <g>
+
+    <!-- LEFT -->
+
+    <rect x="104"
+          y="160"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="104"
+          y="162"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+
+    <rect x="104"
+          y="272"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="104"
+          y="274"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+
+    <rect x="104"
+          y="384"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="104"
+          y="386"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+
+    <!-- RIGHT -->
+
+    <rect x="336"
+          y="160"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="336"
+          y="162"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+
+    <rect x="336"
+          y="272"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="336"
+          y="274"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+
+    <rect x="336"
+          y="384"
+          width="100"
+          height="9"
+          class="metalDark"/>
+
+    <rect x="336"
+          y="386"
+          width="100"
+          height="3"
+          class="metalHi"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       LED TUNING INDICATORS
+       ========================================================= -->
+
+  <!-- E2 -->
+
+  <g id="peg-E2"
+     transform="translate(78 164)"
+     filter="url(#redGlow)">
+
+    <use href="#pegLeft"/>
+
+  </g>
+
+
+  <!-- A2 -->
+
+  <g id="peg-A2"
+     transform="translate(78 276)"
+     opacity=".75">
+
+    <use href="#pegLeft"/>
+
+  </g>
+
+
+  <!-- D3 -->
+
+  <g id="peg-D3"
+     transform="translate(78 388)"
+     opacity=".55">
+
+    <use href="#pegLeft"/>
+
+  </g>
+
+
+  <!-- G3 -->
+
+  <g id="peg-G3"
+     transform="translate(462 164)"
+     filter="url(#redGlow)">
+
+    <use href="#pegRight"/>
+
+  </g>
+
+
+  <!-- B3 -->
+
+  <g id="peg-B3"
+     transform="translate(462 276)"
+     opacity=".75">
+
+    <use href="#pegRight"/>
+
+  </g>
+
+
+  <!-- E4 -->
+
+  <g id="peg-E4"
+     transform="translate(462 388)"
+     opacity=".55">
+
+    <use href="#pegRight"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       STRINGS — HEADSTOCK
+       ========================================================= -->
+
+  <g id="headstock-strings"
+     fill="none"
+     stroke-linecap="square">
+
+    <!-- LOW E -->
+
+    <path
+      d="M226 504
+         L204 388
+         L78 388"
+      stroke="#f2f2f2"
+      stroke-width="4"/>
+
+
+    <!-- A -->
+
+    <path
+      d="M244 504
+         L204 276
+         L78 276"
+      stroke="#dedfe1"
+      stroke-width="3"/>
+
+
+    <!-- D -->
+
+    <path
+      d="M260 504
+         L204 164
+         L78 164"
+      stroke="#c7c9cc"
+      stroke-width="3"/>
+
+
+    <!-- G -->
+
+    <path
+      d="M280 504
+         L336 164
+         L462 164"
+      stroke="#c7c9cc"
+      stroke-width="2"/>
+
+
+    <!-- B -->
+
+    <path
+      d="M296 504
+         L336 276
+         L462 276"
+      stroke="#dedfe1"
+      stroke-width="2"/>
+
+
+    <!-- HIGH E -->
+
+    <path
+      d="M314 504
+         L336 388
+         L462 388"
+      stroke="#f2f2f2"
+      stroke-width="2"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       STRING ANCHORS
+       ========================================================= -->
+
+  <g class="edgeHi">
+
+    <rect x="74"
+          y="160"
+          width="8"
+          height="8"/>
+
+    <rect x="74"
+          y="272"
+          width="8"
+          height="8"/>
+
+    <rect x="74"
+          y="384"
+          width="8"
+          height="8"/>
+
+
+    <rect x="458"
+          y="160"
+          width="8"
+          height="8"/>
+
+    <rect x="458"
+          y="272"
+          width="8"
+          height="8"/>
+
+    <rect x="458"
+          y="384"
+          width="8"
+          height="8"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       NUT
+       ========================================================= -->
+
+  <rect x="194"
+        y="498"
+        width="152"
+        height="8"
+        class="edgeDark"/>
+
+  <rect x="200"
+        y="500"
+        width="140"
+        height="12"
+        class="edgeHi"/>
+
+
+  <!-- =========================================================
+       FRETBOARD
+       ========================================================= -->
+
+  <rect x="190"
+        y="512"
+        width="160"
+        height="70"
+        class="wood"/>
+
+
+  <!-- FRET 1 -->
+
+  <rect x="182"
+        y="578"
+        width="176"
+        height="8"
+        class="edgeDark"/>
+
+  <rect x="190"
+        y="580"
+        width="160"
+        height="4"
+        class="edgeHi"/>
+
+
+  <!-- SECOND FRET AREA -->
+
+  <rect x="190"
+        y="586"
+        width="160"
+        height="48"
+        class="wood2"/>
+
+
+  <!-- FRET 2 -->
+
+  <rect x="182"
+        y="630"
+        width="176"
+        height="8"
+        class="edgeDark"/>
+
+  <rect x="190"
+        y="632"
+        width="160"
+        height="4"
+        class="edgeHi"/>
+
+
+  <!-- LOWER FRETBOARD -->
+
+  <rect x="190"
+        y="638"
+        width="160"
+        height="82"
+        class="wood"/>
+
+
+  <!-- =========================================================
+       FRETBOARD GRAIN / PIXEL DETAIL
+       ========================================================= -->
+
+  <g class="muted"
+     opacity=".32">
+
+    <rect x="204"
+          y="520"
+          width="4"
+          height="48"/>
+
+    <rect x="216"
+          y="526"
+          width="4"
+          height="38"/>
+
+    <rect x="324"
+          y="522"
+          width="4"
+          height="42"/>
+
+    <rect x="336"
+          y="530"
+          width="4"
+          height="34"/>
+
+
+    <rect x="208"
+          y="648"
+          width="28"
+          height="4"/>
+
+    <rect x="246"
+          y="662"
+          width="18"
+          height="4"/>
+
+    <rect x="300"
+          y="650"
+          width="26"
+          height="4"/>
+
+    <rect x="318"
+          y="674"
+          width="16"
+          height="4"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       FRETBOARD STRINGS
+       
+       IMPORTANT:
+       THESE ARE INTENTIONALLY DRAWN AFTER THE FRETBOARD,
+       SO THEY APPEAR ON TOP OF IT.
+       ========================================================= -->
+
+  <g id="fretboard-strings"
+     fill="none"
+     stroke-linecap="square">
+
+    <!-- LOW E -->
+
+    <line
+      x1="226"
+      y1="508"
+      x2="226"
+      y2="720"
+      stroke="#f2f2f2"
+      stroke-width="4"/>
+
+
+    <!-- A -->
+
+    <line
+      x1="244"
+      y1="508"
+      x2="244"
+      y2="720"
+      stroke="#dedfe1"
+      stroke-width="3"/>
+
+
+    <!-- D -->
+
+    <line
+      x1="262"
+      y1="508"
+      x2="262"
+      y2="720"
+      stroke="#c7c9cc"
+      stroke-width="3"/>
+
+
+    <!-- G -->
+
+    <line
+      x1="280"
+      y1="508"
+      x2="280"
+      y2="720"
+      stroke="#c7c9cc"
+      stroke-width="2"/>
+
+
+    <!-- B -->
+
+    <line
+      x1="298"
+      y1="508"
+      x2="298"
+      y2="720"
+      stroke="#dedfe1"
+      stroke-width="2"/>
+
+
+    <!-- HIGH E -->
+
+    <line
+      x1="316"
+      y1="508"
+      x2="316"
+      y2="720"
+      stroke="#f2f2f2"
+      stroke-width="2"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       DOT MATRIX LABELS
+       ========================================================= -->
+
+  <!-- E2 -->
+
+  <g id="label-E2"
+     transform="translate(30 148)">
+
+    <use href="#dotE"/>
+
+    <use href="#dot2"
+         x="24"/>
+
+  </g>
+
+
+  <!-- A2 -->
+
+  <g id="label-A2"
+     transform="translate(30 260)">
+
+    <use href="#dotA"/>
+
+    <use href="#dot2"
+         x="24"/>
+
+  </g>
+
+
+  <!-- D3 -->
+
+  <g id="label-D3"
+     transform="translate(30 372)">
+
+    <use href="#dotD"/>
+
+    <use href="#dot3"
+         x="24"/>
+
+  </g>
+
+
+  <!-- G3 -->
+
+  <g id="label-G3"
+     transform="translate(490 148)">
+
+    <use href="#dotG"/>
+
+    <use href="#dot3"
+         x="24"/>
+
+  </g>
+
+
+  <!-- B3 -->
+
+  <g id="label-B3"
+     transform="translate(490 260)">
+
+    <use href="#dotB"/>
+
+    <use href="#dot3"
+         x="24"/>
+
+  </g>
+
+
+  <!-- E4 -->
+
+  <g id="label-E4"
+     transform="translate(490 372)">
+
+    <use href="#dotE"/>
+
+    <use href="#dot4"
+         x="24"/>
+
+  </g>
+
+
+  <!-- =========================================================
+       LITTLE NOTHING-STYLE UI DETAILS
+       ========================================================= -->
+
+  <g fill="#34383e">
+
+    <rect x="28"
+          y="24"
+          width="24"
+          height="3"/>
+
+    <rect x="28"
+          y="31"
+          width="38"
+          height="3"/>
+
+
+    <rect x="548"
+          y="24"
+          width="24"
+          height="3"/>
+
+    <rect x="534"
+          y="31"
+          width="38"
+          height="3"/>
+
+
+    <rect x="34"
+          y="548"
+          width="44"
+          height="3"/>
+
+    <rect x="34"
+          y="555"
+          width="26"
+          height="3"/>
+
+
+    <rect x="522"
+          y="548"
+          width="44"
+          height="3"/>
+
+    <rect x="540"
+          y="555"
+          width="26"
+          height="3"/>
+
+  </g>
+
+
+</svg>

@@ -33,7 +33,8 @@ body {
     justify-content: center;
     font-family: var(--font-ui);
     color: var(--text-main);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: relative;
 }
 
@@ -217,6 +218,8 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+
     
 }
 

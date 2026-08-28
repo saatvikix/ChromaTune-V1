@@ -4,44 +4,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style/tune-style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/tune-dark-style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
     <title>ChromaTune - Tune</title>
 </head>
 
 <body>
-    <div class="tuneWindow">
-        <div class="logoArea pacifico-regular">
-            <img src="../global-resources/graphics/tuning-fork-red.png" id="logoFork">
-            <p>ChromaTune</p>
+    <div class="widget-container">
+        <header class="widget-header">
+            <span>(MIC.01)</span>
+            <div class="status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">STANDBY</span>
+            </div>
+        </header>
+
+        <div class="logoArea">
+            <span class="logoIcon"></span>
+            <p class="title">ChromaTune</p>
 
         </div>
 
-        <div class="modeToggleArea">
-            <button id="standardBtn" class="yeseva-one-regular modeButtons selectedButtons">Standard</button>
-            <button id="manualBtn" class="yeseva-one-regular modeButtons">Manual</button>
+        <div class="modeToggleContainer">
+            <button id="standardBtn" class="modeButtons selectedModeButton">Standard</button>
+            <button id="manualBtn" class="modeButtons">Manual</button>
         </div>
 
-        <div class="tuneScale">
-            <div id="scaleMeter">
-                <div id="currNote">
-                    --
+        <div class="meterContainer">
+            <div class="meter-track">
+                <div class="meter-ticks">
+                    <span class="tick major"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick center"></span> <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick major"></span>
+                </div>
+
+                <div class="meter-needle" id="meterNeedle"></div>
+
+                <div class="meter-badge">
+                    <span id="currNote">D</span>
+                    <span id="centsOffset">+00</span>
                 </div>
             </div>
         </div>
-        <div class="tuneInterface">
+        <div class="headStockContainer">
 
-            <div id="yellowGraphicCircle">
-                <img src="./graphics/guitarHeadstock.png" alt="">
+
+            <svg id="headstock"></svg>
+
+            <div class="pegButtons" aria-label="String tuning pegs">
+                <button class="pegBtn" id="firstPeg" type="button">E</button>
+                <button class="pegBtn" id="secondPeg" type="button">B</button>
+                <button class="pegBtn" id="thirdPeg" type="button">G</button>
+                <button class="pegBtn" id="fourthPeg" type="button">D</button>
+                <button class="pegBtn" id="fifthPeg" type="button">A</button>
+                <button class="pegBtn" id="sixthPeg" type="button">E</button>
+            </div>
+
+            <!-- <div id="yellowGraphicCircle">
+
                 <div class="noteButtonsArea">
 
                     <div class="noteButtonsContainer">
@@ -58,26 +92,24 @@
 
 
                 </div>
-            </div>
-
+            </div> -->
         </div>
 
-        <div class="tunePracticeToggleArea">
-            <button class="tunePracticeToggleBtn selectedButtons" id="tuneMode">
-                <img src="../global-resources/graphics/tuning-fork-white.png">
-            </button>
-
-            <button class="tunePracticeToggleBtn" id="metronomeMode"
-                onclick="window.location.href='../metronome/metronome.html'">
-                <img src="../global-resources/graphics/metronome-red.png">
-            </button>
-
-            <button class="tunePracticeToggleBtn" id="library" onclick="window.location.href='../library/library.html'">
-                <img src="../global-resources/graphics/book-red.png">
+        <nav>
+            <button class="navButtons selectedButtons" onclick="window.location.href='../tuner/home.html'">
+                <span class="tuning-fork"></span>
             </button>
 
 
-        </div>
+            <button class="navButtons " onclick="window.location.href='../metronome/metronome.html'">
+                <span class="metronome-button"></span>
+            </button>
+
+            <button class="navButtons" id="library" onclick="window.location.href='../library/library.html'">
+                <span class="library-button"></span>
+            </button>
+
+        </nav>
     </div>
 
     <script src="./js/tuner.js"></script>
