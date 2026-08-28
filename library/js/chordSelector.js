@@ -22,18 +22,31 @@ const qualities = ["Major", "Minor"];
 // };
 
 const chordImageMap = {
-    "C-major": "./graphics/chords/c_major_01.svg",
-    "C#-major": "./graphics/chords/c_sharp_major_01.svg",
-    "D-major": "./graphics/chords/d_major_01.svg",
-    "D#-major": "./graphics/chords/d_sharp_major_01.svg",
-    "E-major": "./graphics/chords/e_major_01.svg",
-    "F-major": "./graphics/chords/f_major_01.svg",
-    "F#-major": "./graphics/chords/f_sharp_major_01.svg",
-    "G-major": "./graphics/chords/g_major_01.svg",
-    "G#-major": "./graphics/chords/g_sharp_major_01.svg",
-    "A-major": "./graphics/chords/a_major_01.svg",
-    "A#-major": "./graphics/chords/a_sharp_major_01.svg",
-    "B-major": "./graphics/chords/b_major_01.svg",
+    "C-major": "./graphics/chords/major/c_major_01.svg",
+    "C#-major": "./graphics/chords/major/c_sharp_major_01.svg",
+    "D-major": "./graphics/chords/major/d_major_01.svg",
+    "D#-major": "./graphics/chords/major/d_sharp_major_01.svg",
+    "E-major": "./graphics/chords/major/e_major_01.svg",
+    "F-major": "./graphics/chords/major/f_major_01.svg",
+    "F#-major": "./graphics/chords/major/f_sharp_major_01.svg",
+    "G-major": "./graphics/chords/major/g_major_01.svg",
+    "G#-major": "./graphics/chords/major/g_sharp_major_01.svg",
+    "A-major": "./graphics/chords/major/a_major_01.svg",
+    "A#-major": "./graphics/chords/major/a_sharp_major_01.svg",
+    "B-major": "./graphics/chords/major/b_major_01.svg",
+
+    "C-minor": "./graphics/chords/minor/c_minor_01.svg",
+    "C#-minor": "./graphics/chords/minor/c_sharp_minor_01.svg",
+    "D-minor": "./graphics/chords/minor/d_minor_01.svg",
+    "D#-minor": "./graphics/chords/minor/d_sharp_minor_01.svg",
+    "E-minor": "./graphics/chords/minor/e_minor_01.svg",
+    "F-minor": "./graphics/chords/minor/f_minor_01.svg",
+    "F#-minor": "./graphics/chords/minor/f_sharp_minor_01.svg",
+    "G-minor": "./graphics/chords/minor/g_minor_01.svg",
+    "G#-minor": "./graphics/chords/minor/g_sharp_minor_01.svg",
+    "A-minor": "./graphics/chords/minor/a_minor_01.svg",
+    "A#-minor": "./graphics/chords/minor/a_sharp_minor_01.svg",
+    "B-minor": "./graphics/chords/minor/b_minor_01.svg",
 };
 
 let currentRootIndex = 0;
@@ -46,6 +59,8 @@ const qualityThumb = qualitySlider?.querySelector(".thumb");
 const chordRootEl = document.querySelector("#chordRoot");
 const chordQualityEl = document.querySelector("#chordQuality");
 const diagramImage = document.querySelector("#diagramImage");
+const favButton = document.querySelector(".favButton");
+const favouriteChords = new Set();
 
 function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -110,7 +125,21 @@ function updateChordDisplay(root, quality) {
         if (imagePath) {
             diagramImage.src = imagePath;
         }
+
+        updateFavouriteState(imageKey);
     }
+}
+
+function updateFavouriteState(imageKey) {
+    if (!favButton) return;
+
+    const isFavourite = favouriteChords.has(imageKey);
+    favButton.classList.toggle("is-favourite", isFavourite);
+    favButton.setAttribute("aria-pressed", String(isFavourite));
+    favButton.setAttribute(
+        "aria-label",
+        isFavourite ? "Remove chord from favourites" : "Add chord to favourites"
+    );
 }
 
 function setupSlider(slider, thumb, onChange) {
@@ -149,6 +178,18 @@ setupSlider(rootSlider, rootThumb, (position) => {
 
 setupSlider(qualitySlider, qualityThumb, (position) => {
     updateQualityDisplay(position);
+});
+
+favButton?.addEventListener("click", () => {
+    const imageKey = `${getSelectedRoot()}-${getSelectedQuality().toLowerCase()}`;
+
+    if (favouriteChords.has(imageKey)) {
+        favouriteChords.delete(imageKey);
+    } else {
+        favouriteChords.add(imageKey);
+    }
+
+    updateFavouriteState(imageKey);
 });
 
 window.addEventListener("resize", () => {

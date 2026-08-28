@@ -159,7 +159,7 @@ span#chordQuality {
 
 
 }
-.chordPlayBtn {
+.favButton {
     position: relative;
     width: 45px;
     height: 45px;
@@ -175,7 +175,7 @@ span#chordQuality {
     transition: 0.25s ease;
 }
 
-#speaker {
+#star {
     height: 25px;
     width: 25px;
 
@@ -183,27 +183,43 @@ span#chordQuality {
 
     background: #aaa;
 
-    mask: url("../graphics/speaker.svg") center / contain no-repeat;
-    -webkit-mask: url("../graphics/speaker.svg") center / contain no-repeat;
+    mask: url("../graphics/star.svg") center / contain no-repeat;
+    -webkit-mask: url("../graphics/star.svg") center / contain no-repeat;
 
     transition: 0.25s ease;
 }
 
-.chordPlayBtn:hover {
+.favButton:hover {
     transform: scale(1.15);
     background-color: white;
     border: none;
 }
 
-#speaker:hover {
+.favButton.is-favourite {
+    background-color: white;
+    border: none;
+}
+
+#star:hover {
     background-color: black;
 
 }
 
-.chordPlayBtn:active {
+.favButton.is-favourite #star {
+    background-color: black;
+    mask-image: url("../graphics/star-solid.svg");
+    -webkit-mask-image: url("../graphics/star-solid.svg");
+}
+
+.favButton:active {
     transform: scale(1.35);
     background-color: white;
     border: none;
+}
+
+.favButton.is-favourite:hover,
+.favButton.is-favourite:active {
+    transform: none;
 }
 
 nav {

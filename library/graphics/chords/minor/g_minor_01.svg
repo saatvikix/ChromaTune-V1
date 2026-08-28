@@ -1,0 +1,272 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 500 430">
+
+    <style>
+        :root {
+            --grid-color: #f5f5f5c8;
+            --text-color: #f5f5f5;
+            --accent-color: #d71920;
+            --muted-color: #750202;
+
+            --font-ui: 'Space Grotesk', -apple-system, sans-serif;
+            --font-mono: 'Space Mono', monospace;
+            --font-dot: 'DotGothic16', monospace;
+        }
+
+        .grid {
+            stroke: var(--grid-color);
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .string {
+            stroke: var(--grid-color);
+            stroke-width: 3;
+        }
+
+        .fret-number,
+        .string-name {
+            fill: var(--text-color);
+            font-family: var(--font-mono);
+            font-weight: 300;
+            font-size: 30px;
+            text-anchor: middle;
+        }
+
+        .string-name {
+            text-anchor: start;
+            font-size: 25px;
+            dominant-baseline: central;
+
+        }
+
+        .finger {
+            fill: var(--accent-color);
+        }
+
+        .finger-circle {
+            fill: var(--accent-color);
+            filter: url(#finger-glow);
+        }
+        
+        .barre {
+            filter: url(#finger-glow);
+        }
+
+        .finger-number {
+            fill: white;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            text-anchor: middle;
+            dominant-baseline: central;
+        }
+
+        .muted {
+            stroke: var(--muted-color);
+            stroke-width: 5;
+            stroke-linecap: round;
+        }
+
+        .mute-x {
+            fill: var(--muted-color);
+            font-family: Arial, sans-serif;
+            font-size: 28px;
+            text-anchor: middle;
+            dominant-baseline: central;
+        }
+
+        .barre {
+            fill: var(--accent-color);
+        }
+
+        .open-string {
+            fill: none;
+            stroke: var(--accent-color);
+            stroke-width: 4;
+        }
+    </style>
+
+    <defs>
+        <filter id="finger-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <g transform="translate(0 8)">
+
+
+    <!-- ================================================= -->
+    <!-- FRET NUMBERS                                      -->
+    <!-- ================================================= -->
+
+    <text class="fret-number" x="100" y="45">6</text>
+    <text class="fret-number" x="180" y="45">5</text>
+    <text class="fret-number" x="260" y="45">4</text>
+    <text class="fret-number" x="340" y="45">3</text>
+
+
+    <!-- ================================================= -->
+    <!-- FRETBOARD GRID                                    -->
+    <!-- ================================================= -->
+
+    <!-- Outer left -->
+    <line class="grid"
+        x1="60" y1="70"
+        x2="60" y2="350"/>
+
+    <!-- Fret 4 -->
+    <line class="grid"
+        x1="140" y1="70"
+        x2="140" y2="350"/>
+
+    <!-- Fret 3 -->
+    <line class="grid"
+        x1="220" y1="70"
+        x2="220" y2="350"/>
+
+    <!-- Fret 2 -->
+    <line class="grid"
+        x1="300" y1="70"
+        x2="300" y2="350"/>
+
+    <!-- Fret 1 -->
+    <line class="grid"
+        x1="380" y1="70"
+        x2="380" y2="350"/>
+
+
+    <!-- ================================================= -->
+    <!-- STRINGS                                          -->
+    <!-- ================================================= -->
+
+    <!-- Low E -->
+    <line class="string"
+        x1="60" y1="70"
+        x2="380" y2="70"/>
+
+    <!-- A -->
+    <line class="string"
+        x1="60" y1="126"
+        x2="380" y2="126"/>
+
+    <!-- D -->
+    <line class="string"
+        x1="60" y1="182"
+        x2="380" y2="182"/>
+
+    <!-- G -->
+    <line class="string"
+        x1="60" y1="238"
+        x2="380" y2="238"/>
+
+    <!-- B -->
+    <line class="string"
+        x1="60" y1="294"
+        x2="380" y2="294"/>
+
+    <!-- High e -->
+    <line class="string"
+        x1="60" y1="350"
+        x2="380" y2="350"/>
+    
+
+
+    <!-- ================================================= -->
+    <!-- STRING NAMES                                     -->
+    <!-- ================================================= -->
+
+    <text class="string-name" x="430" y="70">E</text>
+    <text class="string-name" x="430" y="126">A</text>
+    <text class="string-name" x="430" y="182">D</text>
+    <text class="string-name" x="430" y="238">G</text>
+    <text class="string-name" x="430" y="294">B</text>
+    <text class="string-name" x="430" y="350">e</text>
+
+
+    <!-- ================================================= -->
+    <!-- FINGER POSITIONS                                 -->
+    <!-- ================================================= -->
+
+    <!-- Finger 4 -->
+    <g class="finger">
+        <circle class="finger-circle" cx="180" cy="125" r="20"/>
+        <text class="finger-number"
+            x="180" y="125">3</text>
+    </g>
+
+    <!-- Finger 3 -->
+    <g class="finger">
+        <circle class="finger-circle" cx="180" cy="185" r="20"/>
+        <text class="finger-number"
+            x="180" y="185">4</text>
+    </g>
+
+
+
+    <!-- Finger 1 -->
+    <g class="finger">
+        <rect
+            class="barre"
+            x="326"
+            y="60"
+            width="28"
+            height="300"
+            rx="14"/>
+
+        <text
+            class="finger-number"
+            x="340"
+            y="210">1</text>
+  
+    </g>
+
+
+    <!-- ================================================= -->
+    <!-- MUTED STRING EXAMPLE                             -->
+    <!-- Remove/comment this if not needed                -->
+    <!-- ================================================= -->
+
+    <!--
+    <text class="mute-x"
+        x="35" y="70">×</text>
+    -->
+
+
+    <!-- ================================================= -->
+    <!-- OPEN STRING EXAMPLE                              -->
+    <!-- Remove/comment this if not needed                -->
+    <!-- ================================================= -->
+
+    <!--
+    <circle class="open-string"
+        cx="35" cy="350" r="12"/>
+    -->
+
+
+    <!-- ================================================= -->
+    <!-- BARRE CHORD EXAMPLE                              -->
+    <!-- ================================================= -->
+
+    <!--
+    <rect
+        class="barre"
+        x="326"
+        y="42"
+        width="28"
+        height="336"
+        rx="14"/>
+
+    <text
+        class="finger-number"
+        x="340"
+        y="210">1</text>
+    -->
+
+    </g>
+
+</svg>
