@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/tuner-style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <title>ChromaTune - Tune</title>
+</head>
+
+<body>
+    <div class="widget-container">
+        <header class="widget-header">
+            <span>(MIC.01)</span>
+            <div class="status-indicator">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">STANDBY</span>
+            </div>
+        </header>
+
+        <div class="logoArea">
+            <span class="logoIcon"></span>
+            <p class="title">ChromaTune</p>
+
+        </div>
+
+        <div class="modeToggleContainer">
+            <button id="standardBtn" class="modeButtons selectedModeButton">Standard</button>
+            <button id="manualBtn" class="modeButtons">Manual</button>
+        </div>
+
+        <div class="meterContainer">
+            <div class="meter-track">
+                <div class="meter-ticks">
+                    <span class="tick major"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick center"></span> <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick"></span>
+                    <span class="tick major"></span>
+                </div>
+
+                <div class="meter-needle" id="meterNeedle"></div>
+
+                <div class="meter-badge">
+                    <span id="currNote">D</span>
+                    <span id="centsOffset">+00</span>
+                </div>
+            </div>
+        </div>
+        <div class="headStockContainer">
+
+
+            <svg id="headstock"></svg>
+
+            <div class="pegButtons" aria-label="String tuning pegs">
+                <button class="pegBtn" id="firstPeg" type="button">
+                    <span class="string-label right-strings">E</span>
+                </button>
+                <button class="pegBtn" id="secondPeg" type="button">
+                    <span class="string-label right-strings">B</span>
+                </button>
+                <button class="pegBtn" id="thirdPeg" type="button">
+                    <span class="string-label right-strings">G</span>
+                </button>
+                <button class="pegBtn" id="fourthPeg" type="button">
+                    <span class="string-label left-strings">D</span>
+                </button>
+                <button class="pegBtn" id="fifthPeg" type="button">
+                    <span class="string-label left-strings">A</span>
+                </button>
+                <button class="pegBtn" id="sixthPeg" type="button">
+                    <span class="string-label left-strings">E</span>
+                </button>
+            </div>
+
+        </div>
+
+        <nav>
+            <button class="navButtons selectedButtons" onclick="window.location.href='../tuner/home.html'">
+                <span class="tuning-fork"></span>
+            </button>
+
+
+            <button class="navButtons " onclick="window.location.href='../metronome/metronome.html'">
+                <span class="metronome-button"></span>
+            </button>
+
+            <button class="navButtons" id="library" onclick="window.location.href='../library/library.html'">
+                <span class="library-button"></span>
+            </button>
+
+        </nav>
+    </div>
+
+    <script src="./js/interactivity.js"></script>
+    <script src="./js/tuner.js" defer></script>
+</body>
+
+</html>
