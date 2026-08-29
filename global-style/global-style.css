@@ -60,15 +60,16 @@ body::before {
 .sidebar {
     width: 20%;
     max-width: 400px;
-    height: 800px;
+    height: 700px;
     margin: 20px;
-
+    
     flex-shrink: 0;
 
     background-color: var(--card-bg);
     backdrop-filter: blur(20px);
 
     border: 1px solid var(--card-border);
+    
     border-radius: 28px;
     padding: 32px 28px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
@@ -89,7 +90,7 @@ body::before {
 }
 
 #sidebarTitle {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-family: var(--font-dot);
     letter-spacing: 3px;
     text-align: center;
@@ -195,10 +196,10 @@ div.authentication {
 }
 .workingwindow {
     flex: 1;
-
+    height: 740px;
+    padding: 0 28px;
     min-width: 0;
-    min-height: 100vh;
-
+    /* min-height: 100vh; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,14 +213,14 @@ div.authentication {
     z-index: 1;
     width: 100%;
     /* max-width: 600px; */
-    height: 800px;
-    margin: 20px;
+    height: 700px;
+    margin: 20px 0;
     background: var(--card-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--card-border);
     border-radius: 28px;
-    padding: 32px 28px;
+    padding: 30px 28px 32px 28px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
         inset 0 1px 0 rgba(255, 255, 255, 0.08);
     transition: border-color 0.3s ease;
@@ -375,11 +376,15 @@ div.authentication {
     align-items: flex-end;
     justify-content: center;
     gap: 20px;
+    /* position: absolute; */
+    /* top: auto; */
+    /* left: calc(40/% - 40px); */
+    /* margin-bottom: 50px; */
 
 }
 
 .logoIcon {
-    height: 45px;
+    height: 38px;
     width: 50px;
 
     display: block;
@@ -392,14 +397,17 @@ div.authentication {
     transition: 0.25s ease;
 }
 
-.title {
+#title {
     font-family: var(--font-dot), var(--font-mono);
-    font-size: 3rem;
+    text-transform: none;
+    font-size: 2.2rem;
     font-weight: 400;
     line-height: 1;
     letter-spacing: -0.02em;
     color: var(--text-main);
     min-width: 3ch;
+    
+
 }
 
 

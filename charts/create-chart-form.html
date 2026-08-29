@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/charts-style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <title>ChromaTune - New Chart</title>
+</head>
+
+<body class="chart-setup-page">
+    <div class="chart-setup-modal">
+        <div class="chart-setup-module-tag">MDL-CHT-001 // INIT</div>
+
+        <div class="chart-setup-header">
+            <div>
+                <h1>New Chart</h1>
+                <p>Configure initial parameters for synchronization.</p>
+            </div>
+
+            <button class="chart-close-button" aria-label="Close modal">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+
+        <div class="chart-setup-form">
+            <div class="chart-field-group">
+                <label for="song-title">Song Title</label>
+                <input id="song-title" class="chart-input" type="text" value="Untitled_Project" spellcheck="false">
+            </div>
+
+            <div class="chart-form-grid">
+                <div class="chart-field-group"  id = "bpmStepper">
+                    <label>BPM</label>
+                    <div class="chart-stepper bpm-input-container">
+                        <input type="text" name="" id="" placeholder="Enter BPM" class ="bpm-text-input" disabled>
+                        <button class="chart-stepper-btn" type="button" aria-label="Decrease BPM" id = "decreaseBPM">
+                            <span class="material-symbols-outlined">remove</span>
+                        </button>
+                        <span class="bpm-value">120</span>
+                        <button class="chart-stepper-btn" type="button" aria-label="Increase BPM" id = "increaseBPM">
+                            <span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="chart-field-group">
+                    <label for="time-signature">Time Sig</label>
+                    <div class="chart-select-wrap">
+                        <select id="time-signature" class="chart-select" aria-label="Time signature">
+                            <option value="4/4" selected>4/4</option>
+                            <option value="3/4">3/4</option>
+                            <option value="6/8">6/8</option>
+                        </select>
+                        <span class="material-symbols-outlined chart-select-icon">expand_more</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-key-row">
+                <div class="chart-key-field">
+                    <label for="chart-key-root">Key</label>
+                    <div class="chart-select-wrap">
+                        <select id="chart-key-root" class="chart-select" aria-label="Select key root">
+                            <option value="C">C</option>
+                            <option value="C#">C#</option>
+                            <option value="D">D</option>
+                            <option value="D#">D#</option>
+                            <option value="E">E</option>
+                            <option value="F">F</option>
+                            <option value="F#">F#</option>
+                            <option value="G">G</option>
+                            <option value="G#">G#</option>
+                            <option value="A">A</option>
+                            <option value="A#">A#</option>
+                            <option value="B">B</option>
+                        </select>
+                        <span class="material-symbols-outlined chart-select-icon">expand_more</span>
+                    </div>
+                </div>
+
+                <div class="chart-key-field">
+                    <label for="chart-key-quality">Quality</label>
+                    <div class="chart-select-wrap">
+                        <select id="chart-key-quality" class="chart-select" aria-label="Select key quality">
+                            <option value="major" selected>Major</option>
+                            <option value="minor">Minor</option>
+                            <option value="dorian">Dorian</option>
+                            <option value="mixolydian">Mixolydian</option>
+                        </select>
+                        <span class="material-symbols-outlined chart-select-icon">expand_more</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-setup-footer">
+            <button class="chart-submit-button" type="button">
+                <span class="material-symbols-outlined">add_circle</span>
+                Create Chart
+            </button>
+        </div>
+
+        <script type="module" src="./js/form.js"></script>
+        
+    </div>
+</body>
+
+</html>

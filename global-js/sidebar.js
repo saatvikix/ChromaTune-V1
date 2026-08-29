@@ -3,7 +3,8 @@ const sideNavigators = document.querySelectorAll(".sidebarNavigators");
 const navigatorRoutes = {
    tuner: "../tuner/tuner.html",
    library: "../library/library.html",
-   metronome: "../metronome/metronome.html"
+   metronome: "../metronome/metronome.html",
+   charts: "../charts/charts.html"
 };
 
 const currentPage = window.location.pathname.split("/").pop();

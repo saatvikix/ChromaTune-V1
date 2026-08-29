@@ -5,30 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <link rel="stylesheet" href="../tuner/style/metronome-style.css"> -->
-    <link rel="stylesheet" href="./style/library-style.css">
-
-
     <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/charts-style.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
         rel="stylesheet">
-
-
-    <script src="./js/chordSelector.js" defer></script>
-
-
-    <title>ChromaTune - Library</title>
+    <title>ChromaTune - Chord Charts</title>
 </head>
 
 <body>
 
     <div class="sidebar">
         <div id="sidebarTitleContainer">
-            <span id="sidebarTitle">Let's Learn!</span>
+            <span id="sidebarTitle">Let's Practice!</span>
         </div>
 
         <div class="profileContainer">
@@ -96,51 +88,40 @@
                 </div>
             </header>
 
+            <div class="charts-header subcards">
 
-            <div class="chordSelector">
-                <div class="rootSelector selector">
-                    <span>Root</span>
+                <input type="text" name="" id="" placeholder="Search">
 
-                    <div class="slider" id="rootSlider">
-                        <div class="track"></div>
-                        <div class="thumb"></div>
-                    </div>
-                </div>
-
-                <div class="qualitySelector selector">
-                    <span>Quality</span>
-
-                    <div class="slider" id="qualitySlider">
-                        <div class="track"></div>
-                        <div class="thumb"></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="chordLabel">
-                <span id="chordRoot">
-                    C
-                </span>
-                <span id="chordQuality">
-                    Major
-                </span>
-            </div>
-
-            <div class="chordDiagram">
-                <div class="diagramContainer">
-                    <img src="" alt="C major chord diagram" id="diagramImage">
-                </div>
-
-                <button class="favButton" type="button" aria-label="Add chord to favourites" aria-pressed="false">
-                    <span id="star"></span>
+                <button id="create-chart-btn">
+                    Create Chart
                 </button>
+            </div>
+            
+            <div class="saved-charts-container subcards">
+                <article class="chart-card">
+                    <div class="chart-card-header">
+                        <span class="chart-date">23-02-2023</span>
+                        <button class="chart-menu" aria-label="Chart options">•••</button>
+                    </div>
+
+                    <h3>A hard rain's coming</h3>
+
+                    <div class="chart-metrics">
+                        <span class="metric"><span class="metric-label">BPM</span> 120</span>
+                        <span class="metric"><span class="metric-label">TIME</span> 4/4</span>
+                        <span class="metric"><span class="metric-label">KEY</span> A min</span>
+                    </div>
+                </article>
+
+            
+                
             </div>
 
         </div>
     </div>
 
-    <script src="../global-js/sidebar.js" defer></script>
+    <script type="module" src="./js/script.js"></script>
+    <script src="../global-js/sidebar.js"></script>
 </body>
 
 </html>

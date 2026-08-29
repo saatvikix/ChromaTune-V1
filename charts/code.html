@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>New Chart Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary": "#2f3131",
+                        "error-container": "#93000a",
+                        "primary": "#ffb4ab",
+                        "secondary-fixed": "#e2e2e2",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-tint": "#ffb4ab",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary-container": "#b4b5b5",
+                        "tertiary": "#c8c6c6",
+                        "surface-container-highest": "#353534",
+                        "tertiary-container": "#919090",
+                        "inverse-on-surface": "#313030",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-fixed-variant": "#93000b",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "outline-variant": "#5e3f3b",
+                        "on-background": "#e5e2e1",
+                        "secondary-container": "#454747",
+                        "inverse-primary": "#c00013",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "outline": "#ae8783",
+                        "on-surface-variant": "#e8bcb7",
+                        "primary-container": "#ff544a",
+                        "surface": "#131313",
+                        "surface-container-high": "#2a2a2a",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#5c0004",
+                        "surface-dim": "#131313",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-primary-fixed": "#410002",
+                        "on-primary": "#690005",
+                        "surface-variant": "#353534",
+                        "surface-bright": "#3a3939",
+                        "inverse-surface": "#e5e2e1",
+                        "secondary": "#c6c6c7",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "on-tertiary-container": "#292a2a",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#ffdad6",
+                        "on-surface": "#e5e2e1",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#ffb4ab",
+                        "on-error": "#690005",
+                        "background": "#131313",
+                        "on-tertiary": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-unit": "8px",
+                        "margin-mobile": "16px",
+                        "container-max-width": "1200px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "body-sm": ["JetBrains Mono"],
+                        "technical-label": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["JetBrains Mono"],
+                        "display-pixel": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "technical-label": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-pixel": ["64px", { "lineHeight": "1", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-image: radial-gradient(circle at 1px 1px, #2A2A2A 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        
+        /* Input cursor blink */
+        .blinking-cursor::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* LED Glow */
+        .led-glow {
+            box-shadow: 0 0 12px rgba(255, 46, 46, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex items-center justify-center p-margin-mobile md:p-margin-desktop font-body-lg text-body-lg">
+<!-- Modal Container -->
+<div class="w-full max-w-md bg-surface border border-surface-container-highest rounded-[24px] overflow-hidden relative shadow-2xl z-10">
+<!-- Hardware Serial/Module ID -->
+<div class="absolute top-4 left-6 text-[10px] font-technical-label text-technical-label text-secondary opacity-50 z-20">
+            MDL-CHT-001 // INIT
+        </div>
+<!-- Header -->
+<div class="px-6 pt-12 pb-6 border-b border-surface-container-highest relative">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-2">New Chart</h1>
+<p class="font-body-sm text-body-sm text-secondary">Configure initial parameters for synchronization.</p>
+<!-- Close Button (Technical/Ghost) -->
+<button class="absolute top-6 right-6 w-8 h-8 flex items-center justify-center border border-surface-container-highest rounded-full text-secondary hover:text-on-surface hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+</button>
+</div>
+<!-- Content/Form -->
+<div class="p-6 space-y-8">
+<!-- Song Title Input -->
+<div class="space-y-3">
+<label class="block font-technical-label text-technical-label text-secondary uppercase">Song Title</label>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-surface-container-highest text-on-surface font-body-lg text-body-lg rounded-lg px-4 py-3 focus:outline-none focus:border-outline focus:ring-1 focus:ring-outline transition-colors" spellcheck="false" type="text" value="Untitled_Project"/>
+</div>
+</div>
+<!-- BPM and Time Signature Grid -->
+<div class="grid grid-cols-2 gap-6">
+<!-- BPM Stepper -->
+<div class="space-y-3">
+<label class="block font-technical-label text-technical-label text-secondary uppercase">BPM</label>
+<div class="flex items-center justify-between bg-surface-container-lowest border border-surface-container-highest rounded-lg p-1">
+<button class="w-10 h-10 flex items-center justify-center text-secondary hover:text-primary transition-colors rounded">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="font-body-lg text-body-lg text-on-surface px-2">120</span>
+<button class="w-10 h-10 flex items-center justify-center text-secondary hover:text-primary transition-colors rounded">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<!-- Time Signature -->
+<div class="space-y-3">
+<label class="block font-technical-label text-technical-label text-secondary uppercase">Time Sig</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-lowest border border-surface-container-highest text-on-surface font-body-lg text-body-lg rounded-lg px-4 py-3 focus:outline-none focus:border-outline transition-colors cursor-pointer">
+<option value="4/4">4/4</option>
+<option value="3/4">3/4</option>
+<option value="6/8">6/8</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-secondary">
+<span class="material-symbols-outlined" style="font-size: 18px;">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Advanced Options Toggle (Mock) -->
+<div class="pt-4 border-t border-surface-container-highest flex items-center justify-between">
+<span class="font-technical-label text-technical-label text-secondary uppercase">Sync to Master Clock</span>
+<!-- Custom Hardware Toggle -->
+<div class="w-12 h-6 bg-surface-container-highest rounded-full p-1 cursor-pointer flex items-center shadow-inner relative">
+<div class="w-4 h-4 bg-secondary-fixed rounded-full shadow-md transform transition-transform duration-300 translate-x-6 bg-primary led-glow"></div>
+</div>
+</div>
+</div>
+<!-- Footer / Action -->
+<div class="p-6 bg-surface-container-low border-t border-surface-container-highest">
+<button class="w-full bg-on-surface text-surface font-technical-label text-technical-label uppercase py-4 rounded-full hover:bg-white transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform" style="font-size: 18px;">add_circle</span>
+                Create Chart
+            </button>
+</div>
+</div>
+</body></html>
