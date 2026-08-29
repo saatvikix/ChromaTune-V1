@@ -2,8 +2,8 @@
 
 /* metronome interfcae */
 .metronomeInterface {
-    margin-top: 40px;
-    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-bottom: 32px;
 }
 
 /* BPM knob input area */
@@ -42,7 +42,7 @@
 .knob {
     width: 260px;
     height: 260px;
-
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +113,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 12px;
+    margin-bottom: 22px;
 }
 
 .timeSignatureSettings {
@@ -191,7 +192,7 @@ div.player button {
     border: none;
     border-radius: 50%;
     box-shadow: none;
-    margin: 25px 0px 12px 0;
+    margin: 30px 0 20px;
 
     transform: scale(1);
 

@@ -22,81 +22,119 @@
 </head>
 
 <body>
-    <div class="widget-container">
-        <header class="widget-header">
-            <span>(MIC.01)</span>
-            <div class="status-indicator">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">STANDBY</span>
-            </div>
-        </header>
-
-        <div class="logoArea">
-            <span class="logoIcon"></span>
-            <p class="title">ChromaTune</p>
-
+    <div class="sidebar">
+        <div id="sidebarTitleContainer">
+            <span id="sidebarTitle">Let's Synchronize!</span>
         </div>
 
-        <div class="metronomeInterface">
-            <div class="bpmInputArea">
-                <div class="knob" role="img" aria-label="BPM knob">
-
-                    <div class="bpmDisplay">
-                        <div class="bpmNumber">128</div>
-                        <div class="bpmLabel">BPM</div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="timeSignatureInterface">
-
-            <div class="timeSignatureSettings">
-
-                <button class="beatsCountButton" id="beatsIncrease" aria-label="Increase beats">+</button>
-
-                <span id="beatsDisplay">4</span>
-
-                <button class="beatsCountButton" id="beatsDecrease" aria-label="Decrease beats">−</button>
+        <div class="profileContainer">
+            <div id="profileButton">
 
             </div>
 
-            <div class="beatsPerMeasureText">
-                <p>Beats Per Measure</p>
+            <div class="profileDetails">
+                <span id="user-name">
+                    Saatvik
+                </span>
+                <span id="user-email">
+                    example.com
+                </span>
             </div>
+        </div>
+
+        <div class="sidebarNavigators" id="tuner">
+
+            <span class="tuning-fork icons"></span>
+            <span class="sidebarNavigatorTitle">Tuner</span>
 
         </div>
 
-        <div class="player">
-            <button id="playBtn" data-play-icon="./graphics/play-button.png"
-                data-pause-icon="./graphics/pause-button.png" data-click-sound="./clicks/click1.mp3">
+        <div class="sidebarNavigators" id="metronome">
 
-                <img id="playIcon" src="./graphics/play-button.png">
-            </button>
+            <span class="metronome-button icons"></span>
+            <span class="sidebarNavigatorTitle">Metronome</span>
+
         </div>
 
-        <nav>
-            <button class="navButtons" onclick="window.location.href='../tuner/tuner.html'">
-                <span class="tuning-fork"></span>
-            </button>
+        <div class="sidebarNavigators" id="library">
+
+            <span class="library-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Library</span>
+
+        </div>
+
+        <div class="sidebarNavigators">
+
+            <span class="chord-chart-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Charts</span>
+
+        </div>
 
 
-            <button class="navButtons selectedButtons" >
-                <span class="metronome-button"></span>
-            </button>
-
-            <button class="navButtons" id="library" onclick="window.location.href='../library/library.html'">
-                <span class="library-button"></span>
-            </button>
-
-        </nav>
-
+        <div class="authentication">
+            <button id="authButton" class="logout">LOGOUT</button>
+        </div>
     </div>
 
+    <div class="workingwindow">
+        <div class="widget-container">
+            <header class="widget-header">
+                <span>(MIC.01)</span>
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">STANDBY</span>
+                </div>
+            </header>
 
+            <div class="logoArea">
+                <span class="logoIcon"></span>
+                <p class="title">ChromaTune</p>
 
+            </div>
 
+            <div class="metronomeInterface">
+                <div class="bpmInputArea">
+                    <div class="knob" role="img" aria-label="BPM knob">
+
+                        <div class="bpmDisplay">
+                            <div class="bpmNumber">128</div>
+                            <div class="bpmLabel">BPM</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeSignatureInterface">
+
+                <div class="timeSignatureSettings">
+
+                    <button class="beatsCountButton" id="beatsIncrease" aria-label="Increase beats">+</button>
+
+                    <span id="beatsDisplay">4</span>
+
+                    <button class="beatsCountButton" id="beatsDecrease" aria-label="Decrease beats">−</button>
+
+                </div>
+
+                <div class="beatsPerMeasureText">
+                    <p>Beats Per Measure</p>
+                </div>
+
+            </div>
+
+            <div class="player">
+                <button id="playBtn" data-play-icon="./graphics/play-button.png"
+                    data-pause-icon="./graphics/pause-button.png" data-click-sound="./clicks/click1.mp3">
+
+                    <img id="playIcon" src="./graphics/play-button.png">
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="../global-js/sidebar.js" defer></script>
 </body>
 
 </html>

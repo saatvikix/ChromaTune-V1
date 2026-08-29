@@ -7,6 +7,7 @@
     --text-dim: #707070;
     --text-subtle: #404040;
     --accent-red: #d71920;
+    --light-grey: #4f4f4f;
     /* Nothing OS signature red */
     --grid-dot: rgba(255, 255, 255, 0.05);
 
@@ -24,17 +25,21 @@
 
 body {
     background-color: var(--bg-color);
-    /* Subtle dot matrix background pattern */
-    background-image: radial-gradient(rgba(255, 255, 255, 0.178) 1px, transparent 1px);
+
+    background-image: radial-gradient(rgba(255, 255, 255, 0.123) 1px,
+            transparent 1px);
+
     background-size: 24px 24px;
+
     min-height: 100vh;
+
     display: flex;
-    align-items: center;
-    justify-content: center;
+
     font-family: var(--font-ui);
     color: var(--text-main);
-    overflow-y: auto;
-    overflow-x: hidden;
+
+    /* overflow: hidden; */
+
     position: relative;
 }
 
@@ -52,11 +57,161 @@ body::before {
     z-index: 0;
 }
 
+.sidebar {
+    width: 20%;
+    max-width: 400px;
+    height: 800px;
+    margin: 20px;
+
+    flex-shrink: 0;
+
+    background-color: var(--card-bg);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid var(--card-border);
+    border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.sidebar>div {
+    /* border: 2px solid yellow; */
+    min-height: 10px;
+}
+
+.sidebar>div:first-child {
+    text-align: center;
+}
+
+#sidebarTitle {
+    font-size: 1.5rem;
+    font-family: var(--font-dot);
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+.profileContainer {
+    /* border :2px solid yellow; */
+    height: 90px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+
+}
+
+.profileDetails {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#profileButton {
+    width: 70px;
+    height: 70px;
+    border: 3px solid var(--card-border-hover);
+    border-radius: 50%;
+
+    box-shadow: #ffffff71 0px 0px 5px;
+}
+
+#user-name {
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+    font-family: var(--font-ui);
+}
+
+#user-email {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+div.authentication {
+    /* border: 2px solid white; */
+    margin-top: auto;  
+    text-align: center;  
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+#authButton {
+    background-color: transparent;
+    border : none;
+    font-family: var(--font-mono);
+    font-size: 1.0rem;
+
+}
+
+#authButton:hover {
+    cursor:pointer;
+}
+
+#authButton.logout {
+    color: var(--text-dim);
+}
+
+.sidebarNavigators {
+    /* border:2px solid yellow; */
+    padding-left: 15px;
+    display: flex;
+    gap: 50px;
+    color: var(--text-dim);
+    font-family: (--font-mono);
+}
+
+.sidebarNavigators:hover{
+    cursor:pointer;
+    color: var(--text-main);
+}
+
+.sidebarNavigators.active {
+    color: var(--text-main);
+}
+
+.sidebarNavigators>div {
+    border: 2px solid yellow;
+}
+
+.sidebarNavigators>span.icons {
+    width: 25px;
+    height: 25px;
+    background: var(--text-dim);
+}
+
+.sidebarNavigators:hover>span.icons {
+    background: var(--text-main);
+}
+
+.sidebarNavigators.active>span.icons {
+    background: var(--text-main);
+}
+.workingwindow {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
 .widget-container {
+
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 600px;
+    /* max-width: 600px; */
     height: 800px;
     margin: 20px;
     background: var(--card-bg);
@@ -72,6 +227,46 @@ body::before {
     flex-direction: column;
     gap: 20px;
 }
+
+/* .profileIcon {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #4e4e4e;
+    background: var(--bg-color);
+
+    box-shadow: 0px 0px 5px 2px #4e4e4e;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.25s ease;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+
+    display:none;
+}
+
+.dropdownMenu {
+    border: 2px solid yellow;
+    width : 200px;
+    position : absolute;
+    top: 120px;
+    right : 15px;
+
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 10px;
+
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+    display:none;
+} */
 
 /* Top Metadata Header */
 .widget-header {
@@ -124,7 +319,7 @@ body::before {
     }
 
     /* Toggle class `.listening` on #statusDot via JS when mic is active */
-    .status-dot.listening{
+    .status-dot.listening {
         background-color: var(--accent-red);
         box-shadow: 0 0 8px var(--accent-red);
         animation: pulse 1.5s infinite;
@@ -184,8 +379,8 @@ body::before {
 }
 
 .logoIcon {
-    height:45px;
-    width: 50px;    
+    height: 45px;
+    width: 50px;
 
     display: block;
 
@@ -210,30 +405,30 @@ body::before {
 
 /* ============================================= */
 
-nav{
-    /* border: 2px solid yellow;    */
+/* nav {
+
     height: 50px;
     width: 70%;
+    max-width: 500px;
     margin: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
 
-    
+
 }
 
 .navButtons {
     width: 40px;
     height: 40px;
-    /* border-radius: 50%; */
     background-color: transparent;
     border: none;
-}
+}*/
 
 .tuning-fork {
-    height:40px;
-    width:40px;
+    height: 40px;
+    width: 40px;
 
     display: block;
 
@@ -246,8 +441,8 @@ nav{
 }
 
 .metronome-button {
-    height:50px;
-    width:40px;
+    height: 50px;
+    width: 40px;
 
     display: block;
 
@@ -256,12 +451,12 @@ nav{
     mask: url("../global-resources/graphics/metronome.svg") center / contain no-repeat;
     -webkit-mask: url("../global-resources/graphics/metronome.svg") center / contain no-repeat;
 
-    transition: 0.25s ease;    
+    transition: 0.25s ease;
 }
 
 .library-button {
-    height:50px;
-    width:40px;
+    height: 50px;
+    width: 40px;
 
     display: block;
 
@@ -270,9 +465,22 @@ nav{
     mask: url("../global-resources/graphics/library.svg") center / contain no-repeat;
     -webkit-mask: url("../global-resources/graphics/library.svg") center / contain no-repeat;
 
-    transition: 0.25s ease;    
+    transition: 0.25s ease;
 }
 
+.chord-chart-button {
+    height: 50px;
+    width: 40px;
+
+    display: block;
+
+    background: #aaa;
+
+    mask: url("../global-resources/graphics/chord-chart.svg") center / contain no-repeat;
+    -webkit-mask: url("../global-resources/graphics/chord-chart.svg") center / contain no-repeat;
+
+    transition: 0.25s ease;
+}
 
 .navButtons.selectedButtons span {
     background-color: var(--accent-red);
@@ -289,6 +497,5 @@ nav{
 .navButtons:active {
     transform: scale(1.15);
 
-    /* Very quick expansion when pressed */
     transition: transform 60ms ease-out;
-}
+} 

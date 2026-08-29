@@ -9,6 +9,7 @@
 
 .meterContainer {
     width: 75%;
+    max-width: 500px;
 
     margin: 20px auto 10px auto;
 
@@ -188,6 +189,7 @@
 
 .headStockContainer {
     width: 75%;
+    max-width: 500px;
     height: 420px;
 
     position: relative;
@@ -219,7 +221,7 @@
     height: 100%;
 
     transform:
-        translate(0, 5%) scale(1.65);
+        translate(0, 5%) scale(1.5);
 
     transform-origin: center;
 }

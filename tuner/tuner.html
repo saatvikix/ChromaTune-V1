@@ -17,103 +17,146 @@
 </head>
 
 <body>
-    <div class="widget-container">
-        <header class="widget-header">
-            <span>(MIC.01)</span>
-            <div class="status-indicator">
-                <span class="status-dot" id="statusDot"></span>
-                <span id="statusText">STANDBY</span>
-            </div>
-        </header>
 
-        <div class="logoArea">
-            <span class="logoIcon"></span>
-            <p class="title">ChromaTune</p>
+    <div class="sidebar">
+        <div id="sidebarTitleContainer">
+            <span id="sidebarTitle">Let's Tune!</span>
+        </div>
+
+        <div class="profileContainer">
+            <div id="profileButton">
+
+            </div>
+
+            <div class="profileDetails">
+                <span id="user-name">
+                    Saatvik
+                </span>
+                <span id="user-email">
+                    example.com
+                </span>
+            </div>
+        </div>
+
+        <div class="sidebarNavigators" id="tuner">
+
+            <span class="tuning-fork icons"></span>
+            <span class="sidebarNavigatorTitle">Tuner</span>
 
         </div>
 
-        <!-- <div class="modeToggleContainer">
+        <div class="sidebarNavigators" id="metronome">
+
+            <span class="metronome-button icons"></span>
+            <span class="sidebarNavigatorTitle">Metronome</span>
+
+        </div>
+
+        <div class="sidebarNavigators" id="library">
+
+            <span class="library-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Library</span>
+
+        </div>
+
+        <div class="sidebarNavigators" id="charts">
+
+            <span class="chord-chart-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Charts</span>
+
+        </div>
+
+
+        <div class="authentication">
+            <button id="authButton" class="logout">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="workingwindow">
+        <div class="widget-container">
+            <header class="widget-header">
+                <span>(MIC.01)</span>
+                <div class="status-indicator">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">STANDBY</span>
+                </div>
+            </header>
+
+            <div class="logoArea">
+                <span class="logoIcon"></span>
+                <p class="title">ChromaTune</p>
+
+            </div>
+
+            <!-- <div class="modeToggleContainer">
             <button id="standardBtn" class="modeButtons selectedModeButton">Standard</button>
             <button id="manualBtn" class="modeButtons">Manual</button>
         </div> -->
 
-        <div class="meterContainer">
-            <div class="meter-track">
-                <div class="meter-ticks">
-                    <span class="tick major"></span>
-                    <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick center"></span> <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick"></span>
-                    <span class="tick major"></span>
-                </div>
+            <div class="meterContainer">
+                <div class="meter-track">
+                    <div class="meter-ticks">
+                        <span class="tick major"></span>
+                        <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick center"></span> <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick"></span>
+                        <span class="tick major"></span>
+                    </div>
 
-                <div class="meter-needle" id="meterNeedle"></div>
+                    <div class="meter-needle" id="meterNeedle"></div>
 
-                <div class="meter-badge">
-                    <span id="currNote">--</span>
-                    <span id="centsOffset">+00</span>
+                    <div class="meter-badge">
+                        <span id="currNote">--</span>
+                        <span id="centsOffset">+00</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="headStockContainer">
+            <div class="headStockContainer">
 
 
-            <svg id="headstock"></svg>
+                <svg id="headstock"></svg>
 
-            <div class="pegButtons" aria-label="String tuning pegs">
+                <div class="pegButtons" aria-label="String tuning pegs">
 
-                <button class="pegBtn right-strings" id="firstPeg" type="button" aria-label="High E string">
-                    <span class="string-label">E</span>
-                </button>
+                    <button class="pegBtn right-strings" id="firstPeg" type="button" aria-label="High E string">
+                        <span class="string-label">E</span>
+                    </button>
 
-                <button class="pegBtn right-strings" id="secondPeg" type="button" aria-label="B string">
-                    <span class="string-label">B</span>
-                </button>
+                    <button class="pegBtn right-strings" id="secondPeg" type="button" aria-label="B string">
+                        <span class="string-label">B</span>
+                    </button>
 
-                <button class="pegBtn right-strings" id="thirdPeg" type="button" aria-label="G string">
-                    <span class="string-label">G</span>
-                </button>
+                    <button class="pegBtn right-strings" id="thirdPeg" type="button" aria-label="G string">
+                        <span class="string-label">G</span>
+                    </button>
 
-                <button class="pegBtn left-strings" id="fourthPeg" type="button" aria-label="D string">
-                    <span class="string-label">D</span>
-                </button>
+                    <button class="pegBtn left-strings" id="fourthPeg" type="button" aria-label="D string">
+                        <span class="string-label">D</span>
+                    </button>
 
-                <button class="pegBtn left-strings" id="fifthPeg" type="button" aria-label="A string">
-                    <span class="string-label">A</span>
-                </button>
+                    <button class="pegBtn left-strings" id="fifthPeg" type="button" aria-label="A string">
+                        <span class="string-label">A</span>
+                    </button>
 
-                <button class="pegBtn left-strings" id="sixthPeg" type="button" aria-label="Low E string">
-                    <span class="string-label">E</span>
-                </button>
+                    <button class="pegBtn left-strings" id="sixthPeg" type="button" aria-label="Low E string">
+                        <span class="string-label">E</span>
+                    </button>
+
+                </div>
 
             </div>
 
         </div>
-
-        <nav>
-            <button class="navButtons selectedButtons" onclick="window.location.href='../tuner/home.html'">
-                <span class="tuning-fork"></span>
-            </button>
-
-
-            <button class="navButtons " onclick="window.location.href='../metronome/metronome.html'">
-                <span class="metronome-button"></span>
-            </button>
-
-            <button class="navButtons" id="library" onclick="window.location.href='../library/library.html'">
-                <span class="library-button"></span>
-            </button>
-
-        </nav>
     </div>
 
     <script src="./js/interactivity.js"></script>
     <script src="./js/tuner.js" defer></script>
+    <script src="../global-js/sidebar.js" defer></script>
 </body>
 
 </html>
