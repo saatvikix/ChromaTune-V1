@@ -43,27 +43,34 @@ if (bpmTextInput) {
 
 if (submitBtn) {
   submitBtn.addEventListener("click", () => {
+    const createdChartId = (typeof crypto !== "undefined" && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `chart-${Date.now()}-${Math.random().toString(16).slice(2)}`;
       const bpm = Number(bpmValue?.textContent || 120);
       const songTitle = songTitleInput?.value.trim() || "Untitled_Project";
       const timeSignature = timeSignInput?.value || "4/4";
       const keyRoot = keyRootInput?.value || "C";
       const keyQuality = keyQualityInput?.value || "major";
       const chartData = {
+      id: createdChartId,
           bpm,
           songTitle,
           timeSignature,
           key: `${keyRoot} ${keyQuality}`,
-          date: new Date().toLocaleDateString("en-GB")
+      date: new Date().toLocaleDateString("en-GB"),
+      sections: []
       };
 
       try {
           const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "[]");
           savedCharts.push(chartData);
           localStorage.setItem("chromatuneCharts", JSON.stringify(savedCharts));
+      localStorage.setItem("chromatuneActiveChartId", createdChartId);
+          localStorage.setItem("chromatuneChartMode", "edit");
       } catch (error) {
           console.error("Unable to save chart:", error);
       }
 
-      window.location.href = "./charts.html";
+    window.location.href = "./chart-editor.html";
   });
 }

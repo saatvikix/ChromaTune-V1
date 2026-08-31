@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="../global-style/global-style.css">
+    <link rel="stylesheet" href="./style/charts-style.css">
+    <link rel="stylesheet" href="./style/chart-editor.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <title>ChromaTune - Chord Charts</title>
+</head>
+
+<body class="chart-editor-page">
+
+    <div class="sidebar">
+        <div id="sidebarTitleContainer">
+            <span id="sidebarTitle">Let's Practice!</span>
+        </div>
+
+        <div class="profileContainer">
+            <div id="profileButton">
+
+            </div>
+
+            <div class="profileDetails">
+                <span id="user-name">
+                    Saatvik
+                </span>
+                <span id="user-email">
+                    example.com
+                </span>
+            </div>
+        </div>
+
+        <div class="sidebarNavigators" id="tuner">
+
+            <span class="tuning-fork icons"></span>
+            <span class="sidebarNavigatorTitle">Tuner</span>
+
+        </div>
+
+        <div class="sidebarNavigators" id="metronome">
+
+            <span class="metronome-button icons"></span>
+            <span class="sidebarNavigatorTitle">Metronome</span>
+
+        </div>
+
+        <div class="sidebarNavigators" id="library">
+
+            <span class="library-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Library</span>
+
+        </div>
+
+        <div class="sidebarNavigators" id="charts">
+
+            <span class="chord-chart-button icons"></span>
+            <span class="sidebarNavigatorTitle">Chord Charts</span>
+
+        </div>
+
+
+        <div class="authentication">
+            <button id="authButton" class="logout">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="workingwindow">
+        <div class="widget-container">
+            <header class="widget-header">
+                <div class="songMetaData">
+                    <h2 id="songTitle"></h2>
+                    <span id="bpm"></span>
+                    <span id="key"></span>
+                    <span id="timeSignature"></span>
+                </div>
+                <button id="saveButton" type="button">Save</button>
+
+            </header>
+
+            
+            
+            <div class="canvas subcards" id="sectionsCanvas">
+                <button id="addSectionButton" type="button" class="add-section-button">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    Add a new section
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-modal-backdrop" id="sectionModal" aria-hidden="true">
+        <div class="section-modal" role="dialog" aria-modal="true" aria-labelledby="sectionModalTitle">
+            <div class="section-modal-header">
+                <div>
+                    <p class="section-modal-tag">MDL-CHT-002 // SECTION</p>
+                    <h3 id="sectionModalTitle">Create a section</h3>
+                </div>
+                <button class="section-modal-close" id="closeSectionModal" type="button" aria-label="Close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+
+            <form id="sectionForm" class="section-form">
+                <div class="section-field-group">
+                    <label for="sectionTitleInput">Section name</label>
+                    <input id="sectionTitleInput" name="sectionTitle" type="text" placeholder="Section name" maxlength="24" required>
+                </div>
+
+                <div class="section-field-group">
+                    <label for="sectionQuantization">Quantization</label>
+                    <div class="section-select-wrap">
+                        <select id="sectionQuantization" name="sectionQuantization">
+                            <option value="1/4">1/4</option>
+                            <option value="1/8">1/8</option>
+                            <option value="1/16">1/16</option>
+                        </select>
+                        <span class="material-symbols-outlined section-select-icon">expand_more</span>
+                    </div>
+                </div>
+
+                <button class="section-submit" type="submit">Create Section</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="./js/script.js"></script>
+    <script src="../global-js/sidebar.js"></script>
+    <script src="./js/chart-editor.js"></script>
+</body>
+
+</html>
