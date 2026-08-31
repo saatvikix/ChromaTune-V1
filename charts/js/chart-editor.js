@@ -104,30 +104,31 @@ function closeSectionModal() {
     }
 }
 
-function createMeasureCell(index, quantization) {
+function createMeasureCell(index, chord = "") {
     const cell = document.createElement("div");
     cell.classList.add("chordCell");
+    cell.dataset.chord = chord;
     cell.innerHTML = `
         <span class="gridNumber">${index}</span>
-        <span class="chordLabel"></span>
+        <span class="chordLabel">${chord}</span>
     `;
     return cell;
 }
 
-function createMeasureGrid(quantization, gridClass) {
+function createMeasureGrid(quantization, gridClass, chords = []) {
     const config = getQuantizationConfig(quantization);
     const measure = document.createElement("div");
     measure.classList.add("measure");
     measure.classList.add(gridClass || config.gridClass);
 
     for (let i = 1; i <= (config.count || 4); i += 1) {
-        measure.appendChild(createMeasureCell(i, quantization));
+        measure.appendChild(createMeasureCell(i, chords[i - 1] || ""));
     }
 
     return measure;
 }
 
-function createSection(title, quantization, measureCount = 0) {
+function createSection(title, quantization, measureCount = 0, chords = []) {
     if (!sectionsCanvas) {
         return null;
     }
@@ -151,7 +152,7 @@ function createSection(title, quantization, measureCount = 0) {
     const addMeasureBlock = section.querySelector(".addMeasure");
 
     for (let i = 0; i < measureCount; i += 1) {
-        const measure = createMeasureGrid(config.label, config.gridClass);
+        const measure = createMeasureGrid(config.label, config.gridClass, chords[i] || []);
         section.insertBefore(measure, addMeasureBlock);
     }
 
@@ -218,7 +219,7 @@ function renderChartData() {
 
     const sections = Array.isArray(chart.sections) ? chart.sections : [];
     sections.forEach((section) => {
-        createSection(section.title, section.quantization, section.measureCount || 0);
+        createSection(section.title, section.quantization, section.measureCount || 0, section.chords || []);
     });
 }
 
@@ -227,13 +228,53 @@ function getSectionsFromDOM() {
         const title = sectionEl.querySelector(".sectionTitle")?.textContent?.trim() || "Section";
         const quantizationText = sectionEl.querySelector(".quantization")?.textContent?.replace("Quantization :", "").trim() || "1/4";
         const measureCount = sectionEl.querySelectorAll(".measure").length;
+        const chords = Array.from(sectionEl.querySelectorAll(".measure")).map((measure) =>
+            Array.from(measure.querySelectorAll(".chordCell")).map((cell) => cell.dataset.chord || "")
+        );
 
         return {
             title,
             quantization: quantizationText,
             measureCount,
+            chords,
         };
     });
+}
+
+function startInlineEdit(element, value, onCommit) {
+    if (element.querySelector("input")) {
+        return;
+    }
+
+    const input = document.createElement("input");
+    input.className = "inline-editor";
+    input.type = "text";
+    input.value = value;
+    input.setAttribute("aria-label", "Edit value");
+    element.replaceChildren(input);
+    input.focus();
+    input.select();
+
+    let committed = false;
+    const finish = (saveValue) => {
+        if (committed) {
+            return;
+        }
+
+        committed = true;
+        const nextValue = saveValue ? input.value.trim() : value;
+        onCommit(nextValue);
+    };
+
+    input.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            finish(true);
+        } else if (event.key === "Escape") {
+            finish(false);
+        }
+    });
+    input.addEventListener("blur", () => finish(true));
 }
 
 function saveCurrentChart() {
@@ -291,6 +332,28 @@ if (sectionForm) {
 
 if (sectionsCanvas) {
     sectionsCanvas.addEventListener("click", (event) => {
+        if (chartMode === "view") {
+            return;
+        }
+
+        const chordCell = event.target.closest(".chordCell");
+        if (chordCell) {
+            const chordLabel = chordCell.querySelector(".chordLabel");
+            startInlineEdit(chordLabel, chordCell.dataset.chord || "", (value) => {
+                chordCell.dataset.chord = value;
+                chordLabel.textContent = value;
+            });
+            return;
+        }
+
+        const sectionTitle = event.target.closest(".sectionTitle");
+        if (sectionTitle) {
+            startInlineEdit(sectionTitle, sectionTitle.textContent.trim(), (value) => {
+                sectionTitle.textContent = value || "New Section";
+            });
+            return;
+        }
+
         const addMeasureButton = event.target.closest(".addMeasure button");
 
         if (!addMeasureButton) {

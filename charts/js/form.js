@@ -24,21 +24,41 @@ if (bpmDecreaseBtn) {
   });
 }
 
-if (bpmValue) {
-  bpmValue.addEventListener("click", () => {
-      bpmTextInput.disabled = false;
-      bpmTextInput.style.display = "initial";
-  });
+function closeBpmEditor(saveValue) {
+  if (!bpmTextInput || !bpmValue) {
+    return;
+  }
+
+  if (saveValue) {
+    const parsedBpm = Number(bpmTextInput.value);
+    if (Number.isFinite(parsedBpm)) {
+      bpmValue.textContent = Math.min(300, Math.max(20, Math.round(parsedBpm)));
+    }
+  }
+
+  bpmTextInput.disabled = true;
+  bpmTextInput.style.display = "none";
 }
 
-if (bpmTextInput) {
-  bpmTextInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-          bpmValue.textContent = bpmTextInput.value;
-          bpmTextInput.disabled = true;
-          bpmTextInput.style.display = "none";
-      }
+if (bpmValue && bpmTextInput) {
+  bpmValue.addEventListener("click", () => {
+    bpmTextInput.value = bpmValue.textContent;
+    bpmTextInput.disabled = false;
+    bpmTextInput.style.display = "block";
+    bpmTextInput.focus();
+    bpmTextInput.select();
   });
+
+  bpmTextInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      closeBpmEditor(true);
+    } else if (event.key === "Escape") {
+      closeBpmEditor(false);
+    }
+  });
+
+  bpmTextInput.addEventListener("blur", () => closeBpmEditor(true));
 }
 
 if (submitBtn) {
