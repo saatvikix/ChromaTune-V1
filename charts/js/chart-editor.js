@@ -11,7 +11,7 @@ const sectionTitleInput = document.querySelector("#sectionTitleInput");
 const sectionQuantizationInput = document.querySelector("#sectionQuantization");
 const saveButton = document.querySelector("#saveButton");
 
-const chartMode = localStorage.getItem(CHART_MODE_KEY) || "edit";
+let chartMode = localStorage.getItem(CHART_MODE_KEY) || "edit";
 if (chartMode === "view") {
     document.body.classList.add("view-only");
 }
@@ -125,6 +125,31 @@ function createMeasureGrid(quantization, gridClass, chords = []) {
         measure.appendChild(createMeasureCell(i, chords[i - 1] || ""));
     }
 
+    const deleteMeasureBtn = document.createElement("div");
+    deleteMeasureBtn.classList.add("deleteMeasureBtn");
+    deleteMeasureBtn.innerText = "X";
+    deleteMeasureBtn.setAttribute("aria-hidden", "true");
+    measure.append(deleteMeasureBtn);
+
+    if (chartMode !== "view") {
+        measure.addEventListener("pointerenter", () => {
+            measure.classList.add("delete-ready");
+        });
+
+        measure.addEventListener("pointerleave", () => {
+            measure.classList.remove("delete-ready");
+            deleteMeasureBtn.setAttribute("aria-hidden", "true");
+        });
+
+        deleteMeasureBtn.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (chartMode === "view") {
+                return;
+            }
+            measure.remove();
+        });
+    }
+
     return measure;
 }
 
@@ -141,15 +166,30 @@ function createSection(title, quantization, measureCount = 0, chords = []) {
 
     section.innerHTML = `
         <div class="sectionHeader">
+            <button class="deleteSectionBtn" type="button" aria-label="Delete section">X</button>
             <h4 class="sectionTitle">${trimmedTitle}</h4>
             <span class="quantization">Quantization : ${config.label}</span>
         </div>
         <section class="addMeasure ${config.quantClass}">
             <button type="button">Add Measure</button>
         </section>
+
     `;
 
     const addMeasureBlock = section.querySelector(".addMeasure");
+    const deleteSectionButton = section.querySelector(".deleteSectionBtn");
+
+    if (chartMode !== "view") {
+        section.classList.add("delete-section-ready");
+
+        deleteSectionButton.addEventListener("click", (event) => {
+            event.stopPropagation();
+            if (chartMode === "view") {
+                return;
+            }
+            section.remove();
+        });
+    }
 
     for (let i = 0; i < measureCount; i += 1) {
         const measure = createMeasureGrid(config.label, config.gridClass, chords[i] || []);
@@ -297,13 +337,20 @@ function saveCurrentChart() {
     }
 
     saveCharts(charts);
-    localStorage.removeItem(ACTIVE_CHART_ID_KEY);
-    localStorage.removeItem(CHART_MODE_KEY);
-    window.location.href = "./charts.html";
+    chartMode = "view";
+    localStorage.setItem(CHART_MODE_KEY, chartMode);
+    document.body.classList.add("view-only");
+    if (saveButton) {
+        saveButton.textContent = "Exit";
+    }
 }
 
 if (addSectionButton) {
-    addSectionButton.addEventListener("click", openSectionModal);
+    addSectionButton.addEventListener("click", () => {
+        if (chartMode !== "view") {
+            openSectionModal();
+        }
+    });
 }
 
 if (closeSectionModalButton) {
@@ -375,17 +422,20 @@ if (sectionsCanvas) {
         } else if (quant === "sixteenth") {
             createGrid(addMeasureButton, "1/16", "sixteenthNoteGrid");
         }
+
+
     });
 }
 
 if (saveButton) {
-    if (chartMode === "view") {
-        saveButton.textContent = "Exit";
-        saveButton.addEventListener("click", exitEditor);
-    } else {
-        saveButton.textContent = "Save";
-        saveButton.addEventListener("click", saveCurrentChart);
-    }
+    saveButton.textContent = chartMode === "view" ? "Exit" : "Save";
+    saveButton.addEventListener("click", () => {
+        if (chartMode === "view") {
+            exitEditor();
+        } else {
+            saveCurrentChart();
+        }
+    });
 }
 
 if (sectionQuantizationInput) {
