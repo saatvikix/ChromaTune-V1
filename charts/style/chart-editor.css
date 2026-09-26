@@ -7,7 +7,12 @@
     padding: 0 28px;
 }
 
-.canvas {
+
+/* =========================
+   CHART CANVAS
+   ========================= */
+
+.chart-canvas {
     min-height: 90%;
     padding: 25px;
     display: flex;
@@ -17,7 +22,7 @@
     overflow-x: hidden;
 }
 
-.canvas > .add-section-button {
+.chart-canvas > .add-section-button {
     flex: 0 0 auto;
 }
 
@@ -42,26 +47,38 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    box-shadow: 0 8px 18px rgba(215, 25, 32, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 8px 18px rgba(215, 25, 32, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     cursor: pointer;
-    transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        filter 180ms ease;
 }
 
 #saveButton:hover {
     transform: translateY(-1px);
     filter: brightness(1.08);
-    box-shadow: 0 12px 24px rgba(215, 25, 32, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    box-shadow:
+        0 12px 24px rgba(215, 25, 32, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 #saveButton:active {
     transform: translateY(0);
 }
 
-.canvas:empty {
+.chart-canvas:empty {
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+
+/* =========================
+   SECTIONS
+   ========================= */
 
 section.songSection {
     border: 1px solid var(--card-border);
@@ -84,7 +101,6 @@ section.songSection {
 .sectionTitle {
     font-size: 1.1rem;
     letter-spacing: 0.08em;
-    /* text-transform: uppercase; */
     font-family: var(--font-dot);
 }
 
@@ -95,6 +111,11 @@ section.songSection {
     letter-spacing: 0.08em;
     font-family: var(--font-mono);
 }
+
+
+/* =========================
+   CHORD CELLS
+   ========================= */
 
 .chordCell {
     border: 1px solid rgba(255, 255, 255, 0.12);
@@ -170,6 +191,11 @@ section.songSection {
     letter-spacing: 0.08em;
 }
 
+
+/* =========================
+   MEASURE GRIDS
+   ========================= */
+
 .quarterNoteGrid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -192,6 +218,11 @@ section.songSection {
     font-size: 0.98rem;
 }
 
+
+/* =========================
+   ADD MEASURE
+   ========================= */
+
 section.addMeasure {
     height: 40px;
     display: flex;
@@ -209,7 +240,9 @@ section.addMeasure {
     font-size: 0.75rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    transition: transform 180ms ease, border-color 180ms ease;
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease;
 }
 
 .addMeasure > button:hover {
@@ -217,6 +250,11 @@ section.addMeasure {
     transform: translateY(-1px);
     border-color: rgba(255, 255, 255, 0.2);
 }
+
+
+/* =========================
+   ADD SECTION
+   ========================= */
 
 .add-section-button {
     width: auto;
@@ -235,10 +273,16 @@ section.addMeasure {
     font-weight: 600;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 8px 18px rgba(0, 0, 0, 0.14);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 8px 18px rgba(0, 0, 0, 0.14);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+    transition:
+        transform 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        background 180ms ease;
 }
 
 .add-section-button:hover {
@@ -246,7 +290,9 @@ section.addMeasure {
     transform: translateY(-1px);
     background: rgba(245, 245, 245, 0.82);
     border-color: rgba(255, 255, 255, 0.32);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, 0.24),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45);
 }
 
 .add-section-button .material-symbols-outlined {
@@ -254,7 +300,12 @@ section.addMeasure {
     color: rgba(8, 8, 8, 0.88);
 }
 
-.section-modal-backdrop {
+
+/* =========================
+   SECTION FORM
+   ========================= */
+
+.section-dialog {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.72);
@@ -265,20 +316,22 @@ section.addMeasure {
     z-index: 1000;
 }
 
-.section-modal-backdrop.open {
+.section-dialog.open {
     display: flex;
 }
 
-.section-modal {
+.section-form-box {
     width: min(100%, 420px);
     background: rgba(18, 18, 18, 0.96);
     border: 1px solid var(--card-border);
     border-radius: 24px;
     padding: 24px;
-    box-shadow: 0 28px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    box-shadow:
+        0 28px 60px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-.section-modal-header {
+.section-form-header {
     display: flex;
     justify-content: space-between;
     gap: 16px;
@@ -286,7 +339,7 @@ section.addMeasure {
     margin-bottom: 22px;
 }
 
-.section-modal-tag {
+.section-form-tag {
     font-family: var(--font-mono);
     font-size: 0.6rem;
     letter-spacing: 0.12rem;
@@ -295,12 +348,12 @@ section.addMeasure {
     margin-bottom: 8px;
 }
 
-.section-modal-header h3 {
+.section-form-header h3 {
     font-size: 1.7rem;
     letter-spacing: -0.05em;
 }
 
-.section-modal-close {
+.section-form-close {
     width: 36px;
     height: 36px;
     border-radius: 10px;
@@ -318,13 +371,13 @@ section.addMeasure {
     gap: 18px;
 }
 
-.section-field-group {
+.section-field {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.section-field-group label {
+.section-field label {
     font-size: 0.72rem;
     letter-spacing: 0.12em;
     color: rgba(255, 255, 255, 0.7);
@@ -332,8 +385,8 @@ section.addMeasure {
     font-family: var(--font-mono);
 }
 
-.section-field-group input,
-.section-select-wrap select {
+.section-field input,
+.section-select select {
     width: 100%;
     border: 1px solid var(--card-border);
     border-radius: 12px;
@@ -344,28 +397,28 @@ section.addMeasure {
     font-size: 1rem;
 }
 
-.section-select-wrap select {
+.section-select select {
     color-scheme: dark;
     background-color: #181818;
     color: var(--text-main);
 }
 
-.section-select-wrap select option {
+.section-select select option {
     background-color: #181818;
     color: var(--text-main);
 }
 
-.section-field-group input:focus,
-.section-select-wrap select:focus {
+.section-field input:focus,
+.section-select select:focus {
     outline: 1px solid rgba(255, 255, 255, 0.55);
     border-color: transparent;
 }
 
-.section-select-wrap {
+.section-select {
     position: relative;
 }
 
-.section-select-wrap select {
+.section-select select {
     appearance: none;
     padding-right: 42px;
 }
@@ -380,7 +433,7 @@ section.addMeasure {
     pointer-events: none;
 }
 
-.section-submit {
+.section-form-submit {
     margin-top: 8px;
     border: none;
     border-radius: 12px;
@@ -393,15 +446,23 @@ section.addMeasure {
     letter-spacing: 0.12em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: transform 180ms ease, box-shadow 180ms ease;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
 }
 
-.section-submit:hover {
+.section-form-submit:hover {
     transform: translateY(-1px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
 }
 
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media (max-width: 900px) {
+
     .sectionHeader {
         flex-direction: column;
         align-items: flex-start;
@@ -409,18 +470,26 @@ section.addMeasure {
 
 }
 
+
+/* =========================
+   MEASURE DELETE
+   ========================= */
+
 .measure {
     position: relative;
-    cursor:pointer;
+    cursor: pointer;
 }
+
 .deleteMeasureBtn {
     display: none;
     pointer-events: none;
     width: 35px;
     height: 35px;
-    border:3px solid rgba(215, 25, 32, 0.82);
+    border: 3px solid rgba(215, 25, 32, 0.82);
     background-color: rgba(170, 4, 10, 0.229);
-    box-shadow: 0 8px 18px rgba(215, 25, 32, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 8px 18px rgba(215, 25, 32, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     cursor: pointer;
     border-radius: 10px;
     position: absolute;
@@ -430,7 +499,7 @@ section.addMeasure {
     color: var(--accent-red);
     font-family: var(--font-ui);
     font-size: 1rem;
-    font-weight:800px;
+    font-weight: 800;
     line-height: 28px;
     text-align: center;
 }
@@ -453,6 +522,11 @@ section.addMeasure {
     pointer-events: none;
 }
 
+
+/* =========================
+   SECTION DELETE
+   ========================= */
+
 .deleteSectionBtn {
     display: block;
     flex: 0 0 auto;
@@ -470,7 +544,9 @@ section.addMeasure {
     line-height: 28px;
     text-align: center;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(215, 25, 32, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 8px 18px rgba(215, 25, 32, 0.22),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .sectionHeader {
