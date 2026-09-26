@@ -13,7 +13,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
         rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
     <title>ChromaTune - Chord Charts</title>
 </head>
 
@@ -74,30 +75,28 @@
                 </div>
             </header>
 
-            <div class="charts-header subcards">
-                <input type="text" name="" id="" placeholder="Search">
+            <div class="charts-toolbar">
+                <input type="text" placeholder="Search">
                 <button id="create-chart-btn">Create Chart</button>
             </div>
 
-            <div class="saved-charts-container subcards" id="savedChartsContainer"></div>
+            <div class="saved-charts subcards" id="savedChartsContainer"></div>
         </div>
     </div>
 
-    <div class="formContainer" id="chartForm">
-        <div class="chartFormWidget">
+    <div class="chart-form" id="chartForm">
+        <div class="chart-form-widget">
             <div class="chart-init-tag">NEW-CHT // INIT</div>
 
-            <div class="chartFormHeader">
-                <div>
-                    <h1>New Chart</h1>
-                </div>
+            <div class="chart-form-header">
+                <h1>New Chart</h1>
 
                 <button class="chart-close-button" id="formCloseButton">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
 
-            <div class="chart-setup-form">
+            <div class="chart-form-body">
                 <div class="chart-field-group">
                     <label for="song-title">Song Title</label>
                     <input id="song-title" class="chart-input" type="text" value="Untitled_Project" spellcheck="false">
@@ -108,7 +107,7 @@
                     <div class="chart-field-group" id="bpmStepper">
                         <label>BPM</label>
                         <div class="chart-stepper bpm-input-container">
-                            <input type="text" name="" id="" placeholder="Enter BPM" class="bpm-text-input" disabled>
+                            <input type="text" placeholder="Enter BPM" class="bpm-text-input" disabled>
                             <button class="chart-stepper-btn" id="decreaseBPM">
                                 <span class="material-symbols-outlined">remove</span>
                             </button>
@@ -132,7 +131,7 @@
                     </div>
                 </div>
 
-                <div class="chart-key-row">
+                <div class="chart-key-fields">
                     <div class="chart-key-field">
                         <label for="chart-key-root">Key</label>
                         <div class="chart-select-wrap">
@@ -169,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="chart-setup-footer">
+            <div class="chart-form-footer">
                 <button class="chart-submit-button">
                     <span class="material-symbols-outlined">add_circle</span>
                     Create Chart
