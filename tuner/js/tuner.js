@@ -48,10 +48,7 @@ const tuning = {
     }
 };
 
-// ==================================================
-// 2. TUNER STATE
-// ==================================================
-
+// Tuner state
 let selectedNote = null;
 let expectedPitch = null;
 
@@ -85,19 +82,11 @@ function selectString(note, frequency) {
 }
 
 
-// ==================================================
-// 3. TUNING THRESHOLD
-// ==================================================
-
-// +/- 5 cents = TUNED
+// Tuning threshold
 const TUNING_THRESHOLD = 10;
 
 
-// ==================================================
-// 4. PITCH SMOOTHING
-// ==================================================
-
-// Previous smoothed cents value
+// Pitch smoothing
 let smoothedCents = 0;
 let hasPitch = false;
 
@@ -108,10 +97,7 @@ let hasPitch = false;
 const SMOOTHING_FACTOR = 0.15;
 
 
-// ==================================================
-// 5. SELECT HTML ELEMENTS
-// ==================================================
-
+// DOM elements
 const statusText = document.querySelector("#statusText");
 const statusDot = document.querySelector("#statusDot");
 
@@ -121,48 +107,38 @@ const centsOffset = document.querySelector("#centsOffset");
 const currNote = document.querySelector("#currNote");
 
 
-// ==================================================
-// 7. START MICROPHONE + AUDIO ENGINE
-// ==================================================
-
+// Start microphone and audio engine
 async function startPitchDetection() {
 
     try {
 
-        // Request microphone access
-        microphoneStream =
+                microphoneStream =
             await navigator.mediaDevices.getUserMedia({
                 audio: true
             });
 
 
-        // Create Web Audio API context
-        audioContext =
+                audioContext =
             new AudioContext();
 
 
-        // Convert microphone stream into audio node
-        const source =
+                const source =
             audioContext.createMediaStreamSource(
                 microphoneStream
             );
 
 
-        // Create analyser
-        analyzer =
+                analyzer =
             audioContext.createAnalyser();
 
 
-        // Number of samples used for analysis
-        analyzer.fftSize = 2048;
+                analyzer.fftSize = 2048;
 
 
-        // Microphone → Analyzer
-        source.connect(analyzer);
+                source.connect(analyzer);
 
 
-        // Update UI
-        if (statusText) {
+                if (statusText) {
             statusText.textContent = "LISTENING";
         }
 
@@ -174,8 +150,7 @@ async function startPitchDetection() {
         console.log("Mic access granted");
 
 
-        // Start continuous pitch detection
-        updatePitch(
+                updatePitch(
             analyzer,
             audioContext.sampleRate
         );
@@ -197,9 +172,7 @@ async function startPitchDetection() {
 }
 
 
-// ==================================================
-// 8. AUTOCORRELATION — IMPROVED GUITAR PITCH DETECTION
-// ==================================================
+// Pitch detection
 
 function autoCorrelate(buffer, sampleRate) {
 
@@ -527,9 +500,7 @@ function autoCorrelate(buffer, sampleRate) {
 
 }
 
-// ==================================================
-// 9. FREQUENCY → CENTS
-// ==================================================
+// Frequency → cents
 
 function getCentsDifference(
     actualFrequency,
@@ -554,9 +525,7 @@ function getCentsDifference(
 }
 
 
-// ==================================================
-// 10. UPDATE TUNER METER
-// ==================================================
+// Update tuner meter
 
 function updateMeter(cents) {
 
@@ -568,8 +537,7 @@ function updateMeter(cents) {
     const MAX_CENTS = 50;
 
 
-    // Prevent the needle from leaving the meter
-    const limitedCents =
+        const limitedCents =
         Math.max(
             -MAX_CENTS,
             Math.min(MAX_CENTS, cents)
@@ -618,8 +586,7 @@ function updateMeter(cents) {
         50;
 
 
-    // Move needle
-    if (meterNeedle) {
+        if (meterNeedle) {
 
         meterNeedle.style.left =
             `${position}%`;
@@ -680,30 +647,25 @@ function updateMeter(cents) {
 }
 
 
-// ==================================================
-// 11. CONTINUOUS TUNER LOOP
-// ==================================================
+// Continuous tuner loop
 
 function updatePitch(
     analyzer,
     sampleRate
 ) {
 
-    // Create waveform buffer
-    const buffer =
+        const buffer =
         new Float32Array(
             analyzer.fftSize
         );
 
 
-    // Get microphone waveform
-    analyzer.getFloatTimeDomainData(
+        analyzer.getFloatTimeDomainData(
         buffer
     );
 
 
-    // Detect current pitch
-    const result =
+        const result =
         autoCorrelate(
             buffer,
             sampleRate
@@ -725,16 +687,14 @@ function updatePitch(
             result.frequency;
 
 
-        // Calculate raw cents difference
-        const cents =
+                const cents =
             getCentsDifference(
                 actualFrequency,
                 expectedPitch
             );
 
 
-        // Update visual meter
-        updateMeter(cents);
+                updateMeter(cents);
 
 
         // --------------------------------------------------
