@@ -1,18 +1,15 @@
-
-
-/* metronome interfcae */
 .metronomeInterface {
     margin-top: 20px;
     margin-bottom: 32px;
 }
 
-/* BPM knob input area */
 .bpmInputArea {
     display: flex;
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
 }
+
 .bpmDisplay {
     width: 100%;
     display: flex;
@@ -20,7 +17,6 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-
     text-align: center;
     transform-origin: center center;
     pointer-events: none;
@@ -46,25 +42,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: relative;
-
     background: transparent;
-
     transform-origin: center center;
 }
 
 .knob::before {
     content: "";
-
     position: absolute;
-
     inset: -20px;
-
     background-color: var(--text-dim);
 
-    mask: url("../../global-resources/graphics/knob.svg") center / 260px 260px no-repeat;
-    -webkit-mask: url("../../global-resources/graphics/knob.svg") center / 260px 260px no-repeat;
+    mask: url("../../global-resources/graphics/knob.svg")
+        center / 260px 260px no-repeat;
+
+    -webkit-mask: url("../../global-resources/graphics/knob.svg")
+        center / 260px 260px no-repeat;
 
     pointer-events: none;
     z-index: 0;
@@ -77,21 +70,14 @@
 
 .knob::after {
     content: "";
-
     position: absolute;
-
     width: 13px;
     height: 13px;
-
     border-radius: 50%;
-
     background-color: var(--accent-red);
-
     top: 20.8px;
     left: 50%;
-
     transform: translateX(-50%);
-
     pointer-events: none;
     z-index: 2;
 
@@ -99,14 +85,6 @@
         drop-shadow(0 0 4px var(--accent-red))
         drop-shadow(0 0 8px var(--accent-red));
 }
-
-.knob.dragging {
-    cursor: grabbing;
-}
-
-
-/* ================================== */
-
 
 .timeSignatureInterface {
     display: flex;
@@ -118,33 +96,31 @@
 }
 
 .timeSignatureSettings {
-    /* border: 2px solid white; */
-    
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     gap: 30px;
 }
 
 .beatsCountButton {
-    background-color:#404040;
+    background-color: #404040;
     width: 45px;
     height: 45px;
     color: #f5f5f5;
-    /* color:red; */
     border: 2px solid var(--text-dim);
     font-family: var(--font-ui);
     font-weight: 200;
     border-radius: 50%;
     font-size: 2.5rem;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s ease,
-    box-shadow 0.3s ease;
 
+    transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 #beatsDisplay {
@@ -159,7 +135,6 @@
     font-weight: 200;
     color: var(--text-dim);
     font-size: 0.9rem;
-
 }
 
 .beatsCountButton:hover {
@@ -168,22 +143,18 @@
     box-shadow: 0 0 3px #f5f5f5;
 }
 
-.player{
-    /* border:2px solid green; */
-    display:flex;
+.player {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
 div.player button {
-    /* border: 2px solid var(--text-dim); */
-    /* background-color:#707070; */
     box-shadow: none;
-    border:none;
+    border: none;
     width: 70px;
-    height: 70px;  
-    /* box-shadow: #da4b3a 0px 2px 5px 0px;  */
-    border-radius: 50%; 
+    height: 70px;
+    border-radius: 50%;
 }
 
 #playBtn {
@@ -193,9 +164,7 @@ div.player button {
     border-radius: 50%;
     box-shadow: none;
     margin: 30px 0 20px;
-
     transform: scale(1);
-
     transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -206,13 +175,11 @@ div.player button {
 
 #playBtn:active {
     transform: scale(1.15);
-
-    /* Very quick expansion when pressed */
     transition: transform 60ms ease-out;
 }
+
 div.player img {
     width: 100%;
     height: 100%;
     border-radius: inherit;
 }
-

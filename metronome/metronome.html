@@ -14,70 +14,58 @@
         href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap"
         rel="stylesheet">
 
-
     <script src="./js/metronome.js" defer></script>
-
 
     <title>ChromaTune - Metronome</title>
 </head>
 
 <body>
+
     <div class="sidebar">
+
         <div id="sidebarTitleContainer">
             <span id="sidebarTitle">Let's Synchronize!</span>
         </div>
 
         <div class="profileContainer">
-            <div id="profileButton">
-
-            </div>
+            <div id="profileButton"></div>
 
             <div class="profileDetails">
-                <span id="user-name">
-                    Saatvik
-                </span>
-                <span id="user-email">
-                    example.com
-                </span>
+                <span id="user-name">Saatvik</span>
+                <span id="user-email">example.com</span>
             </div>
         </div>
 
         <div class="sidebarNavigators" id="tuner">
-
             <span class="tuning-fork icons"></span>
             <span class="sidebarNavigatorTitle">Tuner</span>
-
         </div>
 
         <div class="sidebarNavigators" id="metronome">
-
             <span class="metronome-button icons"></span>
             <span class="sidebarNavigatorTitle">Metronome</span>
-
         </div>
 
         <div class="sidebarNavigators" id="library">
-
             <span class="library-button icons"></span>
             <span class="sidebarNavigatorTitle">Chord Library</span>
-
         </div>
 
         <div class="sidebarNavigators" id="charts">
-
             <span class="chord-chart-button icons"></span>
             <span class="sidebarNavigatorTitle">Chord Charts</span>
-
         </div>
-
 
         <div class="authentication">
             <button id="authButton" class="logout">LOGOUT</button>
         </div>
+
     </div>
 
     <div class="workingwindow">
+
         <div class="widget-container">
+
             <header class="widget-header">
                 <span>(MIC.01)</span>
 
@@ -92,10 +80,10 @@
                 </div>
             </header>
 
-
-
             <div class="metronomeInterface">
+
                 <div class="bpmInputArea">
+
                     <div class="knob" role="img" aria-label="BPM knob">
 
                         <div class="bpmDisplay">
@@ -104,18 +92,30 @@
                         </div>
 
                     </div>
+
                 </div>
+
             </div>
 
             <div class="timeSignatureInterface">
 
                 <div class="timeSignatureSettings">
 
-                    <button class="beatsCountButton" id="beatsIncrease" aria-label="Increase beats">+</button>
+                    <button
+                        class="beatsCountButton"
+                        id="beatsIncrease"
+                        aria-label="Increase beats">
+                        +
+                    </button>
 
                     <span id="beatsDisplay">4</span>
 
-                    <button class="beatsCountButton" id="beatsDecrease" aria-label="Decrease beats">−</button>
+                    <button
+                        class="beatsCountButton"
+                        id="beatsDecrease"
+                        aria-label="Decrease beats">
+                        −
+                    </button>
 
                 </div>
 
@@ -126,17 +126,28 @@
             </div>
 
             <div class="player">
-                <button id="playBtn" data-play-icon="./graphics/play-button.png"
-                    data-pause-icon="./graphics/pause-button.png" data-click-sound="./clicks/click1.mp3">
 
-                    <img id="playIcon" src="./graphics/play-button.png">
+                <button
+                    id="playBtn"
+                    data-play-icon="./graphics/play-button.png"
+                    data-pause-icon="./graphics/pause-button.png"
+                    data-click-sound="./clicks/click1.mp3">
+
+                    <img
+                        id="playIcon"
+                        src="./graphics/play-button.png"
+                        alt="Play">
+
                 </button>
+
             </div>
 
         </div>
+
     </div>
 
     <script src="../global-js/sidebar.js" defer></script>
+
 </body>
 
 </html>
