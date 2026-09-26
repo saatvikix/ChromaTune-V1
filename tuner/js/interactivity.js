@@ -8,8 +8,6 @@
 // ============================================================
 
 // Main tuner UI
-const tuneScaleNote = document.querySelector('#currNote');
-
 // Main guitar SVG
 const headstock = document.querySelector('#headstock');
 
@@ -179,7 +177,7 @@ window.addEventListener(
 //
 // Example:
 //
-//     activateString(pegConfig.fifthPeg);
+//     activateString(tuning.fifthPeg, button);
 //
 // results in:
 //
@@ -247,7 +245,7 @@ function activateString(config, selectedButton) {
 
 
 // ============================================================
-// 8. NOTE LABEL INTERACTION
+// 7. NOTE LABEL INTERACTION
 // ============================================================
 //
 // Clicking the visible E/B/G/D/A label:
