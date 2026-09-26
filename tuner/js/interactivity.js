@@ -101,12 +101,7 @@ const pegConfig = {
 // ============================================================
 // 3. POSITION NOTE LABELS
 // ============================================================
-//
-// The HTML labels are positioned over the corresponding
-// physical tuning pegs.
-//
-// The SVG can scale, so we calculate the position dynamically.
-// ============================================================
+
 
 function positionPegButtons() {
 

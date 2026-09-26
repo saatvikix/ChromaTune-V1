@@ -1,75 +1,82 @@
-const createChartBtn = document.querySelector("#create-chart-btn");
-const chartSetupModal = document.querySelector("#chartSetupModal");
-const closeChartModalBtn = document.querySelector("#closeChartModalBtn");
+// Storage keys
 const ACTIVE_CHART_ID_KEY = "chromatuneActiveChartId";
 const CHART_MODE_KEY = "chromatuneChartMode";
+const CHARTS_KEY = "chromatuneCharts";
 
-function openChartModal() {
-  if (!chartSetupModal) {
-    return;
+// Helper: Generate unique ID
+function generateId() {
+  return (typeof crypto !== "undefined" && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `chart-${Date.now()}-${Math.random().toString(16).slice(2)}`;
+}
+
+// Helper: Toggle chartForm visibility
+function toggleFormVisibility(chartForm, isOpen) {
+  if (!chartForm) return;
+  chartForm.classList.toggle("open", isOpen);
+  chartForm.style.display = isOpen ? "flex" : "none";
+}
+
+// Query DOM elements
+const createChartBtn = document.querySelector("#create-chart-btn");
+const chartForm = document.querySelector("#chartForm");
+const formCloseButton = document.querySelector("#formCloseButton");
+
+// Initialize form
+toggleFormVisibility(chartForm, false);
+
+// chartForm event listeners
+createChartBtn?.addEventListener("click", () => {
+  toggleFormVisibility(chartForm, true)
+});
+
+formCloseButton?.addEventListener("click", () => {
+  toggleFormVisibility(chartForm, false)
+});
+
+// chartForm?.addEventListener("click", (event) => {
+//   if (event.target === chartForm) {
+//     toggleFormVisibility(chartForm, false);
+//   }
+// });
+
+// Helper: Read charts from localStorage
+function getSavedCharts() {
+  try {
+    const savedCharts = JSON.parse(localStorage.getItem(CHARTS_KEY) || "[]");
+    return Array.isArray(savedCharts) ? savedCharts : [];
+  } catch (error) {
+    console.error("Unable to read saved charts:", error);
+    return [];
   }
-
-  chartSetupModal.classList.add("open");
-  chartSetupModal.setAttribute("aria-hidden", "false");
-  chartSetupModal.style.display = "flex";
 }
 
-function closeChartModal() {
-  if (!chartSetupModal) {
-    return;
-  }
-
-  chartSetupModal.classList.remove("open");
-  chartSetupModal.setAttribute("aria-hidden", "true");
-  chartSetupModal.style.display = "none";
-}
-
-if (chartSetupModal) {
-  closeChartModal();
-}
-
-if (createChartBtn) {
-  createChartBtn.addEventListener("click", openChartModal);
-}
-
-if (closeChartModalBtn) {
-  closeChartModalBtn.addEventListener("click", closeChartModal);
-}
-
-if (chartSetupModal) {
-  chartSetupModal.addEventListener("click", (event) => {
-    if (event.target === chartSetupModal) {
-      closeChartModal();
-    }
-  });
-}
-
-export function setActiveChartId(chartId) {
-  localStorage.setItem(ACTIVE_CHART_ID_KEY, chartId);
-}
-
+// Navigate to chart editor
 export function openChartEditor(chartId, mode = "view") {
-  setActiveChartId(chartId);
+  localStorage.setItem(ACTIVE_CHART_ID_KEY, chartId);
   localStorage.setItem(CHART_MODE_KEY, mode);
   window.location.href = "./chart-editor.html";
 }
 
+// Delete chart from storage and refresh display
 function deleteChart(chartId) {
   const charts = getSavedCharts().filter((chart) => chart.id !== chartId);
-  localStorage.setItem("chromatuneCharts", JSON.stringify(charts));
+  localStorage.setItem(CHARTS_KEY, JSON.stringify(charts));
   renderCharts();
 }
 
+// Close all open chart menus
 function closeChartMenus() {
   document.querySelectorAll(".chart-menu-wrap.open").forEach((menu) => {
     menu.classList.remove("open");
   });
 }
 
+// Create a chart card element
 export function createCard(data) {
   const article = document.createElement("article");
   const chart = {
-    id: data.id || (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `chart-${Date.now()}-${Math.random().toString(16).slice(2)}`),
+    id: data.id || generateId(),
     songTitle: data.songTitle || "Untitled Project",
     bpm: data.bpm ?? 120,
     timeSignature: data.timeSignature || "4/4",
@@ -97,33 +104,30 @@ export function createCard(data) {
     </div>
   `;
 
+  // Open chart in view mode when clicked
   article.addEventListener("click", (event) => {
-    if (event.target.closest(".chart-menu-wrap")) {
-      return;
-    }
-
+    if (event.target.closest(".chart-menu-wrap")) return;
     closeChartMenus();
     openChartEditor(chart.id, "view");
   });
 
+  // Setup menu button
   const menuWrap = article.querySelector(".chart-menu-wrap");
   const menuButton = article.querySelector(".chart-menu");
   menuButton.addEventListener("click", (event) => {
     event.stopPropagation();
-    const isOpen = menuWrap.classList.toggle("open");
     closeChartMenus();
-    if (isOpen) {
-      menuWrap.classList.add("open");
-    }
-    menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuWrap.classList.add("open");
+    menuButton.setAttribute("aria-expanded", "true");
   });
 
-  menuWrap.querySelector('[data-action="edit"]').addEventListener("click", (event) => {
+  // Setup menu actions
+  article.querySelector('[data-action="edit"]').addEventListener("click", (event) => {
     event.stopPropagation();
     openChartEditor(chart.id, "edit");
   });
 
-  menuWrap.querySelector('[data-action="delete"]').addEventListener("click", (event) => {
+  article.querySelector('[data-action="delete"]').addEventListener("click", (event) => {
     event.stopPropagation();
     deleteChart(chart.id);
   });
@@ -131,22 +135,10 @@ export function createCard(data) {
   return article;
 }
 
-export function getSavedCharts() {
-  try {
-    const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "[]");
-    return Array.isArray(savedCharts) ? savedCharts : [];
-  } catch (error) {
-    console.error("Unable to read saved charts:", error);
-    return [];
-  }
-}
-
+// Render all saved charts to the page
 export function renderCharts() {
   const container = document.querySelector(".saved-charts-container");
-
-  if (!container) {
-    return;
-  }
+  if (!container) return;
 
   const charts = getSavedCharts();
   container.innerHTML = "";
@@ -165,12 +157,14 @@ export function renderCharts() {
   });
 }
 
+// Render charts when page loads
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", renderCharts);
 } else {
   renderCharts();
 }
 
+// Close menus when clicking outside
 document.addEventListener("click", (event) => {
   if (!event.target.closest(".chart-menu-wrap")) {
     closeChartMenus();

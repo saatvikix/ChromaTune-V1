@@ -83,17 +83,16 @@
         </div>
     </div>
 
-    <div class="chart-setup-page" id="chartSetupModal" aria-hidden="true">
-        <div class="chart-setup-modal">
-            <div class="chart-setup-module-tag">NEW-CHT // INIT</div>
+    <div class="formContainer" id="chartForm">
+        <div class="chartFormWidget">
+            <div class="chart-init-tag">NEW-CHT // INIT</div>
 
-            <div class="chart-setup-header">
+            <div class="chartFormHeader">
                 <div>
                     <h1>New Chart</h1>
-                    <!-- <p>Configure initial parameters for synchronization.</p> -->
                 </div>
 
-                <button class="chart-close-button" id="closeChartModalBtn" type="button" aria-label="Close modal">
+                <button class="chart-close-button" id="formCloseButton">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
@@ -105,15 +104,16 @@
                 </div>
 
                 <div class="chart-form-grid">
+
                     <div class="chart-field-group" id="bpmStepper">
                         <label>BPM</label>
                         <div class="chart-stepper bpm-input-container">
                             <input type="text" name="" id="" placeholder="Enter BPM" class="bpm-text-input" disabled>
-                            <button class="chart-stepper-btn" type="button" aria-label="Decrease BPM" id="decreaseBPM">
+                            <button class="chart-stepper-btn" id="decreaseBPM">
                                 <span class="material-symbols-outlined">remove</span>
                             </button>
                             <span class="bpm-value">120</span>
-                            <button class="chart-stepper-btn" type="button" aria-label="Increase BPM" id="increaseBPM">
+                            <button class="chart-stepper-btn" id="increaseBPM">
                                 <span class="material-symbols-outlined">add</span>
                             </button>
                         </div>
@@ -122,7 +122,7 @@
                     <div class="chart-field-group">
                         <label for="time-signature">Time Sig</label>
                         <div class="chart-select-wrap">
-                            <select id="time-signature" class="chart-select" aria-label="Time signature">
+                            <select id="time-signature" class="chart-select">
                                 <option value="4/4" selected>4/4</option>
                                 <option value="3/4">3/4</option>
                                 <option value="6/8">6/8</option>
@@ -136,7 +136,7 @@
                     <div class="chart-key-field">
                         <label for="chart-key-root">Key</label>
                         <div class="chart-select-wrap">
-                            <select id="chart-key-root" class="chart-select" aria-label="Select key root">
+                            <select id="chart-key-root" class="chart-select">
                                 <option value="C">C</option>
                                 <option value="C#">C#</option>
                                 <option value="D">D</option>
@@ -157,7 +157,7 @@
                     <div class="chart-key-field">
                         <label for="chart-key-quality">Quality</label>
                         <div class="chart-select-wrap">
-                            <select id="chart-key-quality" class="chart-select" aria-label="Select key quality">
+                            <select id="chart-key-quality" class="chart-select">
                                 <option value="major" selected>Major</option>
                                 <option value="minor">Minor</option>
                                 <option value="dorian">Dorian</option>
@@ -170,7 +170,7 @@
             </div>
 
             <div class="chart-setup-footer">
-                <button class="chart-submit-button" type="button">
+                <button class="chart-submit-button">
                     <span class="material-symbols-outlined">add_circle</span>
                     Create Chart
                 </button>
