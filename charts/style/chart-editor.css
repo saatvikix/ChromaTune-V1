@@ -27,7 +27,7 @@
 }
 
 .view-only #addSectionButton,
-.view-only .addMeasure {
+.view-only .add-measure {
     display: none;
 }
 
@@ -80,7 +80,7 @@
    SECTIONS
    ========================= */
 
-section.songSection {
+section.song-section {
     border: 1px solid var(--card-border);
     background: rgba(10, 10, 10, 0.42);
     border-radius: 20px;
@@ -91,20 +91,21 @@ section.songSection {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-.sectionHeader {
+.section-header {
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     gap: 12px;
 }
 
-.sectionTitle {
+.section-title {
     font-size: 1.1rem;
     letter-spacing: 0.08em;
     font-family: var(--font-dot);
 }
 
-.quantization {
+.section-quantization {
     text-transform: capitalize;
     color: var(--text-dim);
     font-size: 0.75rem;
@@ -117,7 +118,7 @@ section.songSection {
    CHORD CELLS
    ========================= */
 
-.chordCell {
+.chord-cell {
     border: 1px solid rgba(255, 255, 255, 0.12);
     background: rgba(255, 255, 255, 0.02);
     border-radius: 10px;
@@ -137,7 +138,7 @@ section.songSection {
     border-color: rgba(255, 255, 255, 0.12);
 }
 
-.chordLabel {
+.chord-label {
     font-size: 1.2rem;
     letter-spacing: 2px;
     display: block;
@@ -145,13 +146,13 @@ section.songSection {
     font-family: var(--font-ui);
 }
 
-.chordCell,
-.sectionTitle {
+.chord-cell,
+.section-title {
     cursor: text;
 }
 
-.view-only .chordCell,
-.view-only .sectionTitle {
+.view-only .chord-cell,
+.view-only .section-title {
     cursor: default;
 }
 
@@ -167,13 +168,13 @@ section.songSection {
     outline: none;
 }
 
-.sectionTitle .inline-editor {
+.section-title .inline-editor {
     font-size: inherit;
     font-weight: inherit;
     text-transform: inherit;
 }
 
-.chordLabel .inline-editor {
+.chord-label .inline-editor {
     display: block;
     width: 100%;
     max-width: 100%;
@@ -182,7 +183,7 @@ section.songSection {
     box-sizing: border-box;
 }
 
-.gridNumber {
+.cell-number {
     color: var(--text-dim);
     font-weight: 800;
     display: block;
@@ -214,7 +215,7 @@ section.songSection {
     gap: 10px;
 }
 
-.sixteenthNoteGrid .chordLabel {
+.sixteenthNoteGrid .chord-label {
     font-size: 0.98rem;
 }
 
@@ -223,14 +224,14 @@ section.songSection {
    ADD MEASURE
    ========================= */
 
-section.addMeasure {
+section.add-measure {
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.addMeasure > button {
+.add-measure > button {
     border: 1px solid var(--card-border);
     background: rgba(255, 255, 255, 0.02);
     color: var(--text-main);
@@ -245,7 +246,7 @@ section.addMeasure {
         border-color 180ms ease;
 }
 
-.addMeasure > button:hover {
+.add-measure > button:hover {
     cursor: pointer;
     transform: translateY(-1px);
     border-color: rgba(255, 255, 255, 0.2);
@@ -463,7 +464,7 @@ section.addMeasure {
 
 @media (max-width: 900px) {
 
-    .sectionHeader {
+    .section-header {
         flex-direction: column;
         align-items: flex-start;
     }
@@ -480,7 +481,7 @@ section.addMeasure {
     cursor: pointer;
 }
 
-.deleteMeasureBtn {
+.delete-measure-button {
     display: none;
     pointer-events: none;
     width: 35px;
@@ -504,20 +505,20 @@ section.addMeasure {
     text-align: center;
 }
 
-.measure.delete-ready .deleteMeasureBtn {
+.measure.delete-ready .delete-measure-button {
     display: flex;
     align-items: center;
     justify-content: center;
     pointer-events: auto;
 }
 
-.view-only .deleteMeasureBtn {
+.view-only .delete-measure-button {
     display: none;
     pointer-events: none;
 }
 
-.view-only .measure.delete-ready .deleteMeasureBtn,
-.view-only .songSection.delete-section-ready .deleteSectionBtn {
+.view-only .measure.delete-ready .delete-measure-button,
+.view-only .song-section.delete-section-ready .delete-section-button {
     display: none;
     pointer-events: none;
 }
@@ -527,7 +528,7 @@ section.addMeasure {
    SECTION DELETE
    ========================= */
 
-.deleteSectionBtn {
+.delete-section-button {
     display: block;
     flex: 0 0 auto;
     width: 28px;
@@ -549,20 +550,15 @@ section.addMeasure {
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-.sectionHeader {
-    position: relative;
-    justify-content: flex-start;
-}
-
-.sectionHeader .quantization {
+.section-header .section-quantization {
     margin-left: auto;
 }
 
-.songSection.delete-section-ready .deleteSectionBtn {
+.song-section.delete-section-ready .delete-section-button {
     display: block;
 }
 
-.view-only .deleteSectionBtn {
+.view-only .delete-section-button {
     display: none;
     pointer-events: none;
 }
