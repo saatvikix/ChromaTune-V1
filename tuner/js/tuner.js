@@ -48,141 +48,95 @@ const tuning = {
     }
 };
 
-// Tuner state
+
+// Stores the string currently being tuned.
 let selectedNote = null;
 let expectedPitch = null;
 
+
+// Web Audio API objects.
 let audioContext = null;
 let analyzer = null;
 let microphoneStream = null;
+
+
+// A string is considered in tune when it is within
+// this many cents of the target frequency.
+const TUNING_THRESHOLD = 10;
+
+
+// Used to make the meter movement less jumpy.
+const SMOOTHING_FACTOR = 0.15;
+
+let smoothedCents = 0;
+let hasPitch = false;
+
 
 function selectString(note, frequency) {
     selectedNote = note;
     expectedPitch = frequency;
 
+    // Start the meter from the centre whenever
+    // the user selects a different string.
     smoothedCents = 0;
     hasPitch = false;
 
-    if (meterNeedle) {
-        meterNeedle.style.left = "50%";
-        meterNeedle.classList.remove("in-tune");
-    }
-
-    if (currNote) {
-        currNote.textContent = note;
-    }
-
-    if (centsOffset) {
-        centsOffset.textContent = "+00";
-    }
-
+    // Ask for microphone access only once.
     if (!audioContext) {
         startPitchDetection();
     }
 }
 
 
-// Tuning threshold
-const TUNING_THRESHOLD = 10;
-
-
-// Pitch smoothing
-let smoothedCents = 0;
-let hasPitch = false;
-
-// How strongly the new pitch affects the needle
-//
-// Smaller number = smoother / slower
-// Larger number  = faster / more responsive
-const SMOOTHING_FACTOR = 0.15;
-
-
-// DOM elements
-const statusText = document.querySelector("#statusText");
-const statusDot = document.querySelector("#statusDot");
-
-// METER
-const meterNeedle = document.querySelector("#meterNeedle");
-const centsOffset = document.querySelector("#centsOffset");
-const currNote = document.querySelector("#currNote");
-
-
-// Start microphone and audio engine
 async function startPitchDetection() {
-
     try {
-
-                microphoneStream =
+        // Get live audio from the microphone.
+        microphoneStream =
             await navigator.mediaDevices.getUserMedia({
                 audio: true
             });
 
+        audioContext = new AudioContext();
 
-                audioContext =
-            new AudioContext();
-
-
-                const source =
+        // Convert the microphone stream into an
+        // audio source that Web Audio can process.
+        const source =
             audioContext.createMediaStreamSource(
                 microphoneStream
             );
 
-
-                analyzer =
+        analyzer =
             audioContext.createAnalyser();
 
+        // Number of samples we read from the microphone
+        // for each pitch detection step.
+        analyzer.fftSize = 2048;
 
-                analyzer.fftSize = 2048;
+        source.connect(analyzer);
 
-
-                source.connect(analyzer);
-
-
-                if (statusText) {
-            statusText.textContent = "LISTENING";
-        }
-
-        if (statusDot) {
-            statusDot.classList.add("listening");
-        }
-
-
-        console.log("Mic access granted");
-
-
-                updatePitch(
+        // Start continuously checking the microphone.
+        updatePitch(
             analyzer,
             audioContext.sampleRate
         );
 
-
     } catch (error) {
-
-        if (statusText) {
-            statusText.textContent = "ACCESS DENIED";
-        }
-
         console.error(
             "Audio initialization error:",
             error
         );
 
+        updateTunerStatus("ACCESS DENIED");
     }
-
 }
 
 
-// Pitch detection
-
 function autoCorrelate(buffer, sampleRate) {
-
     const size = buffer.length;
 
 
-    // ==================================================
-    // 1. RMS / VOLUME CHECK
-    // ==================================================
-
+    // Check whether there is enough sound to
+    // meaningfully detect a pitch.
     let sum = 0;
 
     for (let i = 0; i < size; i++) {
@@ -199,10 +153,8 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
 
-    // ==================================================
-    // 2. REMOVE DC OFFSET
-    // ==================================================
-
+    // Remove DC offset so the waveform is centred
+    // around zero before calculating correlation.
     let mean = 0;
 
     for (let i = 0; i < size; i++) {
@@ -210,7 +162,6 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
     mean /= size;
-
 
     const centeredBuffer =
         new Float32Array(size);
@@ -221,13 +172,17 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
 
-    // ==================================================
-    // 3. GUITAR FREQUENCY RANGE
-    // ==================================================
-
+    // We only care about frequencies that are
+    // reasonable for a guitar.
     const MIN_FREQUENCY = 70;
     const MAX_FREQUENCY = 400;
 
+
+    // Frequency and period are related by:
+    //
+    // frequency = sampleRate / period
+    //
+    // Here, lag represents the period in samples.
     const minLag =
         Math.floor(sampleRate / MAX_FREQUENCY);
 
@@ -235,45 +190,33 @@ function autoCorrelate(buffer, sampleRate) {
         Math.ceil(sampleRate / MIN_FREQUENCY);
 
 
-    // ==================================================
-    // 4. AUTOCORRELATION
-    // ==================================================
-
-    const correlations = new Float32Array(
-        maxLag + 2
-    );
-
+    // Compare the waveform with shifted versions
+    // of itself. A strong correlation means the
+    // waveform is repeating at that lag.
+    const correlations =
+        new Float32Array(maxLag + 2);
 
     for (
         let lag = minLag;
         lag <= maxLag;
         lag++
     ) {
-
         let correlation = 0;
         let energyA = 0;
         let energyB = 0;
-
 
         for (
             let i = 0;
             i < size - lag;
             i++
         ) {
-
-            const a =
-                centeredBuffer[i];
-
-            const b =
-                centeredBuffer[i + lag];
+            const a = centeredBuffer[i];
+            const b = centeredBuffer[i + lag];
 
             correlation += a * b;
-
             energyA += a * a;
             energyB += b * b;
-
         }
-
 
         if (
             energyA === 0 ||
@@ -283,7 +226,8 @@ function autoCorrelate(buffer, sampleRate) {
             continue;
         }
 
-
+        // Normalise the correlation so that
+        // different signal strengths can be compared.
         correlations[lag] =
             correlation /
             Math.sqrt(
@@ -292,10 +236,8 @@ function autoCorrelate(buffer, sampleRate) {
     }
 
 
-    // ==================================================
-    // 5. FIND LOCAL PEAKS
-    // ==================================================
-
+    // Find local peaks in the correlation data.
+    // These are possible repeating periods.
     const peaks = [];
 
     for (
@@ -303,7 +245,6 @@ function autoCorrelate(buffer, sampleRate) {
         lag < maxLag - 1;
         lag++
     ) {
-
         const previous =
             correlations[lag - 1];
 
@@ -313,102 +254,61 @@ function autoCorrelate(buffer, sampleRate) {
         const next =
             correlations[lag + 1];
 
-
         if (
             current > previous &&
             current >= next
         ) {
-
             peaks.push({
                 lag,
                 correlation: current
             });
-
         }
-
     }
 
-
     if (peaks.length === 0) {
-
         return {
             frequency: -1,
             clarity: 0
         };
-
     }
 
 
-    // ==================================================
-    // 6. FIND THE STRONGEST CORRELATION
-    // ==================================================
-
-    let strongestPeak =
-        peaks[0];
+    // Find the strongest correlation peak.
+    let strongestPeak = peaks[0];
 
     for (const peak of peaks) {
-
         if (
             peak.correlation >
             strongestPeak.correlation
         ) {
-
-            strongestPeak =
-                peak;
-
+            strongestPeak = peak;
         }
-
     }
 
 
-    // ==================================================
-    // 7. FUNDAMENTAL PEAK SELECTION
-    // ==================================================
-
-    /*
-        Guitar waveforms can produce strong
-        subharmonic peaks.
-
-        Therefore, don't automatically trust
-        the strongest peak.
-
-        Look for an earlier peak that is
-        sufficiently strong compared to the
-        strongest one.
-    */
-
+    // The strongest peak is not always the
+    // fundamental frequency. Look for an earlier
+    // peak that is almost as strong.
     const strengthThreshold =
         strongestPeak.correlation * 0.85;
 
-
-    let selectedPeak =
-        strongestPeak;
-
+    let selectedPeak = strongestPeak;
 
     for (const peak of peaks) {
-
         if (
             peak.lag < strongestPeak.lag &&
             peak.correlation >= strengthThreshold
         ) {
-
-            selectedPeak =
-                peak;
-
+            selectedPeak = peak;
             break;
-
         }
-
     }
 
 
-    // ==================================================
-    // 8. PARABOLIC INTERPOLATION
-    // ==================================================
-
-    const lag =
-        selectedPeak.lag;
-
+    // The correlation peak may fall between two
+    // integer sample positions. Interpolation gives
+    // us a more accurate estimate of the lag.
+    const lag = selectedPeak.lag;
 
     const left =
         correlations[lag - 1];
@@ -419,52 +319,36 @@ function autoCorrelate(buffer, sampleRate) {
     const right =
         correlations[lag + 1];
 
-
-    let refinedLag =
-        lag;
-
+    let refinedLag = lag;
 
     const denominator =
         left -
         2 * center +
         right;
 
-
     if (
         Math.abs(denominator) >
         0.000001
     ) {
-
         const offset =
             0.5 *
             (left - right) /
             denominator;
 
-
-        if (
-            Math.abs(offset) <= 1
-        ) {
-
+        if (Math.abs(offset) <= 1) {
             refinedLag =
                 lag + offset;
-
         }
-
     }
 
 
-    // ==================================================
-    // 9. PERIOD → FREQUENCY
-    // ==================================================
-
+    // Convert the detected period into frequency.
     const frequency =
         sampleRate / refinedLag;
 
 
-    // ==================================================
-    // 10. CLARITY
-    // ==================================================
-
+    // Convert the correlation strength into a
+    // simple 0-100 clarity value.
     const clarity =
         Math.max(
             0,
@@ -475,87 +359,57 @@ function autoCorrelate(buffer, sampleRate) {
         );
 
 
-    // ==================================================
-    // 11. FINAL VALIDATION
-    // ==================================================
-
+    // Reject anything outside our expected
+    // guitar frequency range.
     if (
         frequency < MIN_FREQUENCY ||
         frequency > MAX_FREQUENCY ||
         !isFinite(frequency)
     ) {
-
         return {
             frequency: -1,
             clarity: 0
         };
-
     }
-
 
     return {
         frequency,
         clarity
     };
-
 }
 
-// Frequency → cents
 
 function getCentsDifference(
     actualFrequency,
     expectedFrequency
 ) {
-
-    /*
-        cents =
-        1200 × log2(actual / expected)
-
-        Negative = FLAT
-        Zero     = PERFECT
-        Positive = SHARP
-    */
-
+    // One octave contains 1200 cents.
+    // 0 cents means the two frequencies match.
     return 1200 *
         Math.log2(
             actualFrequency /
             expectedFrequency
         );
-
 }
 
 
-// Update tuner meter
-
-function updateMeter(cents) {
-
-    // --------------------------------------------------
-    // VISUAL RANGE
-    // --------------------------------------------------
-
-    // The meter represents -50 to +50 cents
+function updateTunerDisplay(cents) {
     const MAX_CENTS = 50;
 
-
-        const limitedCents =
+    // The meter only displays a range of -50 to +50.
+    const limitedCents =
         Math.max(
             -MAX_CENTS,
             Math.min(MAX_CENTS, cents)
         );
 
 
-    // --------------------------------------------------
-    // SMOOTH THE NEEDLE
-    // --------------------------------------------------
-
+    // Smooth the value so the meter does not
+    // jump around with every microphone sample.
     if (!hasPitch) {
-
         smoothedCents = limitedCents;
         hasPitch = true;
-
-    }
-    else {
-
+    } else {
         smoothedCents =
             smoothedCents +
             (
@@ -563,118 +417,59 @@ function updateMeter(cents) {
                 smoothedCents
             ) *
             SMOOTHING_FACTOR;
-
     }
 
-
-    // --------------------------------------------------
-    // CONVERT CENTS → METER POSITION
-    // --------------------------------------------------
-
-    /*
-        -50 cents → 0%
-          0 cents → 50%
-        +50 cents → 100%
-    */
-
-    const position =
-        50 +
-        (
-            smoothedCents /
-            MAX_CENTS
-        ) *
-        50;
-
-
-        if (meterNeedle) {
-
-        meterNeedle.style.left =
-            `${position}%`;
-
-    }
-
-
-    // --------------------------------------------------
-    // DISPLAY CENTS
-    // --------------------------------------------------
 
     const roundedCents =
         Math.round(smoothedCents);
 
-
-    if (centsOffset) {
-
-        if (roundedCents > 0) {
-
-            centsOffset.textContent =
-                `+${String(roundedCents).padStart(2, "0")}`;
-
-        }
-        else if (roundedCents < 0) {
-
-            centsOffset.textContent =
-                `${roundedCents}`;
-
-        }
-        else {
-
-            centsOffset.textContent =
-                "+00";
-
-        }
-
-    }
-
-
-    // --------------------------------------------------
-    // IN-TUNE STATE
-    // --------------------------------------------------
+    let status;
 
     if (
         Math.abs(smoothedCents) <=
         TUNING_THRESHOLD
     ) {
-
-        meterNeedle.classList.add("in-tune");
-
-    }
-    else {
-
-        meterNeedle.classList.remove("in-tune");
-
+        status = "TUNED";
+    } else if (smoothedCents < 0) {
+        status = "FLAT";
+    } else {
+        status = "SHARP";
     }
 
+
+    // interactivity.js handles the actual page elements.
+    updateTunerUI(
+        smoothedCents,
+        roundedCents,
+        status
+    );
 }
 
-
-// Continuous tuner loop
 
 function updatePitch(
     analyzer,
     sampleRate
 ) {
-
-        const buffer =
+    const buffer =
         new Float32Array(
             analyzer.fftSize
         );
 
-
-        analyzer.getFloatTimeDomainData(
+    // Copy the latest microphone samples
+    // into our buffer.
+    analyzer.getFloatTimeDomainData(
         buffer
     );
 
 
-        const result =
+    // Try to find the fundamental frequency
+    // of the current microphone input.
+    const result =
         autoCorrelate(
             buffer,
             sampleRate
         );
 
-
-    // --------------------------------------------------
-    // PROCESS DETECTED PITCH
-    // --------------------------------------------------
 
     if (
         selectedNote !== null &&
@@ -682,52 +477,19 @@ function updatePitch(
         result.frequency !== -1 &&
         isFinite(result.frequency)
     ) {
-
         const actualFrequency =
             result.frequency;
 
-
-                const cents =
+        const cents =
             getCentsDifference(
                 actualFrequency,
                 expectedPitch
             );
 
-
-                updateMeter(cents);
-
-
-        // --------------------------------------------------
-        // DETERMINE TUNING STATUS
-        // --------------------------------------------------
-
-        let tuningStatus;
+        updateTunerDisplay(cents);
 
 
-        if (
-            Math.abs(smoothedCents) <=
-            TUNING_THRESHOLD
-        ) {
-
-            tuningStatus = "TUNED";
-
-        }
-        else if (smoothedCents < 0) {
-
-            tuningStatus = "FLAT";
-
-        }
-        else {
-
-            tuningStatus = "SHARP";
-
-        }
-
-
-        // --------------------------------------------------
-        // CONSOLE OUTPUT
-        // --------------------------------------------------
-
+        // Useful while developing/testing the tuner.
         console.log(
             "NOTE:",
             selectedNote,
@@ -742,23 +504,31 @@ function updatePitch(
             "| SMOOTHED:",
             smoothedCents.toFixed(2),
             "| STATUS:",
-            tuningStatus
+            Math.abs(smoothedCents) <= TUNING_THRESHOLD
+                ? "TUNED"
+                : smoothedCents < 0
+                    ? "FLAT"
+                    : "SHARP"
         );
-
     }
 
 
-    // --------------------------------------------------
-    // CONTINUE LOOP
-    // --------------------------------------------------
-
+    // Run the pitch detector again on the next
+    // browser animation frame.
     requestAnimationFrame(() => {
-
         updatePitch(
             analyzer,
             sampleRate
         );
-
     });
+}
 
+
+function updateTunerStatus(status) {
+    const statusText =
+        document.querySelector("#statusText");
+
+    if (statusText) {
+        statusText.textContent = status;
+    }
 }
