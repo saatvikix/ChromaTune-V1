@@ -523,12 +523,3 @@ function updatePitch(
     });
 }
 
-
-function updateTunerStatus(status) {
-    const statusText =
-        document.querySelector("#statusText");
-
-    if (statusText) {
-        statusText.textContent = status;
-    }
-}

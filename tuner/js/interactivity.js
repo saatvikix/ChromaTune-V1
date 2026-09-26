@@ -165,6 +165,15 @@ function activateString(
 }
 
 
+function updateTunerStatus(status) {
+    const statusText =
+        document.querySelector("#statusText");
+
+    if (statusText) {
+        statusText.textContent = status;
+    }
+}
+
 function updateTunerUI(
     cents,
     roundedCents,
