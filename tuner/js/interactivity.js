@@ -1,44 +1,9 @@
-// ============================================================
-// CHROMATUNE - TUNER PAGE
-// ============================================================
-
-
-// ============================================================
-// 1. DOM ELEMENTS
-// ============================================================
-
-// Main tuner UI
-// Main guitar SVG
+// DOM elements
 const headstock = document.querySelector('#headstock');
 
-// Six clickable note labels
 const pegButtons = document.querySelectorAll(".pegBtn");
 
-// ============================================================
-// 2. GUITAR STRING CONFIGURATION
-// ============================================================
-//
-// Standard guitar tuning:
-//
-//     1st string → E4  (high E)
-//     2nd string → B3
-//     3rd string → G3
-//     4th string → D3
-//     5th string → A2
-//     6th string → E2  (low E)
-//
-// Physical layout:
-//
-//             LEFT          RIGHT
-//
-//              D3            G3
-//              A2            B3
-//              E2            E4
-//
-// ============================================================
-// ============================================================
-// 3. POSITION NOTE LABELS
-// ============================================================
+// Position note labels
 
 
 function positionPegButtons() {
@@ -49,8 +14,7 @@ function positionPegButtons() {
 
     pegButtons.forEach(button => {
 
-        // Find the configuration for this label.
-        const config = tuning[button.id];
+                const config = tuning[button.id];
 
 
         if (!config) {
@@ -58,8 +22,7 @@ function positionPegButtons() {
         }
 
 
-        // Find the corresponding physical peg.
-        const peg =
+                const peg =
             headstock.querySelector(
                 `#${config.peg} use`
             );
@@ -70,14 +33,11 @@ function positionPegButtons() {
         }
 
 
-        // Get the peg's current screen position.
-        const pegRect =
+                const pegRect =
             peg.getBoundingClientRect();
 
 
-        // Position the interaction area at the centre
-        // of the physical peg.
-        button.style.left =
+                button.style.left =
             `${pegRect.left + pegRect.width / 2 - containerRect.left}px`;
 
         button.style.top =
@@ -88,9 +48,7 @@ function positionPegButtons() {
 }
 
 
-// ============================================================
-// 4. LOAD THE HEADSTOCK SVG
-// ============================================================
+// Load headstock SVG
 
 fetch("./graphics/headstock.svg")
 
@@ -108,8 +66,7 @@ fetch("./graphics/headstock.svg")
 
     .then(svgText => {
 
-        // Parse the external SVG.
-        const parser = new DOMParser();
+                const parser = new DOMParser();
 
         const svgDocument =
             parser.parseFromString(
@@ -118,20 +75,17 @@ fetch("./graphics/headstock.svg")
             );
 
 
-        // Get the root <svg>.
-        const loadedSvg =
+                const loadedSvg =
             svgDocument.documentElement;
 
 
-        // Preserve the original coordinate system.
-        headstock.setAttribute(
+                headstock.setAttribute(
             "viewBox",
             loadedSvg.getAttribute("viewBox")
         );
 
 
-        // Preserve aspect ratio.
-        headstock.setAttribute(
+                headstock.setAttribute(
             "preserveAspectRatio",
             loadedSvg.getAttribute(
                 "preserveAspectRatio"
@@ -139,13 +93,11 @@ fetch("./graphics/headstock.svg")
         );
 
 
-        // Insert the SVG artwork.
-        headstock.innerHTML =
+                headstock.innerHTML =
             loadedSvg.innerHTML;
 
 
-        // SVG is ready.
-        positionPegButtons();
+                positionPegButtons();
 
     })
 
@@ -159,9 +111,7 @@ fetch("./graphics/headstock.svg")
     });
 
 
-// ============================================================
-// 5. KEEP LABELS ALIGNED
-// ============================================================
+// Keep labels aligned
 
 window.addEventListener(
     'resize',
@@ -169,9 +119,7 @@ window.addEventListener(
 );
 
 
-// ============================================================
-// 6. ACTIVATE A STRING
-// ============================================================
+// Activate selected string
 //
 // This function handles the complete selected state.
 //
@@ -190,13 +138,11 @@ window.addEventListener(
 
 function activateString(config, selectedButton) {
 
-    // Remove active state from all note labels.
-    pegButtons.forEach(button => {
+        pegButtons.forEach(button => {
         button.classList.remove('active');
     });
 
-    // Remove active state from all SVG elements.
-    headstock
+        headstock
         .querySelectorAll('.active')
         .forEach(element => {
             element.classList.remove('active');
@@ -221,8 +167,7 @@ function activateString(config, selectedButton) {
         peg?.querySelector('.peg-dots');
 
 
-    // Activate clicked button
-    if (selectedButton) {
+        if (selectedButton) {
         selectedButton.classList.add('active');
     }
 
@@ -244,9 +189,7 @@ function activateString(config, selectedButton) {
 }
 
 
-// ============================================================
-// 7. NOTE LABEL INTERACTION
-// ============================================================
+// Note label interaction
 //
 // Clicking the visible E/B/G/D/A label:
 //
