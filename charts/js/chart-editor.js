@@ -2,49 +2,59 @@
 // Get the HTML elements
 // =========================
 
-const sectionsCanvas = document.querySelector("#sectionsCanvas");
+const chartCanvas = document.querySelector("#chartCanvas");
 const addSectionButton = document.querySelector("#addSectionButton");
 
-const sectionModal = document.querySelector("#sectionModal");
-const closeSectionModalButton = document.querySelector("#closeSectionModal");
+const sectionDialog = document.querySelector("#sectionDialog");
+const closeSectionButton = document.querySelector("#closeSectionButton");
 
 const sectionForm = document.querySelector("#sectionForm");
-const sectionTitleInput = document.querySelector("#sectionTitleInput");
-const sectionQuantizationInput = document.querySelector("#sectionQuantization");
+const sectionTitle = document.querySelector("#sectionTitle");
+const sectionQuantization = document.querySelector("#sectionQuantization");
 
 const saveButton = document.querySelector("#saveButton");
 
 const songTitle = document.querySelector("#songTitle");
-const bpm = document.querySelector("#bpm");
-const key = document.querySelector("#key");
-const timeSignature = document.querySelector("#timeSignature");
+const songBpm = document.querySelector("#songBpm");
+const songKey = document.querySelector("#songKey");
+const songTimeSignature = document.querySelector("#songTimeSignature");
 
 
 // =========================
 // Find the current chart
 // =========================
 
-let chartMode = localStorage.getItem("chromatuneChartMode") || "edit";
+let chartMode =
+    localStorage.getItem("chromatuneChartMode") || "edit";
 
 if (chartMode === "view") {
     document.body.classList.add("view-only");
 }
 
+
 function getCharts() {
+
     try {
+
         const charts = JSON.parse(
             localStorage.getItem("chromatuneCharts") || "[]"
         );
 
         return Array.isArray(charts) ? charts : [];
+
     } catch (error) {
+
         console.error("Unable to read charts:", error);
+
         return [];
     }
 }
 
+
 function getCurrentChart() {
-    const chartId = localStorage.getItem("chromatuneActiveChartId");
+
+    const chartId =
+        localStorage.getItem("chromatuneActiveChartId");
 
     const charts = getCharts();
 
@@ -57,30 +67,50 @@ function getCurrentChart() {
 // =========================
 
 function openSectionForm() {
-    sectionModal.classList.add("open");
-    sectionModal.setAttribute("aria-hidden", "false");
 
-    sectionTitleInput.focus();
+    sectionDialog.classList.add("open");
+
+    sectionDialog.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    sectionTitle.focus();
 }
+
 
 function closeSectionForm() {
-    sectionModal.classList.remove("open");
-    sectionModal.setAttribute("aria-hidden", "true");
+
+    sectionDialog.classList.remove("open");
+
+    sectionDialog.setAttribute(
+        "aria-hidden",
+        "true"
+    );
 
     sectionForm.reset();
-    sectionQuantizationInput.value = "1/4";
+
+    sectionQuantization.value = "1/4";
 }
 
+
 addSectionButton.addEventListener("click", () => {
+
     if (chartMode !== "view") {
         openSectionForm();
     }
 });
 
-closeSectionModalButton.addEventListener("click", closeSectionForm);
 
-sectionModal.addEventListener("click", (event) => {
-    if (event.target === sectionModal) {
+closeSectionButton.addEventListener(
+    "click",
+    closeSectionForm
+);
+
+
+sectionDialog.addEventListener("click", (event) => {
+
+    if (event.target === sectionDialog) {
         closeSectionForm();
     }
 });
@@ -93,18 +123,22 @@ sectionModal.addEventListener("click", (event) => {
 function getQuantizationInfo(value) {
 
     if (value === "1/8") {
+
         return {
             cells: 8,
             gridClass: "eighthNoteGrid"
         };
     }
 
+
     if (value === "1/16") {
+
         return {
             cells: 16,
             gridClass: "sixteenthNoteGrid"
         };
     }
+
 
     return {
         cells: 4,
@@ -120,19 +154,33 @@ function getQuantizationInfo(value) {
 function createChordCell(number, chord = "") {
 
     const cell = document.createElement("div");
+
     cell.classList.add("chordCell");
 
     cell.dataset.chord = chord;
 
-    const numberLabel = document.createElement("span");
+
+    const numberLabel =
+        document.createElement("span");
+
     numberLabel.classList.add("gridNumber");
+
     numberLabel.textContent = number;
 
-    const chordLabel = document.createElement("span");
+
+    const chordLabel =
+        document.createElement("span");
+
     chordLabel.classList.add("chordLabel");
+
     chordLabel.textContent = chord;
 
-    cell.append(numberLabel, chordLabel);
+
+    cell.append(
+        numberLabel,
+        chordLabel
+    );
+
 
     return cell;
 }
@@ -142,16 +190,29 @@ function createChordCell(number, chord = "") {
 // Create a measure
 // =========================
 
-function createMeasure(quantization, chords = []) {
+function createMeasure(
+    quantization,
+    chords = []
+) {
 
-    const info = getQuantizationInfo(quantization);
+    const info =
+        getQuantizationInfo(quantization);
 
-    const measure = document.createElement("div");
-    measure.classList.add("measure", info.gridClass);
+
+    const measure =
+        document.createElement("div");
+
+    measure.classList.add(
+        "measure",
+        info.gridClass
+    );
+
 
     for (let i = 1; i <= info.cells; i++) {
 
-        const chord = chords[i - 1] || "";
+        const chord =
+            chords[i - 1] || "";
+
 
         measure.appendChild(
             createChordCell(i, chord)
@@ -159,33 +220,57 @@ function createMeasure(quantization, chords = []) {
     }
 
 
-    // Delete button
+    const deleteButton =
+        document.createElement("div");
 
-    const deleteButton = document.createElement("div");
+    deleteButton.classList.add(
+        "deleteMeasureBtn"
+    );
 
-    deleteButton.classList.add("deleteMeasureBtn");
     deleteButton.textContent = "X";
-    deleteButton.setAttribute("aria-hidden", "true");
+
+    deleteButton.setAttribute(
+        "aria-hidden",
+        "true"
+    );
+
 
     measure.appendChild(deleteButton);
 
 
     if (chartMode !== "view") {
 
-        measure.addEventListener("pointerenter", () => {
-            measure.classList.add("delete-ready");
-        });
+        measure.addEventListener(
+            "pointerenter",
+            () => {
+                measure.classList.add(
+                    "delete-ready"
+                );
+            }
+        );
 
-        measure.addEventListener("pointerleave", () => {
-            measure.classList.remove("delete-ready");
-        });
 
-        deleteButton.addEventListener("click", (event) => {
-            event.stopPropagation();
+        measure.addEventListener(
+            "pointerleave",
+            () => {
+                measure.classList.remove(
+                    "delete-ready"
+                );
+            }
+        );
 
-            measure.remove();
-        });
+
+        deleteButton.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                measure.remove();
+            }
+        );
     }
+
 
     return measure;
 }
@@ -195,40 +280,72 @@ function createMeasure(quantization, chords = []) {
 // Create a section
 // =========================
 
-function createSection(title, quantization, chords = []) {
+function createSection(
+    title,
+    quantization,
+    chords = []
+) {
 
-    const section = document.createElement("section");
+    const section =
+        document.createElement("section");
 
-    section.classList.add("songSection");
 
-    section.dataset.quantization = quantization;
+    section.classList.add(
+        "songSection"
+    );
+
+
+    section.dataset.quantization =
+        quantization;
 
 
     // Section header
 
-    const header = document.createElement("div");
+    const header =
+        document.createElement("div");
 
-    header.classList.add("sectionHeader");
+    header.classList.add(
+        "sectionHeader"
+    );
 
 
-    const deleteButton = document.createElement("button");
+    const deleteButton =
+        document.createElement("button");
 
-    deleteButton.classList.add("deleteSectionBtn");
+    deleteButton.classList.add(
+        "deleteSectionBtn"
+    );
+
     deleteButton.type = "button";
+
     deleteButton.textContent = "X";
-    deleteButton.setAttribute("aria-label", "Delete section");
+
+    deleteButton.setAttribute(
+        "aria-label",
+        "Delete section"
+    );
 
 
-    const titleElement = document.createElement("h4");
+    const titleElement =
+        document.createElement("h4");
 
-    titleElement.classList.add("sectionTitle");
-    titleElement.textContent = title || "New Section";
+    titleElement.classList.add(
+        "sectionTitle"
+    );
+
+    titleElement.textContent =
+        title || "New Section";
 
 
-    const quantizationElement = document.createElement("span");
+    const quantizationElement =
+        document.createElement("span");
 
-    quantizationElement.classList.add("quantization");
-    quantizationElement.textContent = `Quantization : ${quantization}`;
+    quantizationElement.classList.add(
+        "quantization"
+    );
+
+    quantizationElement.textContent =
+        `Quantization : ${quantization}`;
 
 
     header.append(
@@ -240,43 +357,67 @@ function createSection(title, quantization, chords = []) {
 
     // Add measure button
 
-    const addMeasure = document.createElement("section");
+    const addMeasure =
+        document.createElement("section");
 
-    const info = getQuantizationInfo(quantization);
+    addMeasure.classList.add(
+        "addMeasure"
+    );
 
-    addMeasure.classList.add("addMeasure");
 
     if (quantization === "1/8") {
-        addMeasure.classList.add("eighth");
+
+        addMeasure.classList.add(
+            "eighth"
+        );
+
     } else if (quantization === "1/16") {
-        addMeasure.classList.add("sixteenth");
+
+        addMeasure.classList.add(
+            "sixteenth"
+        );
+
     } else {
-        addMeasure.classList.add("quarter");
+
+        addMeasure.classList.add(
+            "quarter"
+        );
     }
 
 
-    const addMeasureButton = document.createElement("button");
+    const addMeasureButton =
+        document.createElement("button");
 
     addMeasureButton.type = "button";
-    addMeasureButton.textContent = "Add Measure";
 
-    addMeasure.appendChild(addMeasureButton);
+    addMeasureButton.textContent =
+        "Add Measure";
 
 
-    // Put everything into the section
+    addMeasure.appendChild(
+        addMeasureButton
+    );
+
+
+    // Put the header into the section
 
     section.append(header);
 
 
-    // Add old measures
+    // Add existing measures
 
     chords.forEach((measureChords) => {
 
         section.appendChild(
-            createMeasure(quantization, measureChords)
+            createMeasure(
+                quantization,
+                measureChords
+            )
         );
     });
 
+
+    // Add the Add Measure button
 
     section.append(addMeasure);
 
@@ -285,13 +426,20 @@ function createSection(title, quantization, chords = []) {
 
     if (chartMode !== "view") {
 
-        section.classList.add("delete-section-ready");
+        section.classList.add(
+            "delete-section-ready"
+        );
 
-        deleteButton.addEventListener("click", (event) => {
-            event.stopPropagation();
 
-            section.remove();
-        });
+        deleteButton.addEventListener(
+            "click",
+            (event) => {
+
+                event.stopPropagation();
+
+                section.remove();
+            }
+        );
     }
 
 
@@ -305,47 +453,63 @@ function createSection(title, quantization, chords = []) {
 
 function showChart() {
 
-    const chart = getCurrentChart();
+    const chart =
+        getCurrentChart();
+
 
     if (!chart) {
         return;
     }
 
 
-    // Show chart information
+    // Show song information
 
-    songTitle.textContent = chart.songTitle || "Untitled Project";
-    bpm.textContent = `${chart.bpm ?? 120} BPM`;
-    key.textContent = chart.key || "C major";
-    timeSignature.textContent = chart.timeSignature || "4/4";
+    songTitle.textContent =
+        chart.songTitle || "Untitled Project";
 
+    songBpm.textContent =
+        `${chart.bpm ?? 120} BPM`;
 
-    // Clear the canvas
+    songKey.textContent =
+        chart.key || "C major";
 
-    sectionsCanvas.innerHTML = "";
-
-
-    // Put Add Section button back
-
-    sectionsCanvas.appendChild(addSectionButton);
+    songTimeSignature.textContent =
+        chart.timeSignature || "4/4";
 
 
-    // Show sections
+    // Clear the chart
 
-    const sections = Array.isArray(chart.sections)
-        ? chart.sections
-        : [];
+    chartCanvas.innerHTML = "";
 
+
+    // Put Add Section back
+
+    chartCanvas.appendChild(
+        addSectionButton
+    );
+
+
+    // Get the sections
+
+    const sections =
+        Array.isArray(chart.sections)
+            ? chart.sections
+            : [];
+
+
+    // Create each section
 
     sections.forEach((sectionData) => {
 
-        const section = createSection(
-            sectionData.title,
-            sectionData.quantization || "1/4",
-            sectionData.chords || []
-        );
+        const section =
+            createSection(
+                sectionData.title,
+                sectionData.quantization || "1/4",
+                sectionData.chords || []
+            );
 
-        sectionsCanvas.insertBefore(
+
+        chartCanvas.insertBefore(
             section,
             addSectionButton
         );
@@ -357,22 +521,34 @@ function showChart() {
 // Edit text
 // =========================
 
-function editText(element, oldValue, saveValue) {
+function editText(
+    element,
+    oldValue,
+    saveValue
+) {
 
     if (element.querySelector("input")) {
         return;
     }
 
 
-    const input = document.createElement("input");
+    const input =
+        document.createElement("input");
 
-    input.className = "inline-editor";
+
+    input.className =
+        "inline-editor";
+
     input.type = "text";
+
     input.value = oldValue;
+
 
     element.replaceChildren(input);
 
+
     input.focus();
+
     input.select();
 
 
@@ -385,156 +561,207 @@ function editText(element, oldValue, saveValue) {
             return;
         }
 
+
         finished = true;
 
-        const value = save
-            ? input.value.trim()
-            : oldValue;
+
+        const value =
+            save
+                ? input.value.trim()
+                : oldValue;
+
 
         saveValue(value);
     }
 
 
-    input.addEventListener("keydown", (event) => {
+    input.addEventListener(
+        "keydown",
+        (event) => {
 
-        if (event.key === "Enter") {
+            if (event.key === "Enter") {
 
-            event.preventDefault();
+                event.preventDefault();
 
+                finish(true);
+            }
+
+
+            if (event.key === "Escape") {
+
+                event.preventDefault();
+
+                finish(false);
+            }
+        }
+    );
+
+
+    input.addEventListener(
+        "blur",
+        () => {
             finish(true);
         }
-
-        if (event.key === "Escape") {
-
-            event.preventDefault();
-
-            finish(false);
-        }
-    });
-
-
-    input.addEventListener("blur", () => {
-        finish(true);
-    });
+    );
 }
 
 
 // =========================
-// Canvas clicks
+// Chart canvas clicks
 // =========================
 
-sectionsCanvas.addEventListener("click", (event) => {
+chartCanvas.addEventListener(
+    "click",
+    (event) => {
 
-    if (chartMode === "view") {
-        return;
+        if (chartMode === "view") {
+            return;
+        }
+
+
+        // Edit chord
+
+        const chordCell =
+            event.target.closest(
+                ".chordCell"
+            );
+
+
+        if (chordCell) {
+
+            const chordLabel =
+                chordCell.querySelector(
+                    ".chordLabel"
+                );
+
+
+            editText(
+                chordLabel,
+                chordCell.dataset.chord || "",
+                (value) => {
+
+                    chordCell.dataset.chord =
+                        value;
+
+                    chordLabel.textContent =
+                        value;
+                }
+            );
+
+
+            return;
+        }
+
+
+        // Edit section title
+
+        const sectionTitleElement =
+            event.target.closest(
+                ".sectionTitle"
+            );
+
+
+        if (sectionTitleElement) {
+
+            editText(
+                sectionTitleElement,
+                sectionTitleElement.textContent.trim(),
+                (value) => {
+
+                    sectionTitleElement.textContent =
+                        value || "New Section";
+                }
+            );
+
+
+            return;
+        }
+
+
+        // Add measure
+
+        const addMeasureButton =
+            event.target.closest(
+                ".addMeasure button"
+            );
+
+
+        if (addMeasureButton) {
+
+            const section =
+                addMeasureButton.closest(
+                    ".songSection"
+                );
+
+
+            const quantization =
+                section.dataset.quantization;
+
+
+            const measure =
+                createMeasure(
+                    quantization
+                );
+
+
+            section.insertBefore(
+                measure,
+                section.querySelector(
+                    ".addMeasure"
+                )
+            );
+        }
     }
-
-
-    // Edit chord
-
-    const chordCell = event.target.closest(".chordCell");
-
-    if (chordCell) {
-
-        const chordLabel = chordCell.querySelector(".chordLabel");
-
-        editText(
-            chordLabel,
-            chordCell.dataset.chord || "",
-            (value) => {
-
-                chordCell.dataset.chord = value;
-                chordLabel.textContent = value;
-            }
-        );
-
-        return;
-    }
-
-
-    // Edit section title
-
-    const sectionTitle = event.target.closest(".sectionTitle");
-
-    if (sectionTitle) {
-
-        editText(
-            sectionTitle,
-            sectionTitle.textContent.trim(),
-            (value) => {
-
-                sectionTitle.textContent =
-                    value || "New Section";
-            }
-        );
-
-        return;
-    }
-
-
-    // Add measure
-
-    const addMeasureButton =
-        event.target.closest(".addMeasure button");
-
-    if (addMeasureButton) {
-
-        const section =
-            addMeasureButton.closest(".songSection");
-
-        const quantization =
-            section.dataset.quantization;
-
-
-        const measure =
-            createMeasure(quantization);
-
-
-        section.insertBefore(
-            measure,
-            section.querySelector(".addMeasure")
-        );
-    }
-});
+);
 
 
 // =========================
 // Create a new section
 // =========================
 
-sectionForm.addEventListener("submit", (event) => {
+sectionForm.addEventListener(
+    "submit",
+    (event) => {
 
-    event.preventDefault();
-
-
-    const title =
-        sectionTitleInput.value.trim() || "New Section";
-
-    const quantization =
-        sectionQuantizationInput.value;
+        event.preventDefault();
 
 
-    const section =
-        createSection(title, quantization);
+        const title =
+            sectionTitle.value.trim()
+            || "New Section";
 
 
-    sectionsCanvas.insertBefore(
-        section,
-        addSectionButton
-    );
+        const quantization =
+            sectionQuantization.value;
 
 
-    closeSectionForm();
-});
+        const section =
+            createSection(
+                title,
+                quantization
+            );
+
+
+        chartCanvas.insertBefore(
+            section,
+            addSectionButton
+        );
+
+
+        closeSectionForm();
+    }
+);
 
 
 // =========================
-// Save chart
+// Save the chart
 // =========================
 
 function saveChart() {
 
-    const chart = getCurrentChart();
+    const chart =
+        getCurrentChart();
+
 
     if (!chart) {
         return;
@@ -592,12 +819,17 @@ function saveChart() {
         });
 
 
-    chart.sections = sections;
+    chart.sections =
+        sections;
 
 
-    // Put the updated chart back into localStorage
+    // Get all charts from storage
 
-    const charts = getCharts();
+    const charts =
+        getCharts();
+
+
+    // Find the current chart
 
     const chartIndex =
         charts.findIndex(
@@ -605,9 +837,12 @@ function saveChart() {
         );
 
 
+    // Replace the old chart
+
     if (chartIndex !== -1) {
 
-        charts[chartIndex] = chart;
+        charts[chartIndex] =
+            chart;
 
     } else {
 
@@ -615,51 +850,65 @@ function saveChart() {
     }
 
 
+    // Save everything
+
     localStorage.setItem(
         "chromatuneCharts",
         JSON.stringify(charts)
     );
 
 
-    // Saving means we are now viewing the chart
+    // Switch to view mode
 
     chartMode = "view";
+
 
     localStorage.setItem(
         "chromatuneChartMode",
         "view"
     );
 
-    document.body.classList.add("view-only");
 
-    saveButton.textContent = "Exit";
+    document.body.classList.add(
+        "view-only"
+    );
+
+
+    saveButton.textContent =
+        "Exit";
 }
 
 
 // =========================
-// Save / Exit button
+// Save / Exit
 // =========================
 
-saveButton.addEventListener("click", () => {
+saveButton.addEventListener(
+    "click",
+    () => {
 
-    if (chartMode === "view") {
+        if (chartMode === "view") {
 
-        localStorage.removeItem(
-            "chromatuneActiveChartId"
-        );
+            localStorage.removeItem(
+                "chromatuneActiveChartId"
+            );
 
-        localStorage.removeItem(
-            "chromatuneChartMode"
-        );
+            localStorage.removeItem(
+                "chromatuneChartMode"
+            );
 
-        window.location.href = "./charts.html";
 
-        return;
+            window.location.href =
+                "./charts.html";
+
+
+            return;
+        }
+
+
+        saveChart();
     }
-
-
-    saveChart();
-});
+);
 
 
 // =========================
@@ -670,5 +919,6 @@ saveButton.textContent =
     chartMode === "view"
         ? "Exit"
         : "Save";
+
 
 showChart();

@@ -74,22 +74,37 @@
             <header class="widget-header">
 
                 <div class="song-info">
+
                     <h2 id="songTitle"></h2>
-                    <span id="bpm"></span>
-                    <span id="key"></span>
-                    <span id="timeSignature"></span>
+
+                    <span id="songBpm"></span>
+
+                    <span id="songKey"></span>
+
+                    <span id="songTimeSignature"></span>
+
                 </div>
 
-                <button id="saveButton" type="button">Save</button>
+                <button id="saveButton" type="button">
+                    Save
+                </button>
 
             </header>
 
 
-            <div class="chart-canvas subcards" id="sectionsCanvas">
+            <div class="chart-canvas subcards" id="chartCanvas">
 
-                <button id="addSectionButton" type="button" class="add-section-button">
-                    <span class="material-symbols-outlined">add_circle</span>
+                <button
+                    id="addSectionButton"
+                    type="button"
+                    class="add-section-button">
+
+                    <span class="material-symbols-outlined">
+                        add_circle
+                    </span>
+
                     Add a new section
+
                 </button>
 
             </div>
@@ -101,36 +116,58 @@
 
     <!-- Section creation dialog -->
 
-    <div class="section-dialog" id="sectionModal" aria-hidden="true">
+    <div
+        class="section-dialog"
+        id="sectionDialog"
+        aria-hidden="true">
 
-        <div class="section-form-box" role="dialog" aria-modal="true" aria-labelledby="sectionModalTitle">
+        <div
+            class="section-form-box"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="sectionDialogTitle">
 
             <div class="section-form-header">
 
                 <div>
-                    <p class="section-form-tag">MDL-CHT-002 // SECTION</p>
-                    <h3 id="sectionModalTitle">Create a section</h3>
+
+                    <p class="section-form-tag">
+                        MDL-CHT-002 // SECTION
+                    </p>
+
+                    <h3 id="sectionDialogTitle">
+                        Create a section
+                    </h3>
+
                 </div>
 
                 <button
                     class="section-form-close"
-                    id="closeSectionModal"
+                    id="closeSectionButton"
                     type="button"
                     aria-label="Close">
-                    <span class="material-symbols-outlined">close</span>
+
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+
                 </button>
 
             </div>
 
 
-            <form id="sectionForm" class="section-form">
+            <form
+                id="sectionForm"
+                class="section-form">
 
                 <div class="section-field">
 
-                    <label for="sectionTitleInput">Section name</label>
+                    <label for="sectionTitle">
+                        Section name
+                    </label>
 
                     <input
-                        id="sectionTitleInput"
+                        id="sectionTitle"
                         name="sectionTitle"
                         type="text"
                         placeholder="Section name"
@@ -142,14 +179,20 @@
 
                 <div class="section-field">
 
-                    <label for="sectionQuantization">Quantization</label>
+                    <label for="sectionQuantization">
+                        Quantization
+                    </label>
 
                     <div class="section-select">
 
-                        <select id="sectionQuantization" name="sectionQuantization">
+                        <select
+                            id="sectionQuantization"
+                            name="sectionQuantization">
+
                             <option value="1/4">1/4</option>
                             <option value="1/8">1/8</option>
                             <option value="1/16">1/16</option>
+
                         </select>
 
                         <span class="material-symbols-outlined section-select-icon">
@@ -161,8 +204,12 @@
                 </div>
 
 
-                <button class="section-form-submit" type="submit">
+                <button
+                    class="section-form-submit"
+                    type="submit">
+
                     Create Section
+
                 </button>
 
             </form>
