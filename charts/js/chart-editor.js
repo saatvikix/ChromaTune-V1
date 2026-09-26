@@ -155,7 +155,7 @@ function createChordCell(number, chord = "") {
 
     const cell = document.createElement("div");
 
-    cell.classList.add("chordCell");
+    cell.classList.add("chord-cell");
 
     cell.dataset.chord = chord;
 
@@ -163,7 +163,7 @@ function createChordCell(number, chord = "") {
     const numberLabel =
         document.createElement("span");
 
-    numberLabel.classList.add("gridNumber");
+    numberLabel.classList.add("cell-number");
 
     numberLabel.textContent = number;
 
@@ -171,7 +171,7 @@ function createChordCell(number, chord = "") {
     const chordLabel =
         document.createElement("span");
 
-    chordLabel.classList.add("chordLabel");
+    chordLabel.classList.add("chord-label");
 
     chordLabel.textContent = chord;
 
@@ -224,7 +224,7 @@ function createMeasure(
         document.createElement("div");
 
     deleteButton.classList.add(
-        "deleteMeasureBtn"
+        "delete-measure-button"
     );
 
     deleteButton.textContent = "X";
@@ -291,7 +291,7 @@ function createSection(
 
 
     section.classList.add(
-        "songSection"
+        "song-section"
     );
 
 
@@ -305,7 +305,7 @@ function createSection(
         document.createElement("div");
 
     header.classList.add(
-        "sectionHeader"
+        "section-header"
     );
 
 
@@ -313,7 +313,7 @@ function createSection(
         document.createElement("button");
 
     deleteButton.classList.add(
-        "deleteSectionBtn"
+        "delete-section-button"
     );
 
     deleteButton.type = "button";
@@ -330,7 +330,7 @@ function createSection(
         document.createElement("h4");
 
     titleElement.classList.add(
-        "sectionTitle"
+        "section-title"
     );
 
     titleElement.textContent =
@@ -341,7 +341,7 @@ function createSection(
         document.createElement("span");
 
     quantizationElement.classList.add(
-        "quantization"
+        "section-quantization"
     );
 
     quantizationElement.textContent =
@@ -361,28 +361,8 @@ function createSection(
         document.createElement("section");
 
     addMeasure.classList.add(
-        "addMeasure"
+        "add-measure"
     );
-
-
-    if (quantization === "1/8") {
-
-        addMeasure.classList.add(
-            "eighth"
-        );
-
-    } else if (quantization === "1/16") {
-
-        addMeasure.classList.add(
-            "sixteenth"
-        );
-
-    } else {
-
-        addMeasure.classList.add(
-            "quarter"
-        );
-    }
 
 
     const addMeasureButton =
@@ -623,7 +603,7 @@ chartCanvas.addEventListener(
 
         const chordCell =
             event.target.closest(
-                ".chordCell"
+                ".chord-cell"
             );
 
 
@@ -631,7 +611,7 @@ chartCanvas.addEventListener(
 
             const chordLabel =
                 chordCell.querySelector(
-                    ".chordLabel"
+                    ".chord-label"
                 );
 
 
@@ -657,7 +637,7 @@ chartCanvas.addEventListener(
 
         const sectionTitleElement =
             event.target.closest(
-                ".sectionTitle"
+                ".section-title"
             );
 
 
@@ -682,7 +662,7 @@ chartCanvas.addEventListener(
 
         const addMeasureButton =
             event.target.closest(
-                ".addMeasure button"
+                ".add-measure button"
             );
 
 
@@ -690,7 +670,7 @@ chartCanvas.addEventListener(
 
             const section =
                 addMeasureButton.closest(
-                    ".songSection"
+                    ".song-section"
                 );
 
 
@@ -707,7 +687,7 @@ chartCanvas.addEventListener(
             section.insertBefore(
                 measure,
                 section.querySelector(
-                    ".addMeasure"
+                    ".add-measure"
                 )
             );
         }
@@ -772,12 +752,12 @@ function saveChart() {
 
 
     document
-        .querySelectorAll(".songSection")
+        .querySelectorAll(".song-section")
         .forEach((section) => {
 
             const title =
                 section
-                    .querySelector(".sectionTitle")
+                    .querySelector(".section-title")
                     .textContent
                     .trim();
 
@@ -797,7 +777,7 @@ function saveChart() {
 
 
                     measure
-                        .querySelectorAll(".chordCell")
+                        .querySelectorAll(".chord-cell")
                         .forEach((cell) => {
 
                             chords.push(
