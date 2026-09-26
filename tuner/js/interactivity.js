@@ -14,10 +14,7 @@ const tuneScaleNote = document.querySelector('#currNote');
 const headstock = document.querySelector('#headstock');
 
 // Six clickable note labels
-const pegButtons = [
-    ...document.querySelectorAll('.pegBtn')
-];
-
+const pegButtons = document.querySelectorAll(".pegBtn");
 
 // ============================================================
 // 2. GUITAR STRING CONFIGURATION
@@ -41,63 +38,6 @@ const pegButtons = [
 //              E2            E4
 //
 // ============================================================
-
-const pegConfig = {
-
-    // --------------------------------------------------------
-    // RIGHT SIDE
-    // --------------------------------------------------------
-
-    firstPeg: {
-        note: 'E4',
-        peg: 'peg-E4',
-        headstockString: 'string-E4-headstock',
-        fretboardString: 'string-E4-fretboard'
-    },
-
-    secondPeg: {
-        note: 'B3',
-        peg: 'peg-B3',
-        headstockString: 'string-B3-headstock',
-        fretboardString: 'string-B3-fretboard'
-    },
-
-    thirdPeg: {
-        note: 'G3',
-        peg: 'peg-G3',
-        headstockString: 'string-G3-headstock',
-        fretboardString: 'string-G3-fretboard'
-    },
-
-
-    // --------------------------------------------------------
-    // LEFT SIDE
-    // --------------------------------------------------------
-
-    fourthPeg: {
-        note: 'D3',
-        peg: 'peg-D3',
-        headstockString: 'string-D3-headstock',
-        fretboardString: 'string-D3-fretboard'
-    },
-
-    fifthPeg: {
-        note: 'A2',
-        peg: 'peg-A2',
-        headstockString: 'string-A2-headstock',
-        fretboardString: 'string-A2-fretboard'
-    },
-
-    sixthPeg: {
-        note: 'E2',
-        peg: 'peg-E2',
-        headstockString: 'string-E2-headstock',
-        fretboardString: 'string-E2-fretboard'
-    }
-
-};
-
-
 // ============================================================
 // 3. POSITION NOTE LABELS
 // ============================================================
@@ -112,8 +52,7 @@ function positionPegButtons() {
     pegButtons.forEach(button => {
 
         // Find the configuration for this label.
-        const config =
-            pegConfig[button.id];
+        const config = tuning[button.id];
 
 
         if (!config) {
@@ -251,128 +190,59 @@ window.addEventListener(
 //
 // ============================================================
 
-function activateString(config) {
-
-    // --------------------------------------------------------
-    // Clear the previous selection
-    // --------------------------------------------------------
+function activateString(config, selectedButton) {
 
     // Remove active state from all note labels.
     pegButtons.forEach(button => {
-
         button.classList.remove('active');
-
     });
-
 
     // Remove active state from all SVG elements.
     headstock
         .querySelectorAll('.active')
         .forEach(element => {
-
             element.classList.remove('active');
-
         });
-
-
-    // --------------------------------------------------------
-    // Find the selected peg
-    // --------------------------------------------------------
 
     const peg =
         headstock.querySelector(
             `#${config.peg}`
         );
 
-
-    // --------------------------------------------------------
-    // Find the selected strings
-    // --------------------------------------------------------
-
     const headstockString =
         headstock.querySelector(
             `#${config.headstockString}`
         );
-
 
     const fretboardString =
         headstock.querySelector(
             `#${config.fretboardString}`
         );
 
-
-    // --------------------------------------------------------
-    // Find the dot matrix
-    // --------------------------------------------------------
-
     const pegDots =
-        peg?.querySelector(
-            '.peg-dots'
-        );
+        peg?.querySelector('.peg-dots');
 
 
-    // --------------------------------------------------------
-    // Activate the corresponding note label
-    // --------------------------------------------------------
-
-    const selectedButton =
-        document.querySelector(
-            `#${getButtonId(config)}`
-        );
-
-
+    // Activate clicked button
     if (selectedButton) {
         selectedButton.classList.add('active');
     }
-
-
-    // --------------------------------------------------------
-    // Activate the tuning peg
-    // --------------------------------------------------------
 
     if (peg) {
         peg.classList.add('active');
     }
 
-
-    // --------------------------------------------------------
-    // Show the dot matrix
-    // --------------------------------------------------------
-
     if (pegDots) {
         pegDots.classList.add('active');
     }
-
-
-    // --------------------------------------------------------
-    // Activate the headstock portion of the string
-    // --------------------------------------------------------
 
     if (headstockString) {
         headstockString.classList.add('active');
     }
 
-
-    // --------------------------------------------------------
-    // Activate the fretboard portion of the string
-    // --------------------------------------------------------
-
     if (fretboardString) {
         fretboardString.classList.add('active');
     }
-
-}
-
-
-// ============================================================
-// 7. FIND BUTTON ID FROM CONFIG
-// ============================================================
-
-function getButtonId(config) {
-
-    return Object.keys(pegConfig)
-        .find(id => pegConfig[id] === config);
-
 }
 
 
@@ -391,49 +261,33 @@ function getButtonId(config) {
 
 pegButtons.forEach(button => {
 
-    // --------------------------------------------------------
-    // Mouse / touch
-    // --------------------------------------------------------
+    button.addEventListener("click", () => {
 
-    button.addEventListener('click', () => {
-
-        const config =
-            pegConfig[button.id];
-
+        const config = tuning[button.id];
 
         if (!config) {
             return;
         }
 
+        selectString(
+            config.note,
+            config.frequency
+        );
 
-        // Update the big tuner note.
-        tuneScaleNote.textContent =
-            config.note;
-
-
-        // Activate this string.
-        activateString(config);
-
+        activateString(config, button);
     });
 
-
-    // --------------------------------------------------------
-    // Keyboard accessibility
-    // --------------------------------------------------------
-
-    button.addEventListener('keydown', event => {
+    button.addEventListener("keydown", event => {
 
         if (
-            event.key === 'Enter' ||
-            event.key === ' '
+            event.key === "Enter" ||
+            event.key === " "
         ) {
-
             event.preventDefault();
-
             button.click();
-
         }
 
     });
 
 });
+

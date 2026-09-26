@@ -241,21 +241,10 @@
 
 .pegButtons {
     position: absolute;
-
     inset: 0;
-
     z-index: 10;
-
     pointer-events: none;
 }
-
-
-/*
-   Each .pegBtn is now a SPAN rather than a <button>.
-
-   We keep a reasonably large hit area around the note so
-   clicking is easy on both desktop and mobile.
-*/
 
 .pegBtn {
     position: absolute;
@@ -271,20 +260,15 @@
     justify-content: center;
 
     background: rgba(8, 8, 8, 0.78);
-
     border: 3px solid var(--card-border);
-
     border-radius: 10px;
 
     cursor: pointer;
-
     pointer-events: auto;
 
     transform: translate(-50%, -50%);
-
     outline: none;
 }
-
 .pegBtn.right-strings {
     transform: translate(-50%, -50%) translateX(42px);
 }

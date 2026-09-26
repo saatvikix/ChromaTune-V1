@@ -1,31 +1,58 @@
-// ==================================================
-// CHROMATUNE — BASIC GUITAR TUNER
-// ==================================================
+const tuning = {
+    firstPeg: {
+        note: "E4",
+        frequency: 329.63,
+        buttonId: "firstPeg",
+        peg: "peg-E4",
+        headstockString: "string-E4-headstock",
+        fretboardString: "string-E4-fretboard"
+    },
 
+    secondPeg: {
+        note: "B3",
+        frequency: 246.94,
+        buttonId: "secondPeg",
+        peg: "peg-B3",
+        headstockString: "string-B3-headstock",
+        fretboardString: "string-B3-fretboard"
+    },
 
-// ==================================================
-// 1. STRING / PEG DATA
-// ==================================================
+    thirdPeg: {
+        note: "G3",
+        frequency: 196.00,
+        buttonId: "thirdPeg",
+        peg: "peg-G3",
+        headstockString: "string-G3-headstock",
+        fretboardString: "string-G3-fretboard"
+    },
 
-const stringMap = new Map([
-    ["firstPeg", "E4"],
-    ["secondPeg", "B3"],
-    ["thirdPeg", "G3"],
-    ["fourthPeg", "D3"],
-    ["fifthPeg", "A2"],
-    ["sixthPeg", "E2"]
-]);
+    fourthPeg: {
+        note: "D3",
+        frequency: 146.83,
+        buttonId: "fourthPeg",
+        peg: "peg-D3",
+        headstockString: "string-D3-headstock",
+        fretboardString: "string-D3-fretboard"
+    },
 
+    fifthPeg: {
+        note: "A2",
+        frequency: 110.00,
+        buttonId: "fifthPeg",
+        peg: "peg-A2",
+        headstockString: "string-A2-headstock",
+        fretboardString: "string-A2-fretboard"
+    },
 
-const pitchMap = new Map([
-    ["E4", 329.63],
-    ["B3", 246.94],
-    ["G3", 196.00],
-    ["D3", 146.83],
-    ["A2", 110.00],
-    ["E2", 82.41]
-]);
-
+    sixthPeg: {
+        note: "E2",
+        frequency: 82.41,
+        buttonId: "sixthPeg",
+        peg: "peg-E2",
+        headstockString: "string-E2-headstock",
+        fretboardString: "string-E2-fretboard"
+    }
+};
 
 // ==================================================
 // 2. TUNER STATE
@@ -37,6 +64,31 @@ let expectedPitch = null;
 let audioContext = null;
 let analyzer = null;
 let microphoneStream = null;
+
+function selectString(note, frequency) {
+    selectedNote = note;
+    expectedPitch = frequency;
+
+    smoothedCents = 0;
+    hasPitch = false;
+
+    if (meterNeedle) {
+        meterNeedle.style.left = "50%";
+        meterNeedle.classList.remove("in-tune");
+    }
+
+    if (currNote) {
+        currNote.textContent = note;
+    }
+
+    if (centsOffset) {
+        centsOffset.textContent = "+00";
+    }
+
+    if (!audioContext) {
+        startPitchDetection();
+    }
+}
 
 
 // ==================================================
@@ -69,81 +121,10 @@ const SMOOTHING_FACTOR = 0.15;
 const statusText = document.querySelector("#statusText");
 const statusDot = document.querySelector("#statusDot");
 
-const pegBtns = document.querySelectorAll(".pegBtn");
-
 // METER
 const meterNeedle = document.querySelector("#meterNeedle");
 const centsOffset = document.querySelector("#centsOffset");
 const currNote = document.querySelector("#currNote");
-
-
-// ==================================================
-// 6. PEG BUTTONS
-// ==================================================
-
-pegBtns.forEach((button) => {
-
-    button.addEventListener("click", () => {
-
-        // Get selected peg
-        const peg = button.id;
-
-        // Get note belonging to that peg
-        selectedNote = stringMap.get(peg);
-
-        // Get expected frequency for that note
-        expectedPitch = pitchMap.get(selectedNote);
-
-
-        // Reset smoothing when changing strings
-        smoothedCents = 0;
-        hasPitch = false;
-
-
-        // Reset meter to center
-        if (meterNeedle) {
-            meterNeedle.style.left = "50%";
-            meterNeedle.classList.remove("in-tune");
-        }
-
-
-        // Update displayed note
-        if (currNote) {
-            currNote.textContent = selectedNote;
-        }
-
-
-        // Reset cents display
-        if (centsOffset) {
-            centsOffset.textContent = "+00";
-        }
-
-
-        console.log("--------------------------------");
-        console.log("Selected peg:", peg);
-        console.log("Selected note:", selectedNote);
-        console.log("Expected frequency:", expectedPitch, "Hz");
-        console.log("--------------------------------");
-
-
-        // Remove selection from all pegs
-        pegBtns.forEach((btn) => {
-            btn.classList.remove("selected");
-        });
-
-
-        // Select clicked peg
-        button.classList.add("selected");
-
-
-        // Start microphone only once
-        if (!audioContext) {
-            startPitchDetection();
-        }
-
-    });
-
-});
 
 
 // ==================================================
