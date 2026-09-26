@@ -2,7 +2,6 @@ const tuning = {
     firstPeg: {
         note: "E4",
         frequency: 329.63,
-        buttonId: "firstPeg",
         peg: "peg-E4",
         headstockString: "string-E4-headstock",
         fretboardString: "string-E4-fretboard"
@@ -11,7 +10,6 @@ const tuning = {
     secondPeg: {
         note: "B3",
         frequency: 246.94,
-        buttonId: "secondPeg",
         peg: "peg-B3",
         headstockString: "string-B3-headstock",
         fretboardString: "string-B3-fretboard"
@@ -20,7 +18,6 @@ const tuning = {
     thirdPeg: {
         note: "G3",
         frequency: 196.00,
-        buttonId: "thirdPeg",
         peg: "peg-G3",
         headstockString: "string-G3-headstock",
         fretboardString: "string-G3-fretboard"
@@ -29,7 +26,6 @@ const tuning = {
     fourthPeg: {
         note: "D3",
         frequency: 146.83,
-        buttonId: "fourthPeg",
         peg: "peg-D3",
         headstockString: "string-D3-headstock",
         fretboardString: "string-D3-fretboard"
@@ -38,7 +34,6 @@ const tuning = {
     fifthPeg: {
         note: "A2",
         frequency: 110.00,
-        buttonId: "fifthPeg",
         peg: "peg-A2",
         headstockString: "string-A2-headstock",
         fretboardString: "string-A2-fretboard"
@@ -47,7 +42,6 @@ const tuning = {
     sixthPeg: {
         note: "E2",
         frequency: 82.41,
-        buttonId: "sixthPeg",
         peg: "peg-E2",
         headstockString: "string-E2-headstock",
         fretboardString: "string-E2-fretboard"
