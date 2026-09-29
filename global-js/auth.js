@@ -20,35 +20,6 @@ function getCurrentUser() {
     ) || null;
 }
 
-function moveOldSession() {
-    try {
-        const oldUser = JSON.parse(localStorage.getItem("user") || "null");
-        const oldLoggedIn = localStorage.getItem("userLoggedIn") === "true";
-
-        if (!oldUser) return;
-
-        const savedAccounts = getSavedAccounts();
-        const accountExists = savedAccounts.some((account) =>
-            account.email.toLowerCase() === oldUser.email.toLowerCase()
-        );
-
-        if (!accountExists) {
-            savedAccounts.push(oldUser);
-            localStorage.setItem(accountsStorageKey, JSON.stringify(savedAccounts));
-        }
-
-        if (oldLoggedIn) {
-            localStorage.setItem(currentUserEmailStorageKey, oldUser.email);
-        }
-
-        localStorage.removeItem("user");
-        localStorage.removeItem("userLoggedIn");
-    } catch (error) {
-        localStorage.removeItem("user");
-        localStorage.removeItem("userLoggedIn");
-    }
-}
-
 function saveAccount(user) {
     const savedAccounts = getSavedAccounts();
     const accountIndex = savedAccounts.findIndex((account) =>
@@ -240,10 +211,6 @@ function saveAuthForm(event) {
             return;
         }
 
-        if (!existingUser.password) {
-            existingUser.password = password;
-        }
-
         saveAccount(existingUser);
         window.location.href = "./tuner/tuner.html";
         return;
@@ -276,7 +243,6 @@ function saveAuthForm(event) {
 }
 
 function setupAuthentication() {
-    moveOldSession();
     updateProfileDisplay();
     updateLandingButtons();
 

@@ -6,21 +6,6 @@ const roots = [
 
 const qualities = ["Major", "Minor"];
 
-// const chordImageMap = {
-//     "C-major": "./graphics/chords/C_major.png",
-//     "C#-major": "./graphics/chords/C_Sharp_major.png",
-//     "D-major": "./graphics/chords/D_major.png",
-//     "D#-major": "./graphics/chords/D_Sharp_major.png",
-//     "E-major": "./graphics/chords/E_Major.png",
-//     "F-major": "./graphics/chords/F_Major.png",
-//     "F#-major": "./graphics/chords/F_Sharp_Major.png",
-//     "G-major": "./graphics/chords/G_Major.png",
-//     "G#-major": "./graphics/chords/G_Sharp_Major.png",
-//     "A-major": "./graphics/chords/A_Major.png",
-//     "A#-major": "./graphics/chords/A_Sharp_Major.png",
-//     "B-major": "./graphics/chords/B_Major.png",
-// };
-
 const chordImageMap = {
     "C-major": "./graphics/chords/major/c_major_01.svg",
     "C#-major": "./graphics/chords/major/c_sharp_major_01.svg",
@@ -61,32 +46,23 @@ const chordQualityEl = document.querySelector("#chordQuality");
 const diagramImage = document.querySelector("#diagramImage");
 const favButton = document.querySelector(".favButton");
 const favouriteStorageKey = "userFavouriteChords";
-let favouriteChords = new Set();
-let currentUserEmail = "";
+const currentUserEmail =
+    (localStorage.getItem("currentUserEmail") || "").toLowerCase();
+let savedFavouriteChords = {};
 
 try {
-    const currentUserEmailKey = localStorage.getItem("currentUserEmail") || "";
-    const accounts = JSON.parse(localStorage.getItem("userAccounts") || "[]");
-    const savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
-    const currentUser = accounts.find((account) =>
-        account.email.toLowerCase() === currentUserEmailKey.toLowerCase()
-    );
-
-    currentUserEmail = currentUser ? currentUser.email.toLowerCase() : "";
-    favouriteChords = new Set(
-        Array.isArray(savedFavouriteChords[currentUserEmail]) ? savedFavouriteChords[currentUserEmail] : []
-    );
+    savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
 } catch (error) {
-    favouriteChords = new Set();
+    savedFavouriteChords = {};
 }
+
+const favouriteChords = new Set(savedFavouriteChords[currentUserEmail] || []);
 
 function saveFavouriteChords() {
     if (!currentUserEmail) return;
 
-    const savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
-    const allFavouriteChords = Array.isArray(savedFavouriteChords) ? {} : savedFavouriteChords;
-    allFavouriteChords[currentUserEmail] = [...favouriteChords];
-    localStorage.setItem(favouriteStorageKey, JSON.stringify(allFavouriteChords));
+    savedFavouriteChords[currentUserEmail] = [...favouriteChords];
+    localStorage.setItem(favouriteStorageKey, JSON.stringify(savedFavouriteChords));
 }
 
 function clamp(value, min, max) {
