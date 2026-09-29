@@ -608,6 +608,10 @@ body.form-open {
     gap: 10px;
 }
 
+.profile-field[hidden] {
+    display: none;
+}
+
 .profile-field label {
     color: rgba(255, 255, 255, 0.72);
     font-family: var(--font-mono);
