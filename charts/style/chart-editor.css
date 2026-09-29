@@ -127,13 +127,13 @@ section.song-section {
     overflow: hidden;
 }
 
-.quarterNoteGrid > div:nth-child(1),
-.eighthNoteGrid > div:nth-child(1),
-.eighthNoteGrid > div:nth-child(5),
-.sixteenthNoteGrid > div:nth-child(1),
-.sixteenthNoteGrid > div:nth-child(5),
-.sixteenthNoteGrid > div:nth-child(9),
-.sixteenthNoteGrid > div:nth-child(13) {
+.song-section[data-quantization="1/4"] .measure > div:nth-child(1),
+.song-section[data-quantization="1/8"] .measure > div:nth-child(1),
+.song-section[data-quantization="1/8"] .measure > div:nth-child(5),
+.song-section[data-quantization="1/16"] .measure > div:nth-child(1),
+.song-section[data-quantization="1/16"] .measure > div:nth-child(5),
+.song-section[data-quantization="1/16"] .measure > div:nth-child(9),
+.song-section[data-quantization="1/16"] .measure > div:nth-child(13) {
     background: rgba(0, 0, 0, 0.26);
     border-color: rgba(255, 255, 255, 0.12);
 }
@@ -197,25 +197,25 @@ section.song-section {
    MEASURE GRIDS
    ========================= */
 
-.quarterNoteGrid {
+.song-section[data-quantization="1/4"] .measure {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
 }
 
-.eighthNoteGrid {
+.song-section[data-quantization="1/8"] .measure {
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: 10px;
 }
 
-.sixteenthNoteGrid {
+.song-section[data-quantization="1/16"] .measure {
     display: grid;
     grid-template-columns: repeat(16, minmax(0, 1fr));
     gap: 10px;
 }
 
-.sixteenthNoteGrid .chord-label {
+.song-section[data-quantization="1/16"] .chord-label {
     font-size: 0.98rem;
 }
 
@@ -505,7 +505,7 @@ section.add-measure {
     text-align: center;
 }
 
-.measure.delete-ready .delete-measure-button {
+.measure:hover .delete-measure-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -516,13 +516,6 @@ section.add-measure {
     display: none;
     pointer-events: none;
 }
-
-.view-only .measure.delete-ready .delete-measure-button,
-.view-only .song-section.delete-section-ready .delete-section-button {
-    display: none;
-    pointer-events: none;
-}
-
 
 /* =========================
    SECTION DELETE
@@ -552,10 +545,6 @@ section.add-measure {
 
 .section-header .section-quantization {
     margin-left: auto;
-}
-
-.song-section.delete-section-ready .delete-section-button {
-    display: block;
 }
 
 .view-only .delete-section-button {
