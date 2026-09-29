@@ -699,6 +699,7 @@ body.landing-page {
 }
 
 .landing-card {
+    position: relative;
     width: 100%;
     max-width: 1500px;
     min-height: calc(100vh - 112px);
@@ -708,6 +709,17 @@ body.landing-page {
     border-radius: 28px;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
+}
+
+.glyph-guitar {
+    position: absolute;
+    top: 52%;
+    right: 3%;
+    width: min(44%, 560px);
+    transform: translateY(-50%);
+    pointer-events: none;
+    border-radius: 15px;
+    border: 2px solid var(--card-border);
 }
 
 .landing-logo {
@@ -787,5 +799,9 @@ body.landing-page {
 
     .landing-content {
         margin-top: 72px;
+    }
+
+    .landing-guitar {
+        display: none;
     }
 }
