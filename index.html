@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./global-style/global-style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Space+Grotesk:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="./global-js/auth.js" defer></script>
+    <title>ChromaTune</title>
+</head>
+
+<body class="landing-page">
+    <main class="landing-shell">
+        <section class="landing-card" aria-labelledby="landingTitle">
+            <div class="landing-logo">
+                <span class="logoIcon"></span>
+                <span>ChromaTune</span>
+            </div>
+
+            <div class="landing-content">
+                <span class="landing-kicker">PRACTICE // PROGRESS // PLAY</span>
+                <h1 id="landingTitle">Every Session Counts</h1>
+                <p>Make ChromaTune your partner on your journey to mastery</p>
+                <div class="landing-actions">
+                    <button class="landing-action" type="button" data-auth-action="login">Login</button>
+                    <button class="landing-action secondary" type="button" data-auth-action="register">Register / Sign Up</button>
+                    <button class="landing-action start-practicing" type="button" data-start-practicing hidden>Start Practicing</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>

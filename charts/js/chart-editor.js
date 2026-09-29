@@ -31,16 +31,32 @@ if (chartMode === "view") {
     document.body.classList.add("view-only");
 }
 
+function getCurrentUserEmail() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem("user") || "null"
+        )?.email.toLowerCase() || "";
+
+    } catch (error) {
+
+        return "";
+    }
+}
+
 
 function getCharts() {
 
     try {
 
         const charts = JSON.parse(
-            localStorage.getItem("chromatuneCharts") || "[]"
+            localStorage.getItem("chromatuneCharts") || "{}"
         );
 
-        return Array.isArray(charts) ? charts : [];
+        const userEmail = getCurrentUserEmail();
+
+        return Array.isArray(charts[userEmail]) ? charts[userEmail] : [];
 
     } catch (error) {
 
@@ -832,9 +848,16 @@ function saveChart() {
 
     // Save everything
 
+    const savedCharts = JSON.parse(
+        localStorage.getItem("chromatuneCharts") || "{}"
+    );
+
+    const allCharts = Array.isArray(savedCharts) ? {} : savedCharts;
+    allCharts[getCurrentUserEmail()] = charts;
+
     localStorage.setItem(
         "chromatuneCharts",
-        JSON.stringify(charts)
+        JSON.stringify(allCharts)
     );
 
 

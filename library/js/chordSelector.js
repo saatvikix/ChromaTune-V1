@@ -60,7 +60,30 @@ const chordRootEl = document.querySelector("#chordRoot");
 const chordQualityEl = document.querySelector("#chordQuality");
 const diagramImage = document.querySelector("#diagramImage");
 const favButton = document.querySelector(".favButton");
-const favouriteChords = new Set();
+const favouriteStorageKey = "userFavouriteChords";
+let favouriteChords = new Set();
+let currentUserEmail = "";
+
+try {
+    const user = JSON.parse(localStorage.getItem("user") || "null");
+    const savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
+
+    currentUserEmail = user?.email.toLowerCase() || "";
+    favouriteChords = new Set(
+        Array.isArray(savedFavouriteChords[currentUserEmail]) ? savedFavouriteChords[currentUserEmail] : []
+    );
+} catch (error) {
+    favouriteChords = new Set();
+}
+
+function saveFavouriteChords() {
+    if (!currentUserEmail) return;
+
+    const savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
+    const allFavouriteChords = Array.isArray(savedFavouriteChords) ? {} : savedFavouriteChords;
+    allFavouriteChords[currentUserEmail] = [...favouriteChords];
+    localStorage.setItem(favouriteStorageKey, JSON.stringify(allFavouriteChords));
+}
 
 function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -189,6 +212,7 @@ favButton?.addEventListener("click", () => {
         favouriteChords.add(imageKey);
     }
 
+    saveFavouriteChords();
     updateFavouriteState(imageKey);
 });
 

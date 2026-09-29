@@ -9,6 +9,24 @@ const chartForm = document.querySelector("#chartForm");
 const formCloseButton = document.querySelector("#formCloseButton");
 const savedChartsContainer = document.querySelector("#savedChartsContainer");
 
+function getCurrentUserEmail() {
+    try {
+        return JSON.parse(localStorage.getItem("user") || "null")?.email.toLowerCase() || "";
+    } catch (error) {
+        return "";
+    }
+}
+
+function saveCharts(charts) {
+    const userEmail = getCurrentUserEmail();
+    if (!userEmail) return;
+
+    const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "{}");
+    const allCharts = Array.isArray(savedCharts) ? {} : savedCharts;
+    allCharts[userEmail] = charts;
+    localStorage.setItem("chromatuneCharts", JSON.stringify(allCharts));
+}
+
 
 toggleFormVisibility(chartForm, false);
 
@@ -26,11 +44,10 @@ formCloseButton.addEventListener("click", () => {
 function getSavedCharts() {
 
     try {
-        const savedCharts = JSON.parse(
-            localStorage.getItem("chromatuneCharts") || "[]"
-        );
+        const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "{}");
+        const userEmail = getCurrentUserEmail();
 
-        return Array.isArray(savedCharts) ? savedCharts : [];
+        return Array.isArray(savedCharts[userEmail]) ? savedCharts[userEmail] : [];
 
     } catch (error) {
         console.error("Unable to read saved charts:", error);
@@ -52,10 +69,7 @@ function deleteChart(chartId) {
 
     const charts = getSavedCharts().filter((chart) => chart.id !== chartId);
 
-    localStorage.setItem(
-        "chromatuneCharts",
-        JSON.stringify(charts)
-    );
+    saveCharts(charts);
 
     renderCharts();
 }
