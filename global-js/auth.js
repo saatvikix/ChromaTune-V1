@@ -206,7 +206,7 @@ function saveAuthForm(event) {
             return;
         }
 
-        if (existingUser.password && existingUser.password !== password) {
+        if (existingUser.password !== password) {
             message.textContent = "Email or password is incorrect.";
             return;
         }
