@@ -8,7 +8,6 @@
     --text-subtle: #404040;
     --accent-red: #d71920;
     --light-grey: #4f4f4f;
-    /* Nothing OS signature red */
     --grid-dot: rgba(255, 255, 255, 0.05);
 
     --font-ui: 'Space Grotesk', -apple-system, sans-serif;
@@ -37,8 +36,6 @@ body {
 
     font-family: var(--font-ui);
     color: var(--text-main);
-
-    /* overflow: hidden; */
 
     position: relative;
 }
@@ -81,7 +78,6 @@ body::before {
 }
 
 .sidebar>div {
-    /* border: 2px solid yellow; */
     min-height: 10px;
 }
 
@@ -97,7 +93,6 @@ body::before {
 }
 
 .profileContainer {
-    /* border :2px solid yellow; */
     height: 90px;
     display: flex;
     justify-content: left;
@@ -136,7 +131,6 @@ body::before {
 }
 
 div.authentication {
-    /* border: 2px solid white; */
     margin-top: auto;  
     text-align: center;  
     border-top: 1px dashed rgba(255, 255, 255, 0.1);
@@ -160,12 +154,11 @@ div.authentication {
 }
 
 .sidebarNavigators {
-    /* border:2px solid yellow; */
     padding-left: 15px;
     display: flex;
     gap: 50px;
     color: var(--text-dim);
-    font-family: (--font-mono);
+    font-family: var(--font-mono);
 }
 
 .sidebarNavigators:hover{
@@ -175,10 +168,6 @@ div.authentication {
 
 .sidebarNavigators.active {
     color: var(--text-main);
-}
-
-.sidebarNavigators>div {
-    border: 2px solid yellow;
 }
 
 .sidebarNavigators>span.icons {
@@ -199,7 +188,6 @@ div.authentication {
     height: 740px;
     padding: 0 28px;
     min-width: 0;
-    /* min-height: 100vh; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,7 +200,6 @@ div.authentication {
     position: relative;
     z-index: 1;
     width: 100%;
-    /* max-width: 600px; */
     height: 700px;
     margin: 20px 0;
     background: var(--card-bg);
@@ -229,47 +216,6 @@ div.authentication {
     gap: 20px;
 }
 
-/* .profileIcon {
-    width: 80px;
-    height: 80px;
-    border: 2px solid #4e4e4e;
-    background: var(--bg-color);
-
-    box-shadow: 0px 0px 5px 2px #4e4e4e;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: 0.25s ease;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-
-    display:none;
-}
-
-.dropdownMenu {
-    border: 2px solid yellow;
-    width : 200px;
-    position : absolute;
-    top: 120px;
-    right : 15px;
-
-    background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--card-border);
-    border-radius: 12px;
-    padding: 10px;
-
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-    display:none;
-} */
-
-/* Top Metadata Header */
 .widget-header {
     display: flex;
     justify-content: space-between;
@@ -292,62 +238,9 @@ div.authentication {
     height: 6px;
     border-radius: 50%;
     background-color: var(--text-subtle);
-
-    /* Top Metadata Header */
-    .widget-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: var(--font-mono);
-        font-size: 0.72rem;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: var(--text-dim);
-    }
-
-    .status-indicator {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .status-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background-color: var(--text-subtle);
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Toggle class `.listening` on #statusDot via JS when mic is active */
-    .status-dot.listening {
-        background-color: var(--accent-red);
-        box-shadow: 0 0 8px var(--accent-red);
-        animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-
-        50% {
-            transform: scale(1.3);
-            opacity: 0.6;
-        }
-
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-
-    transition: background-color 0.3s ease,
-    box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Toggle class `.listening` on #statusDot via JS when mic is active */
 .status-dot.listening {
     background-color: var(--accent-red);
     box-shadow: 0 0 8px var(--accent-red);
@@ -376,11 +269,6 @@ div.authentication {
     align-items: flex-end;
     justify-content: center;
     gap: 20px;
-    /* position: absolute; */
-    /* top: auto; */
-    /* left: calc(40/% - 40px); */
-    /* margin-bottom: 50px; */
-
 }
 
 .logoIcon {
@@ -410,29 +298,6 @@ div.authentication {
 
 }
 
-
-/* ============================================= */
-
-/* nav {
-
-    height: 50px;
-    width: 70%;
-    max-width: 500px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-
-
-}
-
-.navButtons {
-    width: 40px;
-    height: 40px;
-    background-color: transparent;
-    border: none;
-}*/
 
 .tuning-fork {
     height: 40px;
@@ -488,24 +353,6 @@ div.authentication {
     -webkit-mask: url("../global-resources/graphics/chord-chart.svg") center / contain no-repeat;
 
     transition: 0.25s ease;
-}
-
-.navButtons.selectedButtons span {
-    background-color: var(--accent-red);
-
-    filter:
-        drop-shadow(0 0 30px var(--accent-red));
-}
-
-.navButtons:hover {
-    cursor: pointer;
-    transform: scale(1.08);
-}
-
-.navButtons:active {
-    transform: scale(1.15);
-
-    transition: transform 60ms ease-out;
 }
 
 /* Shared profile form and welcome page */

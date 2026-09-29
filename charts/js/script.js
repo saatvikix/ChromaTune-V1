@@ -8,29 +8,15 @@ const createChartButton = document.querySelector("#create-chart-btn");
 const chartForm = document.querySelector("#chartForm");
 const formCloseButton = document.querySelector("#formCloseButton");
 const savedChartsContainer = document.querySelector("#savedChartsContainer");
-
-function getCurrentUserEmail() {
-    try {
-        const currentUserEmail = localStorage.getItem("currentUserEmail") || "";
-        const accounts = JSON.parse(localStorage.getItem("userAccounts") || "[]");
-        const currentUser = accounts.find((account) =>
-            account.email.toLowerCase() === currentUserEmail.toLowerCase()
-        );
-
-        return currentUser ? currentUser.email.toLowerCase() : "";
-    } catch (error) {
-        return "";
-    }
-}
+const currentUserEmail =
+    (localStorage.getItem("currentUserEmail") || "").toLowerCase();
 
 function saveCharts(charts) {
-    const userEmail = getCurrentUserEmail();
-    if (!userEmail) return;
+    if (!currentUserEmail) return;
 
     const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "{}");
-    const allCharts = Array.isArray(savedCharts) ? {} : savedCharts;
-    allCharts[userEmail] = charts;
-    localStorage.setItem("chromatuneCharts", JSON.stringify(allCharts));
+    savedCharts[currentUserEmail] = charts;
+    localStorage.setItem("chromatuneCharts", JSON.stringify(savedCharts));
 }
 
 
@@ -51,9 +37,8 @@ function getSavedCharts() {
 
     try {
         const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "{}");
-        const userEmail = getCurrentUserEmail();
 
-        return Array.isArray(savedCharts[userEmail]) ? savedCharts[userEmail] : [];
+        return Array.isArray(savedCharts[currentUserEmail]) ? savedCharts[currentUserEmail] : [];
 
     } catch (error) {
         console.error("Unable to read saved charts:", error);

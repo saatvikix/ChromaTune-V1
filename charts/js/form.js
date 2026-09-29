@@ -11,20 +11,8 @@ const keyQualityInput = document.querySelector("#chart-key-quality");
 const increaseBpmButton = document.querySelector("#increaseBPM");
 const decreaseBpmButton = document.querySelector("#decreaseBPM");
 const bpmValue = document.querySelector(".bpm-value");
-
-function getCurrentUserEmail() {
-    try {
-        const currentUserEmail = localStorage.getItem("currentUserEmail") || "";
-        const accounts = JSON.parse(localStorage.getItem("userAccounts") || "[]");
-        const currentUser = accounts.find((account) =>
-            account.email.toLowerCase() === currentUserEmail.toLowerCase()
-        );
-
-        return currentUser ? currentUser.email.toLowerCase() : "";
-    } catch (error) {
-        return "";
-    }
-}
+const currentUserEmail =
+    (localStorage.getItem("currentUserEmail") || "").toLowerCase();
 
 
 increaseBpmButton.addEventListener("click", () => {
@@ -83,9 +71,7 @@ bpmTextInput.addEventListener("blur", () => {
 
 createChartButton.addEventListener("click", () => {
 
-    const userEmail = getCurrentUserEmail();
-
-    if (!userEmail) {
+    if (!currentUserEmail) {
         alert("Please log in before creating a chart.");
         return;
     }
@@ -103,15 +89,14 @@ createChartButton.addEventListener("click", () => {
     try {
 
         const savedCharts = JSON.parse(localStorage.getItem("chromatuneCharts") || "{}");
-        const allCharts = Array.isArray(savedCharts) ? {} : savedCharts;
-        const userCharts = Array.isArray(allCharts[userEmail]) ? allCharts[userEmail] : [];
+        const userCharts = Array.isArray(savedCharts[currentUserEmail]) ? savedCharts[currentUserEmail] : [];
 
         userCharts.push(chartData);
-        allCharts[userEmail] = userCharts;
+        savedCharts[currentUserEmail] = userCharts;
 
         localStorage.setItem(
             "chromatuneCharts",
-            JSON.stringify(allCharts)
+            JSON.stringify(savedCharts)
         );
 
         localStorage.setItem(
