@@ -65,10 +65,14 @@ let favouriteChords = new Set();
 let currentUserEmail = "";
 
 try {
-    const user = JSON.parse(localStorage.getItem("user") || "null");
+    const currentUserEmailKey = localStorage.getItem("currentUserEmail") || "";
+    const accounts = JSON.parse(localStorage.getItem("userAccounts") || "[]");
     const savedFavouriteChords = JSON.parse(localStorage.getItem(favouriteStorageKey) || "{}");
+    const currentUser = accounts.find((account) =>
+        account.email.toLowerCase() === currentUserEmailKey.toLowerCase()
+    );
 
-    currentUserEmail = user?.email.toLowerCase() || "";
+    currentUserEmail = currentUser ? currentUser.email.toLowerCase() : "";
     favouriteChords = new Set(
         Array.isArray(savedFavouriteChords[currentUserEmail]) ? savedFavouriteChords[currentUserEmail] : []
     );

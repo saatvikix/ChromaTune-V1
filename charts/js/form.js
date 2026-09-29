@@ -14,7 +14,13 @@ const bpmValue = document.querySelector(".bpm-value");
 
 function getCurrentUserEmail() {
     try {
-        return JSON.parse(localStorage.getItem("user") || "null")?.email.toLowerCase() || "";
+        const currentUserEmail = localStorage.getItem("currentUserEmail") || "";
+        const accounts = JSON.parse(localStorage.getItem("userAccounts") || "[]");
+        const currentUser = accounts.find((account) =>
+            account.email.toLowerCase() === currentUserEmail.toLowerCase()
+        );
+
+        return currentUser ? currentUser.email.toLowerCase() : "";
     } catch (error) {
         return "";
     }

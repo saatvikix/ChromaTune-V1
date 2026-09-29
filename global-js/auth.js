@@ -1,16 +1,55 @@
-const userStorageKey = "user";
-const loginStorageKey = "userLoggedIn";
 const accountsStorageKey = "userAccounts";
+const currentUserEmailStorageKey = "currentUserEmail";
 
-function getUser() {
+function getSavedAccounts() {
     try {
-        return JSON.parse(localStorage.getItem(userStorageKey)) || null;
+        const savedAccounts = JSON.parse(localStorage.getItem(accountsStorageKey) || "[]");
+        return Array.isArray(savedAccounts) ? savedAccounts : [];
     } catch (error) {
-        return null;
+        return [];
     }
 }
 
-function saveUser(user) {
+function getCurrentUser() {
+    const currentUserEmail = localStorage.getItem(currentUserEmailStorageKey);
+
+    if (!currentUserEmail) return null;
+
+    return getSavedAccounts().find((account) =>
+        account.email.toLowerCase() === currentUserEmail.toLowerCase()
+    ) || null;
+}
+
+function moveOldSession() {
+    try {
+        const oldUser = JSON.parse(localStorage.getItem("user") || "null");
+        const oldLoggedIn = localStorage.getItem("userLoggedIn") === "true";
+
+        if (!oldUser) return;
+
+        const savedAccounts = getSavedAccounts();
+        const accountExists = savedAccounts.some((account) =>
+            account.email.toLowerCase() === oldUser.email.toLowerCase()
+        );
+
+        if (!accountExists) {
+            savedAccounts.push(oldUser);
+            localStorage.setItem(accountsStorageKey, JSON.stringify(savedAccounts));
+        }
+
+        if (oldLoggedIn) {
+            localStorage.setItem(currentUserEmailStorageKey, oldUser.email);
+        }
+
+        localStorage.removeItem("user");
+        localStorage.removeItem("userLoggedIn");
+    } catch (error) {
+        localStorage.removeItem("user");
+        localStorage.removeItem("userLoggedIn");
+    }
+}
+
+function saveAccount(user) {
     const savedAccounts = getSavedAccounts();
     const accountIndex = savedAccounts.findIndex((account) =>
         account.email.toLowerCase() === user.email.toLowerCase()
@@ -23,25 +62,15 @@ function saveUser(user) {
     }
 
     localStorage.setItem(accountsStorageKey, JSON.stringify(savedAccounts));
-    localStorage.setItem(userStorageKey, JSON.stringify(user));
-    localStorage.setItem(loginStorageKey, "true");
-}
-
-function getSavedAccounts() {
-    try {
-        const savedAccounts = JSON.parse(localStorage.getItem(accountsStorageKey) || "[]");
-        return Array.isArray(savedAccounts) ? savedAccounts : [];
-    } catch (error) {
-        return [];
-    }
+    localStorage.setItem(currentUserEmailStorageKey, user.email);
 }
 
 function isUserLoggedIn() {
-    return localStorage.getItem(loginStorageKey) === "true" && Boolean(getUser());
+    return Boolean(getCurrentUser());
 }
 
 function updateProfileDisplay() {
-    const user = getUser();
+    const user = getCurrentUser();
     const profileButton = document.querySelector("#profileButton");
     const userName = document.querySelector("#user-name");
     const userEmail = document.querySelector("#user-email");
@@ -135,7 +164,7 @@ function openAuthForm(mode) {
     createAuthForm();
 
     const popup = document.querySelector("#authPopup");
-    const user = getUser();
+    const user = getCurrentUser();
     const title = popup.querySelector("#authTitle");
     const nameField = popup.querySelector(".profile-name-field");
     const passwordField = popup.querySelector(".profile-password-field");
@@ -154,6 +183,7 @@ function openAuthForm(mode) {
     imageField.hidden = mode === "login";
     nameInput.required = mode !== "login";
     passwordInput.required = mode !== "edit";
+    emailInput.disabled = mode === "edit";
 
     if (mode === "login") {
         title.textContent = "Welcome back";
@@ -193,12 +223,12 @@ function saveAuthForm(event) {
     const profileImage = popup.querySelector("#profileImage").value.trim();
     const message = popup.querySelector("#authMessage");
     const savedAccounts = getSavedAccounts();
-    const currentUser = getUser();
+    const currentUser = getCurrentUser();
 
     if (mode === "login") {
         const existingUser = savedAccounts.find((account) =>
             account.email.toLowerCase() === email.toLowerCase()
-        ) || currentUser;
+        );
 
         if (!existingUser || existingUser.email.toLowerCase() !== email.toLowerCase()) {
             message.textContent = "Email or password is incorrect.";
@@ -214,7 +244,7 @@ function saveAuthForm(event) {
             existingUser.password = password;
         }
 
-        saveUser(existingUser);
+        saveAccount(existingUser);
         window.location.href = "./tuner/tuner.html";
         return;
     }
@@ -224,7 +254,14 @@ function saveAuthForm(event) {
         return;
     }
 
-    saveUser({
+    if (mode === "register" && savedAccounts.some((account) =>
+        account.email.toLowerCase() === email.toLowerCase()
+    )) {
+        message.textContent = "An account already exists for that email.";
+        return;
+    }
+
+    saveAccount({
         name,
         email,
         profileImage,
@@ -239,6 +276,7 @@ function saveAuthForm(event) {
 }
 
 function setupAuthentication() {
+    moveOldSession();
     updateProfileDisplay();
     updateLandingButtons();
 
@@ -258,8 +296,7 @@ function setupAuthentication() {
     const authButton = document.querySelector("#authButton");
     authButton?.addEventListener("click", () => {
         if (isUserLoggedIn()) {
-            localStorage.removeItem(userStorageKey);
-            localStorage.removeItem(loginStorageKey);
+            localStorage.removeItem(currentUserEmailStorageKey);
             window.location.href = "../index.html";
         } else {
             window.location.href = "../index.html";
